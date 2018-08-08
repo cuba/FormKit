@@ -10,7 +10,6 @@ import Foundation
 
 public enum StringFieldType {
     case text
-    case textArea
     case password
 }
 
