@@ -40,6 +40,8 @@
 		8CE3C4121FA6ECD100617D67 /* InputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE3C4111FA6ECD100617D67 /* InputTableViewCell.swift */; };
 		DAF60BFB211A7DB300A7D537 /* MultipleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF60BFA211A7DB300A7D537 /* MultipleSelectionViewController.swift */; };
 		DAF60BFE211A7FC800A7D537 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF60BFD211A7FC800A7D537 /* BaseTableViewController.swift */; };
+		DAF60C01211A930B00A7D537 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = DAF60C00211A930B00A7D537 /* Cartfile */; };
+		DAF60C03211A931A00A7D537 /* Cartfile.resolved in Resources */ = {isa = PBXBuildFile; fileRef = DAF60C02211A931A00A7D537 /* Cartfile.resolved */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		8CE3C4111FA6ECD100617D67 /* InputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTableViewCell.swift; sourceTree = "<group>"; };
 		DAF60BFA211A7DB300A7D537 /* MultipleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectionViewController.swift; sourceTree = "<group>"; };
 		DAF60BFD211A7FC800A7D537 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		DAF60C00211A930B00A7D537 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
+		DAF60C02211A931A00A7D537 /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,8 @@
 		8C0168541EEC51DB001C105D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DAF60C00211A930B00A7D537 /* Cartfile */,
+				DAF60C02211A931A00A7D537 /* Cartfile.resolved */,
 				8C2182721ED8FB2700BB0FE9 /* FormKit.h */,
 				8C2182731ED8FB2700BB0FE9 /* Info.plist */,
 				8C0168551EEC51F6001C105D /* Localizable.strings */,
@@ -328,6 +334,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAF60C01211A930B00A7D537 /* Cartfile in Resources */,
+				DAF60C03211A931A00A7D537 /* Cartfile.resolved in Resources */,
 				8C0168561EEC51F6001C105D /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
