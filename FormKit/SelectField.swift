@@ -31,7 +31,7 @@ public struct BasicSelectionOption: SelectionItem {
     }
 }
 
-public struct MultipleSelectField: ValueField {
+public struct MultipleSelectField: TextField {
     public var fieldOptions: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String
@@ -87,7 +87,7 @@ public struct MultipleSelectField: ValueField {
     }
 }
 
-public struct SingleSelectField: FormField {
+public struct SingleSelectField: EditableField {
     public var fieldOptions: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String

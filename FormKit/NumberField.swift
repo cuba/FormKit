@@ -13,7 +13,7 @@ public enum NumberFieldType {
     case decimal
 }
 
-public struct NumberField: TextField {
+public struct NumberField: TextInputField {
     public var fieldOptions: FieldOptions = []
     public var key: String
     public var label: String

@@ -21,11 +21,14 @@ public struct FieldOptions: OptionSet {
 
 public protocol FormField {
     var key: String { get}
+}
+
+public protocol EditableField: FormField {
     var label: String { get }
     var fieldOptions: FieldOptions { get }
 }
 
-extension FormField {
+extension EditableField {
     var isRequired: Bool {
         return fieldOptions.contains(.required)
     }
@@ -35,10 +38,10 @@ extension FormField {
     }
 }
 
-public protocol ValueField: FormField {
+public protocol TextField: EditableField {
     var value: String? { get }
 }
 
-public protocol TextField: ValueField {
+public protocol TextInputField: TextField {
     mutating func set(value: String?)
 }

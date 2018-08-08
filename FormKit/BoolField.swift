@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BoolField: FormField {
+public struct BoolField: EditableField {
     public var fieldOptions: FieldOptions = []
     public var key: String
     public var label: String

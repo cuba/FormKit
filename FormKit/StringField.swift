@@ -13,7 +13,7 @@ public enum StringFieldType {
     case password
 }
 
-public struct StringField: TextField {
+public struct StringField: TextInputField {
     public var fieldOptions: FieldOptions = []
     
     public var key: String

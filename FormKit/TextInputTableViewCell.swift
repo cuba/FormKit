@@ -22,7 +22,7 @@ public protocol TextInputFieldCell: FormFieldCell {
 }
 
 open class TextInputTableViewCell: InputTableViewCell, TextInputFieldCell {
-    private(set) var inputField: TextField?
+    private(set) var inputField: TextInputField?
     weak public var textInputCellDelegate: TextInputTableViewDelegate?
     
     public var tableViewCell: FormFieldTableViewCell {
@@ -38,7 +38,7 @@ open class TextInputTableViewCell: InputTableViewCell, TextInputFieldCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func configure(with field: TextField) {
+    open func configure(with field: TextInputField) {
         self.inputField = field
         label.text = field.label
         textField.text = field.value
@@ -56,7 +56,7 @@ open class TextInputTableViewCell: InputTableViewCell, TextInputFieldCell {
     open func configure(with field: StringField) {
         textField.isSecureTextEntry = field.type == .password
         textField.keyboardType = .alphabet
-        self.configure(with: field as TextField)
+        self.configure(with: field as TextInputField)
     }
     
     open func configure(with field: NumberField) {
@@ -65,7 +65,7 @@ open class TextInputTableViewCell: InputTableViewCell, TextInputFieldCell {
         case .decimal: textField.keyboardType = .decimalPad
         }
         
-        self.configure(with: field as TextField)
+        self.configure(with: field as TextInputField)
     }
 }
 

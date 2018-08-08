@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 
 public protocol TextAreaFieldCell: FormFieldCell {
-    func configure(with field: ValueField)
+    func configure(with field: TextField)
 }
 
 class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCell {
     private(set) var label: UILabel
     private(set) var valueLabel: UILabel
-    private(set) var field: ValueField?
+    private(set) var field: TextField?
     
     public var tableViewCell: FormFieldTableViewCell {
         return self
@@ -55,7 +55,7 @@ class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with field: ValueField) {
+    func configure(with field: TextField) {
         self.field = field
         label.text = field.label
         

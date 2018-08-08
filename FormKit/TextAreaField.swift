@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct TextAreaField: TextField {
+public struct TextAreaField: TextInputField {
     public var fieldOptions: FieldOptions = []
     
     public var key: String
