@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  FormKit
+
+  Created by Jacob Sikorski on 2017-06-10.
+  Copyright © 2017 Jacob Sikorski. All rights reserved.
+*/
+
+// Labels
+"Label.%@Items" = "%@ Items";
+"Label.SelectAll" = "Select all";
+"Label.SelectOne" = "Select one";
+"Label.Required" = "Required";
+"Label.Optional" = "Optional";
+"Label.Today" = "Today";
+"Label.All" = "All";
+
+// Buttons (Actions)
+"Button.Clear" = "Clear";
+"Button.Cancel" = "Cancel";
+"Button.Back" = "Back";
+"Button.Edit" = "Edit";
+"Button.Save" = "Save";
+"Button.Ok" = "Ok";
