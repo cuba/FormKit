@@ -9,10 +9,18 @@
 import Foundation
 import UIKit
 
-class TextAreaTableViewCell: FormFieldTableViewCell {
+public protocol TextAreaFieldCell: FormFieldCell {
+    func configure(with field: ValueField)
+}
+
+class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCell {
     private(set) var label: UILabel
     private(set) var valueLabel: UILabel
-    private(set) var field: StringField?
+    private(set) var field: ValueField?
+    
+    public var tableViewCell: FormFieldTableViewCell {
+        return self
+    }
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         label = UILabel()
@@ -21,6 +29,8 @@ class TextAreaTableViewCell: FormFieldTableViewCell {
         
         label.textColor = Style.shared.label.color
         valueLabel.textColor = Style.shared.value.color
+        valueLabel.numberOfLines = 0
+        accessoryType = .disclosureIndicator
         
         contentView.addSubview(label)
         contentView.addSubview(valueLabel)
@@ -29,12 +39,12 @@ class TextAreaTableViewCell: FormFieldTableViewCell {
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
         
         label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
-        label.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor, constant: 0).isActive = true
-        label.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor, constant: 0).isActive = true
+        label.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
+        label.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
         
-        valueLabel.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0).isActive = true
-        valueLabel.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor, constant: 0).isActive = true
-        valueLabel.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor, constant: 0).isActive = true
+        valueLabel.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 6).isActive = true
+        valueLabel.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
+        valueLabel.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
         
         contentView.bottomAnchor.constraint(greaterThanOrEqualTo: valueLabel.bottomAnchor, constant: 8).isActive = true
         
@@ -45,12 +55,13 @@ class TextAreaTableViewCell: FormFieldTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(for field: StringField) {
+    func configure(with field: ValueField) {
         self.field = field
         label.text = field.label
+        
         if let value = field.value, !value.isEmpty {
             valueLabel.textColor = UIColor.darkGray
-            valueLabel.text = value
+            valueLabel.text = value.trim()
         } else {
             valueLabel.textColor = UIColor.lightGray
             

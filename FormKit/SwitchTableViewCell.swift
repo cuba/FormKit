@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol BoolFieldCell: FormFieldCell {
-    func setup(for field: BoolField)
+    func configure(with field: BoolField)
 }
 
 class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCell {
@@ -18,7 +18,7 @@ class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCell {
     private(set) var prefixLabel: UILabel!
     private(set) var boolField: BoolField?
     
-    public var cell: FormFieldTableViewCell {
+    public var tableViewCell: FormFieldTableViewCell {
         return self
     }
     
@@ -37,12 +37,12 @@ class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCell {
         onSwitch.translatesAutoresizingMaskIntoConstraints = false
         
         label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
-        label.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor, constant: 0).isActive = true
+        label.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
         contentView.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 15).isActive = true
         
         onSwitch.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0).isActive = true
         onSwitch.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 0).isActive = true
-        onSwitch.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor, constant: 0).isActive = true
+        onSwitch.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -54,18 +54,18 @@ class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCell {
     }
 
     @objc private func switchValueChanged(_ sender: UISwitch) {
-        boolField?.value = sender.isOn
+        boolField?.isChecked = sender.isOn
         
         if let field = self.boolField, let indexPath = self.indexPath {
             delegate?.valueChanged(for: field, at: indexPath)
         }
     }
     
-    func setup(for field: BoolField) {
+    func configure(with field: BoolField) {
         self.boolField = field
         label.text = field.label
         //prefixLabel.text = field.prefix
-        onSwitch.isOn = field.value ?? false
+        onSwitch.isOn = field.isChecked ?? false
         onSwitch.isEnabled = field.isEnabled
     }
 }

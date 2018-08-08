@@ -17,6 +17,7 @@ open class BaseTableViewController: UITableViewController {
         case select
         case `switch`
         case date
+        case textArea
         case custom(reuseIdentifier: String, cellType: UITableViewCell.Type)
         
         public var reuseIdentifier: String {
@@ -28,6 +29,7 @@ open class BaseTableViewController: UITableViewController {
             case .select                            : return "com.pineapplepush.FormKit.SelectCell"
             case .switch                            : return "com.pineapplepush.FormKit.SwitchCell"
             case .date                              : return "com.pineapplepush.FormKit.DateCell"
+            case .textArea                          : return "com.pineapplepush.FormKit.TextAreaCell"
             case .custom(let reuseIdentifier, _)    : return reuseIdentifier
             }
         }
@@ -38,9 +40,10 @@ open class BaseTableViewController: UITableViewController {
             case .subtitle                  : return UITableViewCell.self
             case .rightValue                : return UITableViewCell.self
             case .input                     : return TextInputTableViewCell.self
-            case .select                    : return SelectTableViewCell.self
+            case .select                    : return SingleSelectTableViewCell.self
             case .switch                    : return SwitchTableViewCell.self
             case .date                      : return DateInputTableViewCell.self
+            case .textArea                  : return TextAreaTableViewCell.self
             case .custom(_, let cellType)   : return cellType
             }
         }

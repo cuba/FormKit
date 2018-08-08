@@ -1,5 +1,5 @@
 //
-//  SelectTableViewCell.swift
+//  SingleSelectTableViewCell.swift
 //  retail
 //
 //  Created by Jacob Sikorski on 2016-06-11.
@@ -8,16 +8,16 @@
 
 import UIKit
 
-public protocol SelectFieldCell: FormFieldCell {
-    func setup(for field: SelectField)
+public protocol SingleSelectFieldCell: FormFieldCell {
+    func configure(with field: SingleSelectField)
 }
 
-class SelectTableViewCell: FormFieldTableViewCell, SelectFieldCell {
+class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldCell {
     var label: UILabel!
     var subtitleLabel: UILabel!
-    private(set) var field: SelectField?
+    private(set) var field: FormField?
     
-    var cell: FormFieldTableViewCell {
+    var tableViewCell: FormFieldTableViewCell {
         return self
     }
     
@@ -26,6 +26,7 @@ class SelectTableViewCell: FormFieldTableViewCell, SelectFieldCell {
         label = UILabel()
         label.textColor = Style.shared.label.color
         subtitleLabel = UILabel()
+        accessoryType = .disclosureIndicator
         
         contentView.addSubview(label)
         contentView.addSubview(subtitleLabel)
@@ -34,11 +35,11 @@ class SelectTableViewCell: FormFieldTableViewCell, SelectFieldCell {
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
-        label.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor, constant: 0).isActive = true
+        label.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
         
         subtitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
         subtitleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: label.trailingAnchor, constant: 15).isActive = true
-        subtitleLabel.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor, constant: 0).isActive = true
+        subtitleLabel.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
         
         contentView.bottomAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor, constant: 15).isActive = true
         contentView.bottomAnchor.constraint(greaterThanOrEqualTo: subtitleLabel.bottomAnchor, constant: 15).isActive = true
@@ -51,7 +52,7 @@ class SelectTableViewCell: FormFieldTableViewCell, SelectFieldCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(for field: SelectField) {
+    func configure(with field: SingleSelectField) {
         self.field = field
         label.text = field.label
         

@@ -19,9 +19,6 @@ public struct FieldOptions: OptionSet {
     public static let disabled = FieldOptions(rawValue: 1 << 1)
 }
 
-public protocol SectionRow {
-}
-
 public protocol FormField {
     var key: String { get}
     var label: String { get }
@@ -38,8 +35,10 @@ extension FormField {
     }
 }
 
-public protocol TextField: FormField {
+public protocol ValueField: FormField {
     var value: String? { get }
-    
+}
+
+public protocol TextField: ValueField {
     mutating func set(value: String?)
 }

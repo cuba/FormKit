@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 
 public protocol DateFieldCell: FormFieldCell {
-    func setup(for dateField: DateField)
+    func configure(with dateField: DateField)
 }
 
 class DateInputTableViewCell: InputTableViewCell, DateFieldCell {
     private(set) var dateField: DateField?
     
-    var cell: FormFieldTableViewCell {
+    var tableViewCell: FormFieldTableViewCell {
         return self
     }
     
@@ -33,7 +33,7 @@ class DateInputTableViewCell: InputTableViewCell, DateFieldCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(for dateField: DateField) {
+    func configure(with dateField: DateField) {
         self.dateField = dateField
         label.text = dateField.label
         textField.text = dateField.value

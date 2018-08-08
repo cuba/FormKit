@@ -17,15 +17,15 @@ public protocol TextInputTableViewDelegate: class {
 public protocol TextInputFieldCell: FormFieldCell {
     var textInputCellDelegate: TextInputTableViewDelegate? { get set }
     
-    func setup(for field: StringField)
-    func setup(for field: NumberField)
+    func configure(with field: StringField)
+    func configure(with field: NumberField)
 }
 
 open class TextInputTableViewCell: InputTableViewCell, TextInputFieldCell {
     private(set) var inputField: TextField?
     weak public var textInputCellDelegate: TextInputTableViewDelegate?
     
-    public var cell: FormFieldTableViewCell {
+    public var tableViewCell: FormFieldTableViewCell {
         return self
     }
     
@@ -38,7 +38,7 @@ open class TextInputTableViewCell: InputTableViewCell, TextInputFieldCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func setup(for field: TextField) {
+    open func configure(with field: TextField) {
         self.inputField = field
         label.text = field.label
         textField.text = field.value
@@ -53,19 +53,19 @@ open class TextInputTableViewCell: InputTableViewCell, TextInputFieldCell {
         textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor: Style.shared.placeholder.color])
     }
     
-    open func setup(for field: StringField) {
+    open func configure(with field: StringField) {
         textField.isSecureTextEntry = field.type == .password
         textField.keyboardType = .alphabet
-        self.setup(for: field as TextField)
+        self.configure(with: field as TextField)
     }
     
-    open func setup(for field: NumberField) {
+    open func configure(with field: NumberField) {
         switch field.type {
         case .integer: textField.keyboardType = .numberPad
         case .decimal: textField.keyboardType = .decimalPad
         }
         
-        self.setup(for: field as TextField)
+        self.configure(with: field as TextField)
     }
 }
 

@@ -14,7 +14,7 @@ public protocol FieldDelegate {
 }
 
 public protocol FormFieldCell {
-    var cell: FormFieldTableViewCell { get }
+    var tableViewCell: FormFieldTableViewCell { get }
 }
 
 open class FormFieldTableViewCell: UITableViewCell {

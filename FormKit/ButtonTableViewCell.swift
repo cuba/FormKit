@@ -29,8 +29,8 @@ class ButtonTableViewCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         
         button.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
-        button.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor, constant: 0).isActive = true
-        button.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor, constant: 0).isActive = true
+        button.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
+        button.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
         contentView.bottomAnchor.constraint(greaterThanOrEqualTo: button.bottomAnchor, constant: 8).isActive = true
         
         button.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .vertical)

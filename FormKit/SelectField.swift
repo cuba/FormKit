@@ -31,11 +31,7 @@ public struct BasicSelectionOption: SelectionItem {
     }
 }
 
-public protocol SelectField: FormField {
-    var value: String? { get }
-}
-
-public struct MultipleSelectField: SelectField {
+public struct MultipleSelectField: ValueField {
     public var fieldOptions: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String
@@ -53,13 +49,7 @@ public struct MultipleSelectField: SelectField {
     }
     
     public var value: String? {
-        if selectedItems.count < 2 {
-            return selectedItems.first?.label
-        } else if isAllSelected {
-            return "Label.All".localized()
-        } else {
-            return "Label.%@Items".localized("\(selectedItems.count)")
-        }
+        return selectedItems.map({ $0.label }).joined(separator: ", ")
     }
     
     public init(key: String, label: String, allItems: [SelectionItem], selectedItems: [SelectionItem] = []) {
@@ -71,7 +61,12 @@ public struct MultipleSelectField: SelectField {
     
     public mutating func select(item: SelectionItem) {
         guard !isSelected(item: item) else { return }
+        var selectedItems = self.selectedItems
         selectedItems.append(item)
+        
+        self.selectedItems = allItems.filter({ subItem in
+            return selectedItems.contains(where: { $0.key == subItem.key })
+        })
     }
     
     public mutating func deselect(item: SelectionItem) {
@@ -92,7 +87,7 @@ public struct MultipleSelectField: SelectField {
     }
 }
 
-public struct SingleSelectField: SelectField {
+public struct SingleSelectField: FormField {
     public var fieldOptions: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String

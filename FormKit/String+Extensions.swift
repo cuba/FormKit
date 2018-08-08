@@ -9,6 +9,11 @@
 import Foundation
 
 extension String {
+    
+    func trim() -> String {
+        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
+    
     func localized(_ arguments: CVarArg...) -> String {
         return String(format: NSLocalizedString(self, tableName: nil, bundle: Bundle.formKit, value: "", comment: ""), arguments: arguments)
     }

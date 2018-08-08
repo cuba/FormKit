@@ -46,6 +46,7 @@ class ViewController: FormTableViewController {
             FormSection(title: "Some section", fields: [
                 StringField(key: "text_field", label: "Text Field", type: .text),
                 StringField(key: "password_field", label: "Password Field", type: .password),
+                TextAreaField(key: "text_area_field", label: "Text Area Field"),
                 DateField(key: "date_field", label: "Date Field"),
                 BoolField(key: "bool_field", label: "Bool Field"),
                 SingleSelectField(key: "single_selection_field", label: "Single Selection Field", allItems: SelectionOption.all),

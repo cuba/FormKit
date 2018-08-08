@@ -12,13 +12,13 @@ public struct BoolField: FormField {
     public var fieldOptions: FieldOptions = []
     public var key: String
     public var label: String
-    public var value: Bool?
+    public var isChecked: Bool?
     public var prefix: String?
     
-    public init(key: String, label: String, prefix: String? = nil, value: Bool? = nil) {
+    public init(key: String, label: String, prefix: String? = nil, isChecked: Bool? = nil) {
         self.key = key
         self.label = label
-        self.value = value
+        self.isChecked = isChecked
         self.prefix = prefix
     }
 }
