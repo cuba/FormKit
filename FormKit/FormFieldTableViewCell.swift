@@ -14,12 +14,14 @@ public protocol FieldDelegate {
 }
 
 public protocol FormFieldCell {
-    var tableViewCell: FormFieldTableViewCell { get }
+    var tableViewCell: UITableViewCell { get }
+    var delegate: FieldDelegate? { get set }
+    var indexPath: IndexPath? { get set }
 }
 
 open class FormFieldTableViewCell: UITableViewCell, FormFieldCell {
     
-    public var tableViewCell: FormFieldTableViewCell {
+    public var tableViewCell: UITableViewCell {
         return self
     }
     

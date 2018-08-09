@@ -14,7 +14,7 @@ public protocol FormDelegate: class {
 }
 
 private protocol FormDataSource: class {
-    func cell(forCustomRow formRow: FormRow, at indexPath: IndexPath) -> FormFieldCell
+    func cell(forCustomRow formRow: FormRow, at indexPath: IndexPath) -> UITableViewCell
     func cell(for stringField: StringField, at indexPath: IndexPath) -> FormFieldCell
     func cell(for numberField: NumberField, at indexPath: IndexPath) -> FormFieldCell
     func cell(for boolField: BoolField, at indexPath: IndexPath) -> FormFieldCell
@@ -68,7 +68,7 @@ open class FormTableViewController: BaseTableViewController, FieldDelegate, Form
     
     // Mark: - Providers
     
-    open func cell(forCustomRow row: FormRow, at indexPath: IndexPath) -> FormFieldCell {
+    open func cell(forCustomRow row: FormRow, at indexPath: IndexPath) -> UITableViewCell {
         assertionFailure("You need to provide a cell(for:at:) method when using custom cells")
         return FormFieldTableViewCell()
     }
@@ -216,16 +216,16 @@ extension FormTableViewController {
         case let field as TextAreaField:
             cell = self.cell(for: field, at: indexPath)
         default:
-            cell = self.cell(forCustomRow: row, at: indexPath)
+            return self.cell(forCustomRow: row, at: indexPath)
         }
         
-        if let cell = cell?.tableViewCell {
-            cell.delegate = self
-            cell.indexPath = indexPath
-            cell.setNeedsLayout()
-            cell.layoutIfNeeded()
-            
-            return cell
+        cell?.delegate = self
+        cell?.indexPath = indexPath
+        
+        if let tableViewCell = cell?.tableViewCell {
+            tableViewCell.setNeedsLayout()
+            tableViewCell.layoutIfNeeded()
+            return tableViewCell
         } else {
             assertionFailure("No cell registered for row \(row)")
             return UITableViewCell()
