@@ -14,7 +14,6 @@
 		8C21827E1ED8FB2700BB0FE9 /* FormKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C21827D1ED8FB2700BB0FE9 /* FormKitTests.swift */; };
 		8C2182801ED8FB2700BB0FE9 /* FormKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C2182721ED8FB2700BB0FE9 /* FormKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8C2184E91ED91ABE00BB0FE9 /* FormTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2184E81ED91ABE00BB0FE9 /* FormTableViewController.swift */; };
-		8C2184F21ED91AF400BB0FE9 /* FormField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2184EB1ED91AF400BB0FE9 /* FormField.swift */; };
 		8C2184F31ED91AF400BB0FE9 /* StringField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2184EC1ED91AF400BB0FE9 /* StringField.swift */; };
 		8C2184F41ED91AF400BB0FE9 /* DateField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2184ED1ED91AF400BB0FE9 /* DateField.swift */; };
 		8C2184F51ED91AF400BB0FE9 /* BoolField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2184EE1ED91AF400BB0FE9 /* BoolField.swift */; };
@@ -38,6 +37,9 @@
 		8C21851E1ED91F2200BB0FE9 /* DateInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C21851A1ED91F2200BB0FE9 /* DateInputTableViewCell.swift */; };
 		8C2185221ED929F900BB0FE9 /* TextAreaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2185211ED929F900BB0FE9 /* TextAreaTableViewCell.swift */; };
 		8CE3C4121FA6ECD100617D67 /* InputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE3C4111FA6ECD100617D67 /* InputTableViewCell.swift */; };
+		DADCB7E7211B583600F5CB49 /* SignatureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB7E6211B583600F5CB49 /* SignatureTableViewCell.swift */; };
+		DADCB7E9211B587E00F5CB49 /* SignatureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB7E8211B587E00F5CB49 /* SignatureField.swift */; };
+		DADCB7EC211BF29D00F5CB49 /* PrefixLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB7EB211BF29D00F5CB49 /* PrefixLabelView.swift */; };
 		DAF60BFB211A7DB300A7D537 /* MultipleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF60BFA211A7DB300A7D537 /* MultipleSelectionViewController.swift */; };
 		DAF60BFE211A7FC800A7D537 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF60BFD211A7FC800A7D537 /* BaseTableViewController.swift */; };
 		DAF60C01211A930B00A7D537 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = DAF60C00211A930B00A7D537 /* Cartfile */; };
@@ -67,7 +69,6 @@
 		8C21827D1ED8FB2700BB0FE9 /* FormKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormKitTests.swift; sourceTree = "<group>"; };
 		8C21827F1ED8FB2700BB0FE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C2184E81ED91ABE00BB0FE9 /* FormTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormTableViewController.swift; sourceTree = "<group>"; };
-		8C2184EB1ED91AF400BB0FE9 /* FormField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormField.swift; sourceTree = "<group>"; };
 		8C2184EC1ED91AF400BB0FE9 /* StringField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringField.swift; sourceTree = "<group>"; };
 		8C2184ED1ED91AF400BB0FE9 /* DateField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateField.swift; sourceTree = "<group>"; };
 		8C2184EE1ED91AF400BB0FE9 /* BoolField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoolField.swift; sourceTree = "<group>"; };
@@ -91,6 +92,9 @@
 		8C21851A1ED91F2200BB0FE9 /* DateInputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateInputTableViewCell.swift; sourceTree = "<group>"; };
 		8C2185211ED929F900BB0FE9 /* TextAreaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAreaTableViewCell.swift; sourceTree = "<group>"; };
 		8CE3C4111FA6ECD100617D67 /* InputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTableViewCell.swift; sourceTree = "<group>"; };
+		DADCB7E6211B583600F5CB49 /* SignatureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureTableViewCell.swift; sourceTree = "<group>"; };
+		DADCB7E8211B587E00F5CB49 /* SignatureField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureField.swift; sourceTree = "<group>"; };
+		DADCB7EB211BF29D00F5CB49 /* PrefixLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefixLabelView.swift; sourceTree = "<group>"; };
 		DAF60BFA211A7DB300A7D537 /* MultipleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectionViewController.swift; sourceTree = "<group>"; };
 		DAF60BFD211A7FC800A7D537 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		DAF60C00211A930B00A7D537 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
@@ -142,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				8C077BC11ED92BA5007BCCFC /* DateInputAccessoryView.swift */,
+				DADCB7EB211BF29D00F5CB49 /* PrefixLabelView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -188,6 +193,7 @@
 		8C2184E71ED91A9D00BB0FE9 /* Form */ = {
 			isa = PBXGroup;
 			children = (
+				DADCB7EA211BF28700F5CB49 /* Views */,
 				8C2184F91ED91B2900BB0FE9 /* Cells */,
 				8C2184EA1ED91AE000BB0FE9 /* Fields */,
 				8C2184E81ED91ABE00BB0FE9 /* FormTableViewController.swift */,
@@ -202,12 +208,12 @@
 			isa = PBXGroup;
 			children = (
 				8C2184FC1ED91D7100BB0FE9 /* Section.swift */,
-				8C2184EB1ED91AF400BB0FE9 /* FormField.swift */,
 				8C2184EC1ED91AF400BB0FE9 /* StringField.swift */,
 				8C2184ED1ED91AF400BB0FE9 /* DateField.swift */,
 				8C2184EE1ED91AF400BB0FE9 /* BoolField.swift */,
-				8C2184F01ED91AF400BB0FE9 /* SelectField.swift */,
 				8C2184F11ED91AF400BB0FE9 /* NumberField.swift */,
+				8C2184F01ED91AF400BB0FE9 /* SelectField.swift */,
+				DADCB7E8211B587E00F5CB49 /* SignatureField.swift */,
 				DAF60C04211A9D4600A7D537 /* TextAreaField.swift */,
 			);
 			name = Fields;
@@ -223,6 +229,7 @@
 				8C21851A1ED91F2200BB0FE9 /* DateInputTableViewCell.swift */,
 				8C2185171ED91F2200BB0FE9 /* ButtonTableViewCell.swift */,
 				8C2185181ED91F2200BB0FE9 /* SelectTableViewCell.swift */,
+				DADCB7E6211B583600F5CB49 /* SignatureTableViewCell.swift */,
 				8C2185191ED91F2200BB0FE9 /* SwitchTableViewCell.swift */,
 			);
 			name = Cells;
@@ -242,6 +249,13 @@
 				8C21850B1ED91EAC00BB0FE9 /* Extensions.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		DADCB7EA211BF28700F5CB49 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,6 +379,7 @@
 				8C21850C1ED91EAC00BB0FE9 /* Date+Extensions.swift in Sources */,
 				8C21850D1ED91EAC00BB0FE9 /* DateFormatter+Extensions.swift in Sources */,
 				8C21851E1ED91F2200BB0FE9 /* DateInputTableViewCell.swift in Sources */,
+				DADCB7E7211B583600F5CB49 /* SignatureTableViewCell.swift in Sources */,
 				DAF60C08211AAB0900A7D537 /* TextViewController.swift in Sources */,
 				8C2184F41ED91AF400BB0FE9 /* DateField.swift in Sources */,
 				8C2185111ED91EAC00BB0FE9 /* String+Extensions.swift in Sources */,
@@ -374,16 +389,17 @@
 				8C21851C1ED91F2200BB0FE9 /* SelectTableViewCell.swift in Sources */,
 				DAF60BFE211A7FC800A7D537 /* BaseTableViewController.swift in Sources */,
 				8C2185141ED91EAC00BB0FE9 /* Extensions.swift in Sources */,
+				DADCB7EC211BF29D00F5CB49 /* PrefixLabelView.swift in Sources */,
 				8C2185131ED91EAC00BB0FE9 /* UIColor+Extensions.swift in Sources */,
 				8C2184F31ED91AF400BB0FE9 /* StringField.swift in Sources */,
 				8C2185161ED91F0500BB0FE9 /* TextInputTableViewCell.swift in Sources */,
 				8C2185101ED91EAC00BB0FE9 /* Bundle+Extensions.swift in Sources */,
 				8C077BC21ED92BA5007BCCFC /* DateInputAccessoryView.swift in Sources */,
 				8C21851B1ED91F2200BB0FE9 /* ButtonTableViewCell.swift in Sources */,
+				DADCB7E9211B587E00F5CB49 /* SignatureField.swift in Sources */,
 				8C2184F51ED91AF400BB0FE9 /* BoolField.swift in Sources */,
 				8C2184FB1ED91B3300BB0FE9 /* FormFieldTableViewCell.swift in Sources */,
 				8C2185221ED929F900BB0FE9 /* TextAreaTableViewCell.swift in Sources */,
-				8C2184F21ED91AF400BB0FE9 /* FormField.swift in Sources */,
 				8C21850E1ED91EAC00BB0FE9 /* UIStoryboard+Extensions.swift in Sources */,
 				8C2184E91ED91ABE00BB0FE9 /* FormTableViewController.swift in Sources */,
 				8C21851D1ED91F2200BB0FE9 /* SwitchTableViewCell.swift in Sources */,
