@@ -8,18 +8,24 @@
 
 import Foundation
 
-open class InputTableViewCell: FormFieldTableViewCell {
-    var label: UILabel!
-    var textField: UITextField!
+open class InputTableViewCell: LabeledFieldTableViewCell {
     
-    public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    lazy var textField: UITextField = {
+        let textField = UITextField()
+        textField.configure(with: Style.current.value)
+        return textField
+    }()
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        label = UILabel()
-        label.textColor = Style.shared.label.color
-        
-        textField = UITextField()
-        textField.textColor = Style.shared.value.color
-        
+        setupLayout()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupLayout() {
         contentView.addSubview(label)
         contentView.addSubview(textField)
         
@@ -35,11 +41,20 @@ open class InputTableViewCell: FormFieldTableViewCell {
         textField.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
         
         contentView.bottomAnchor.constraint(greaterThanOrEqualTo: textField.bottomAnchor, constant: 8).isActive = true
-        
-        label.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .vertical)
+        label.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func configure(with field: TextField) {
+        label.text = field.label
+        textField.isEnabled = field.isEnabled
+        textField.text = field.value
+        
+        if field.isRequired {
+            textField.placeholder = "Label.Required".localized().uppercased()
+        } else {
+            textField.placeholder = "Label.Optional".localized().uppercased()
+        }
+        
+        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor: Style.current.placeholder.color])
     }
 }

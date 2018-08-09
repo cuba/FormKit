@@ -17,7 +17,21 @@ public protocol FormFieldCell {
     var tableViewCell: FormFieldTableViewCell { get }
 }
 
-open class FormFieldTableViewCell: UITableViewCell {
+open class FormFieldTableViewCell: UITableViewCell, FormFieldCell {
+    
+    public var tableViewCell: FormFieldTableViewCell {
+        return self
+    }
+    
     open var delegate: FieldDelegate?
     open var indexPath: IndexPath?
+}
+
+open class LabeledFieldTableViewCell: FormFieldTableViewCell {
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.configure(with: Style.current.label)
+        label.numberOfLines = 0
+        return label
+    }()
 }

@@ -12,18 +12,30 @@ protocol ButtonTableViewCellDelegate {
     func buttonTableViewCellButtonClicked(_ cell: ButtonTableViewCell)
 }
 
-class ButtonTableViewCell: UITableViewCell {
-    private(set) var button: UIButton
-    var delegate:ButtonTableViewCellDelegate?
+class ButtonTableViewCell: FormFieldTableViewCell {
+    lazy var button: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(tappedButton), for: .touchUpInside)
+        return button
+    }()
+    
+    var buttonDelegate: ButtonTableViewCellDelegate?
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = UITableViewCellSelectionStyle.none
+        setupLayout()
+    }
     
     required init?(coder aDecoder: NSCoder) {
-        button = UIButton()
-        super.init(coder: aDecoder)
-        self.selectionStyle = UITableViewCellSelectionStyle.none
-        
-        button.setTitleColor(Style.shared.primaryButton.text.color, for: .normal)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func tappedButton(_ button: UIButton) {
+        buttonDelegate?.buttonTableViewCellButtonClicked(self)
+    }
+    
+    private func setupLayout() {
         contentView.addSubview(button)
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -33,10 +45,6 @@ class ButtonTableViewCell: UITableViewCell {
         button.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
         contentView.bottomAnchor.constraint(greaterThanOrEqualTo: button.bottomAnchor, constant: 8).isActive = true
         
-        button.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .vertical)
-    }
-    
-    @objc func buttonTapped(_ button: UIButton) {
-        delegate?.buttonTableViewCellButtonClicked(self)
+        button.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
 }

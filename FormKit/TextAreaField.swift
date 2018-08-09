@@ -11,8 +11,9 @@ import Foundation
 public struct TextAreaField: TextInputField {
     public var fieldOptions: FieldOptions = []
     
-    public var key: String
-    public var label: String
+    private(set) public var key: String
+    private(set) public var label: String
+    
     public var value: String?
     
     public init(key: String, label: String, value: String? = nil) {

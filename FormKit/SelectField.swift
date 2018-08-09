@@ -35,8 +35,8 @@ public struct MultipleSelectField: TextField {
     public var fieldOptions: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String
-    
     private(set) public var allItems: [SelectionItem]
+    
     public var selectedItems: [SelectionItem] = []
     public var allowsSelectAll = true
     
@@ -91,10 +91,10 @@ public struct SingleSelectField: EditableField {
     public var fieldOptions: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String
-    
     private(set) public var allItems: [SelectionItem]
-    public var selectedItem: SelectionItem?
     public var isClearable = true
+    
+    public var selectedItem: SelectionItem?
     
     public var hasSelection: Bool {
         return selectedItem != nil

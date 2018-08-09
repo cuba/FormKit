@@ -29,11 +29,36 @@ public struct ButtonStyle {
 }
 
 public struct Style {
-    static var shared = Style.default
+    static var current = Style.default
     static let `default` = Style()
     
     var label = TextStyle(color: UIColor.black)
     var placeholder = TextStyle(color: UIColor.lightGray)
     var value = TextStyle(color: UIColor.darkGray)
     var primaryButton = ButtonStyle()
+}
+
+extension UITextView {
+    func configure(with style: TextStyle) {
+        textColor = style.color
+    }
+}
+
+extension UILabel {
+    func configure(with style: TextStyle) {
+        textColor = style.color
+    }
+}
+
+extension UITextField {
+    func configure(with style: TextStyle) {
+        textColor = style.color
+    }
+}
+
+extension UIButton {
+    func configure(with style: ButtonStyle) {
+        setTitleColor(style.text.color, for: .normal)
+        backgroundColor = style.background.color
+    }
 }

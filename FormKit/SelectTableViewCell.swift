@@ -12,40 +12,20 @@ public protocol SingleSelectFieldCell: FormFieldCell {
     func configure(with field: SingleSelectField)
 }
 
-class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldCell {
-    var label: UILabel!
-    var subtitleLabel: UILabel!
-    private(set) var field: FormField?
+class SingleSelectTableViewCell: LabeledFieldTableViewCell, SingleSelectFieldCell {
     
-    var tableViewCell: FormFieldTableViewCell {
-        return self
-    }
+    lazy var subtitleLabel: UILabel = {
+        let subtitleLabel = UILabel()
+        subtitleLabel.configure(with: Style.current.value)
+        subtitleLabel.textAlignment = .right
+        return subtitleLabel
+    }()
+    
+    private(set) var field: FormField?
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        label = UILabel()
-        label.textColor = Style.shared.label.color
-        subtitleLabel = UILabel()
-        accessoryType = .disclosureIndicator
-        
-        contentView.addSubview(label)
-        contentView.addSubview(subtitleLabel)
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
-        label.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
-        
-        subtitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
-        subtitleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: label.trailingAnchor, constant: 15).isActive = true
-        subtitleLabel.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
-        
-        contentView.bottomAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor, constant: 15).isActive = true
-        contentView.bottomAnchor.constraint(greaterThanOrEqualTo: subtitleLabel.bottomAnchor, constant: 15).isActive = true
-        
-        label.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 751), for: .horizontal)
-        label.setContentHuggingPriority(UILayoutPriority(rawValue: 751), for: .vertical)
+        setupLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,12 +35,13 @@ class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldCell {
     func configure(with field: SingleSelectField) {
         self.field = field
         label.text = field.label
+        accessoryType = .disclosureIndicator
         
         if let value = field.value {
-            subtitleLabel.textColor = Style.shared.value.color
+            subtitleLabel.configure(with: Style.current.value)
             subtitleLabel.text = value
         } else {
-            subtitleLabel.textColor = Style.shared.placeholder.color
+            subtitleLabel.configure(with: Style.current.placeholder)
             
             if field.isRequired {
                 subtitleLabel.text = "Label.Required".localized().uppercased()
@@ -68,5 +49,24 @@ class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldCell {
                 subtitleLabel.text = "Label.Optional".localized().uppercased()
             }
         }
+    }
+    
+    private func setupLayout() {
+        contentView.addSubview(label)
+        contentView.addSubview(subtitleLabel)
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
+        label.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
+        
+        subtitleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: label.trailingAnchor, constant: 15).isActive = true
+        subtitleLabel.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
+        subtitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        
+        contentView.bottomAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor, constant: 15).isActive = true
+        
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
     }
 }

@@ -44,15 +44,15 @@ class ViewController: FormTableViewController {
     override func setupSections() {
         sections = [
             FormSection(title: "Some section", fields: [
-                StringField(key: "text_field", label: "Text Field", type: .text),
-                StringField(key: "password_field", label: "Password Field", type: .password),
-                TextAreaField(key: "text_area_field", label: "Text Area Field"),
-                DateField(key: "date_field", label: "Date Field"),
-                BoolField(key: "bool_field", label: "Bool Field"),
-                SingleSelectField(key: "single_selection_field", label: "Single Selection Field", allItems: SelectionOption.all),
-                MultipleSelectField(key: "multi_selection_field", label: "Multile Selection Field", allItems: SelectionOption.all),
-                NumberField(key: "ingeger_field", label: "Integer Field", type: .integer),
-                NumberField(key: "double_field", label: "Double Field", type: .decimal),
+                StringField(key: "text_field", label: "Text Field (This may go on seperate lines like this)", type: .text),
+                StringField(key: "password_field", label: "Password Field (This may go on seperate lines like this)", type: .password),
+                TextAreaField(key: "text_area_field", label: "Text Area Field (This may go on seperate lines like this)"),
+                DateField(key: "date_field", label: "Date Field (This may go on seperate lines like this)"),
+                BoolField(key: "bool_field", label: "Bool Field (This may go on seperate lines like this)"),
+                SingleSelectField(key: "single_selection_field", label: "Single Selection Field (This may go on seperate lines like this)", allItems: SelectionOption.all),
+                MultipleSelectField(key: "multi_selection_field", label: "Multiple Selection Field (This may go on seperate lines like this)", allItems: SelectionOption.all),
+                NumberField(key: "ingeger_field", label: "Integer Field (This may go on seperate lines like this)", type: .integer),
+                NumberField(key: "double_field", label: "Double Field (This may go on seperate lines like this)", type: .decimal),
                 ]
             )
         ]

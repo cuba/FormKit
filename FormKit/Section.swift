@@ -37,8 +37,11 @@ public protocol FormField {
     var key: String { get }
 }
 
-public protocol EditableField: FormField {
+public protocol LabeledField: FormField {
     var label: String { get }
+}
+
+public protocol EditableField: LabeledField {
     var fieldOptions: FieldOptions { get }
 }
 

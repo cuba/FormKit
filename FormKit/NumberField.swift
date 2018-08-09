@@ -15,8 +15,9 @@ public enum NumberFieldType {
 
 public struct NumberField: TextInputField {
     public var fieldOptions: FieldOptions = []
-    public var key: String
-    public var label: String
+    private(set) public var key: String
+    private(set) public var label: String
+    
     public var type: NumberFieldType
     public var amount: Double?
     

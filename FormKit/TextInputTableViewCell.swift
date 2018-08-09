@@ -21,13 +21,9 @@ public protocol TextInputFieldCell: FormFieldCell {
     func configure(with field: NumberField)
 }
 
-open class TextInputTableViewCell: InputTableViewCell, TextInputFieldCell {
+public class TextInputTableViewCell: InputTableViewCell, TextInputFieldCell {
     private(set) var inputField: TextInputField?
     weak public var textInputCellDelegate: TextInputTableViewDelegate?
-    
-    public var tableViewCell: FormFieldTableViewCell {
-        return self
-    }
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,34 +34,26 @@ open class TextInputTableViewCell: InputTableViewCell, TextInputFieldCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func configure(with field: TextInputField) {
-        self.inputField = field
-        label.text = field.label
-        textField.text = field.value
-        textField.isEnabled = field.isEnabled
-        
-        if field.isRequired {
-            textField.placeholder = "Label.Required".localized().uppercased()
-        } else {
-            textField.placeholder = "Label.Optional".localized().uppercased()
-        }
-        
-        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor: Style.shared.placeholder.color])
-    }
-    
-    open func configure(with field: StringField) {
+    public func configure(with field: StringField) {
+        self.configure(with: field as TextInputField)
         textField.isSecureTextEntry = field.type == .password
         textField.keyboardType = .alphabet
-        self.configure(with: field as TextInputField)
     }
     
-    open func configure(with field: NumberField) {
+    public func configure(with field: NumberField) {
+        self.configure(with: field as TextInputField)
+        textField.isSecureTextEntry = false
+        
         switch field.type {
         case .integer: textField.keyboardType = .numberPad
         case .decimal: textField.keyboardType = .decimalPad
         }
-        
-        self.configure(with: field as TextInputField)
+    }
+    
+    private func configure(with field: TextInputField) {
+        super.configure(with: field)
+        inputField = field
+        textField.isSecureTextEntry = false
     }
 }
 

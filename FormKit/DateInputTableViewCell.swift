@@ -14,11 +14,8 @@ public protocol DateFieldCell: FormFieldCell {
 }
 
 class DateInputTableViewCell: InputTableViewCell, DateFieldCell {
-    private(set) var dateField: DateField?
     
-    var tableViewCell: FormFieldTableViewCell {
-        return self
-    }
+    private(set) var dateField: DateField?
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,18 +24,18 @@ class DateInputTableViewCell: InputTableViewCell, DateFieldCell {
         let accessoryView = DateInputAccessoryView(frame: CGRect(x: 0, y: self.frame.size.height/6, width: self.frame.size.width, height: 44.0))
         accessoryView.dateInputDelegate = self
         textField.inputAccessoryView = accessoryView
+        textField.delegate = self
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with dateField: DateField) {
-        self.dateField = dateField
-        label.text = dateField.label
-        textField.text = dateField.value
-        textField.delegate = self
-        setupInputView(for: dateField)
+    func configure(with field: DateField) {
+        self.dateField = field
+        label.text = field.label
+        textField.text = field.value
+        setupInputView(for: field)
     }
     
     @objc private func datePickerValueChanged(sender: UIDatePicker) {
@@ -46,15 +43,9 @@ class DateInputTableViewCell: InputTableViewCell, DateFieldCell {
     }
     
     private func setupInputView(for field: DateField) {
-        let datePicker = textField?.inputView as? UIDatePicker
+        let datePicker = textField.inputView as? UIDatePicker
         datePicker?.date = field.date ?? Date()
-        textField.text = field.value
-        
-        if field.isRequired {
-            textField.placeholder = "Label.Required".localized().uppercased()
-        } else {
-            textField.placeholder = "Label.Optional".localized().uppercased()
-        }
+        super.configure(with: field)
     }
     
     private func getDatePickerMode(field: DateField) -> UIDatePickerMode {

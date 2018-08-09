@@ -14,11 +14,11 @@ public enum DateFieldType {
     case dateTime
 }
 
-public struct DateField: EditableField {
+public struct DateField: TextField {
     public var fieldOptions: FieldOptions = []
     
-    public var key: String
-    public var label: String
+    private(set) public var key: String
+    private(set) public var label: String
     
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
