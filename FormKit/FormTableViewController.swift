@@ -11,18 +11,24 @@ import UIKit
 
 public protocol FormDelegate: class {
     func valueChanged(for field: FormField, at indexPath: IndexPath)
-    func performAction(on field: FormField, at indexPath: IndexPath) -> Bool
 }
 
-public protocol FormDataSource: class {
-    func customCell(for field: FormField, at indexPath: IndexPath) -> UITableViewCell
+private protocol FormDataSource: class {
+    func cell(forCustomRow formRow: FormRow, at indexPath: IndexPath) -> FormFieldCell
+    func cell(for stringField: StringField, at indexPath: IndexPath) -> FormFieldCell
+    func cell(for numberField: NumberField, at indexPath: IndexPath) -> FormFieldCell
+    func cell(for boolField: BoolField, at indexPath: IndexPath) -> FormFieldCell
+    func cell(for dateField: DateField, at indexPath: IndexPath) -> FormFieldCell
+    func cell(for singleSelectField: SingleSelectField, at indexPath: IndexPath) -> FormFieldCell
+    func cell(for multipleSelectField: MultipleSelectField, at indexPath: IndexPath) -> FormFieldCell
+    func cell(for textAreaField: TextAreaField, at indexPath: IndexPath) -> FormFieldCell
 }
 
-open class FormTableViewController: BaseTableViewController, FieldDelegate {
+open class FormTableViewController: BaseTableViewController, FieldDelegate, FormDataSource, FormDelegate {
     public private(set) var changed = false
     public private(set) var currentTextField: UITextField?
-    public weak var formDelegate: FormDelegate?
-    public weak var formDataSource: FormDataSource?
+    
+    open weak var formDelegate: FormDelegate?
     public var sections: [FormSection] = []
     
     override open func viewDidLoad() {
@@ -41,7 +47,7 @@ open class FormTableViewController: BaseTableViewController, FieldDelegate {
     
     public func valueChanged(for field: FormField, at indexPath: IndexPath) {
         changed = true
-        sections[indexPath.section].fields[indexPath.row] = field
+        sections[indexPath.section].rows[indexPath.row] = field
         let cell = tableView.cellForRow(at: indexPath)
         
         if !(cell is TextInputTableViewCell || cell is DateInputTableViewCell || cell is SwitchTableViewCell) {
@@ -59,6 +65,111 @@ open class FormTableViewController: BaseTableViewController, FieldDelegate {
         setupSections()
         tableView.reloadData()
     }
+    
+    // Mark: - Providers
+    
+    open func cell(forCustomRow row: FormRow, at indexPath: IndexPath) -> FormFieldCell {
+        assertionFailure("You need to provide a cell(for:at:) method when using custom cells")
+        return FormFieldTableViewCell()
+    }
+    
+    open func cell(for stringField: StringField, at indexPath: IndexPath) -> FormFieldCell {
+        var cell = Cell.input.dequeCell(for: tableView, at: indexPath) as! TextInputFieldCell
+        cell.textInputCellDelegate = self
+        cell.configure(with: stringField)
+        return cell
+    }
+    
+    open func cell(for numberField: NumberField, at indexPath: IndexPath) -> FormFieldCell {
+        var cell = Cell.input.dequeCell(for: tableView, at: indexPath) as! TextInputFieldCell
+        cell.textInputCellDelegate = self
+        cell.configure(with: numberField)
+        return cell
+    }
+    
+    open func cell(for boolField: BoolField, at indexPath: IndexPath) -> FormFieldCell {
+        let cell = Cell.switch.dequeCell(for: tableView, at: indexPath) as! BoolFieldCell
+        cell.configure(with: boolField)
+        return cell
+    }
+    
+    open func cell(for dateField: DateField, at indexPath: IndexPath) -> FormFieldCell {
+        let cell = Cell.date.dequeCell(for: tableView, at: indexPath) as! DateFieldCell
+        cell.configure(with: dateField)
+        return cell
+    }
+    
+    open func cell(for selectField: SingleSelectField, at indexPath: IndexPath) -> FormFieldCell {
+        let cell = Cell.select.dequeCell(for: tableView, at: indexPath) as! SingleSelectFieldCell
+        cell.configure(with: selectField)
+        return cell
+    }
+    
+    open func cell(for selectField: MultipleSelectField, at indexPath: IndexPath) -> FormFieldCell {
+        let cell = Cell.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
+        cell.configure(with: selectField)
+        return cell
+    }
+    
+    open func cell(for textAreaField: TextAreaField, at indexPath: IndexPath) -> FormFieldCell {
+        let cell = Cell.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
+        cell.configure(with: textAreaField)
+        return cell
+    }
+    
+    // MARK: - Actions
+    
+    open func performAction(forCustomRow row: FormRow, at indexPath: IndexPath) {
+        // To be extended
+    }
+    
+    open func performAction(for stringField: StringField, at indexPath: IndexPath) {
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? TextInputTableViewCell {
+            cell.textField.becomeFirstResponder()
+        }
+    }
+    
+    open func performAction(for numberField: NumberField, at indexPath: IndexPath) {
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? TextInputTableViewCell {
+            cell.textField.becomeFirstResponder()
+        }
+    }
+    
+    open func performAction(for dateField: DateField, at indexPath: IndexPath) {
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? DateInputTableViewCell {
+            cell.textField.becomeFirstResponder()
+        }
+    }
+    
+    open func performAction(for boolField: BoolField, at indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? SwitchTableViewCell else { return }
+        var boolField = boolField
+        let value = !cell.onSwitch.isOn
+        cell.onSwitch.setOn(value, animated: true)
+        
+        boolField.isChecked = value
+        valueChanged(for: boolField, at: indexPath)
+    }
+    
+    open func performAction(for field: SingleSelectField, at indexPath: IndexPath) {
+        showOptions(for: field, at: indexPath)
+    }
+    
+    open func performAction(for field: MultipleSelectField, at indexPath: IndexPath) {
+        let viewController = MultipleSelectionViewController(field: field)
+        viewController.selectionDelegate = self
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    open func performAction(for field: TextAreaField, at indexPath: IndexPath) {
+        let viewController = TextViewController(field: field)
+        viewController.delegate = self
+        viewController.indexPath = indexPath
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 //MARK: UITableViewControllerDataSource
@@ -69,13 +180,13 @@ extension FormTableViewController {
     }
     
     override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].fields.count
+        return sections[section].rows.count
     }
     
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = sections[indexPath.section]
-        let field = section.fields[indexPath.row]
-        return cell(for: field, at: indexPath)
+        let row = section.rows[indexPath.row]
+        return cell(for: row, at: indexPath)
     }
     
     override open func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -86,14 +197,10 @@ extension FormTableViewController {
         return sections[section].title
     }
     
-    private func cell(for field: FormField, at indexPath: IndexPath) -> UITableViewCell {
-        if let tableViewCell = formDataSource?.customCell(for: field, at: indexPath) {
-            return tableViewCell
-        }
-        
+    private func cell(for row: FormRow, at indexPath: IndexPath) -> UITableViewCell {
         var cell: FormFieldCell? = nil
         
-        switch field {
+        switch row {
         case let field as DateField:
             cell = self.cell(for: field, at: indexPath)
         case let field as StringField:
@@ -109,7 +216,7 @@ extension FormTableViewController {
         case let field as TextAreaField:
             cell = self.cell(for: field, at: indexPath)
         default:
-            break
+            cell = self.cell(forCustomRow: row, at: indexPath)
         }
         
         if let cell = cell?.tableViewCell {
@@ -120,53 +227,9 @@ extension FormTableViewController {
             
             return cell
         } else {
-            assertionFailure("No cell registered for field \(field)")
+            assertionFailure("No cell registered for row \(row)")
             return UITableViewCell()
         }
-    }
-    
-    private func cell(for stringField: StringField, at indexPath: IndexPath) -> FormFieldCell {
-        var cell = Cell.input.dequeCell(for: tableView, at: indexPath) as! TextInputFieldCell
-        cell.textInputCellDelegate = self
-        cell.configure(with: stringField)
-        return cell
-    }
-    
-    private func cell(for numberField: NumberField, at indexPath: IndexPath) -> FormFieldCell {
-        var cell = Cell.input.dequeCell(for: tableView, at: indexPath) as! TextInputFieldCell
-        cell.textInputCellDelegate = self
-        cell.configure(with: numberField)
-        return cell
-    }
-    
-    private func cell(for boolField: BoolField, at indexPath: IndexPath) -> FormFieldCell {
-        let cell = Cell.switch.dequeCell(for: tableView, at: indexPath) as! BoolFieldCell
-        cell.configure(with: boolField)
-        return cell
-    }
-    
-    private func cell(for dateField: DateField, at indexPath: IndexPath) -> FormFieldCell {
-        let cell = Cell.date.dequeCell(for: tableView, at: indexPath) as! DateFieldCell
-        cell.configure(with: dateField)
-        return cell
-    }
-    
-    private func cell(for selectField: SingleSelectField, at indexPath: IndexPath) -> FormFieldCell {
-        let cell = Cell.select.dequeCell(for: tableView, at: indexPath) as! SingleSelectFieldCell
-        cell.configure(with: selectField)
-        return cell
-    }
-    
-    private func cell(for selectField: MultipleSelectField, at indexPath: IndexPath) -> FormFieldCell {
-        let cell = Cell.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
-        cell.configure(with: selectField)
-        return cell
-    }
-    
-    private func cell(for textAreaField: TextAreaField, at indexPath: IndexPath) -> FormFieldCell {
-        let cell = Cell.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
-        cell.configure(with: textAreaField)
-        return cell
     }
 }
 
@@ -176,10 +239,9 @@ extension FormTableViewController {
     override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let section = sections[indexPath.section]
-        let field = section.fields[indexPath.row]
-        guard !(formDelegate?.performAction(on: field, at: indexPath) ?? false) else { return }
+        let row = section.rows[indexPath.row]
         
-        switch field {
+        switch row {
         case let field as BoolField:
             performAction(for: field, at: indexPath)
         case let field as SingleSelectField:
@@ -195,56 +257,8 @@ extension FormTableViewController {
         case let field as TextAreaField:
             performAction(for: field, at: indexPath)
         default:
-            break
+            performAction(forCustomRow: row, at: indexPath)
         }
-    }
-    
-    private func performAction(for stringField: StringField, at indexPath: IndexPath) {
-        
-        if let cell = tableView.cellForRow(at: indexPath) as? TextInputTableViewCell {
-            cell.textField.becomeFirstResponder()
-        }
-    }
-    
-    private func performAction(for numberField: NumberField, at indexPath: IndexPath) {
-        
-        if let cell = tableView.cellForRow(at: indexPath) as? TextInputTableViewCell {
-            cell.textField.becomeFirstResponder()
-        }
-    }
-    
-    private func performAction(for dateField: DateField, at indexPath: IndexPath) {
-        
-        if let cell = tableView.cellForRow(at: indexPath) as? DateInputTableViewCell {
-            cell.textField.becomeFirstResponder()
-        }
-    }
-    
-    private func performAction(for boolField: BoolField, at indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? SwitchTableViewCell else { return }
-        var boolField = boolField
-        let value = !cell.onSwitch.isOn
-        cell.onSwitch.setOn(value, animated: true)
-        
-        boolField.isChecked = value
-        valueChanged(for: boolField, at: indexPath)
-    }
-    
-    private func performAction(for field: SingleSelectField, at indexPath: IndexPath) {
-        showOptions(for: field, at: indexPath)
-    }
-    
-    private func performAction(for field: MultipleSelectField, at indexPath: IndexPath) {
-        let viewController = MultipleSelectionViewController(field: field)
-        viewController.selectionDelegate = self
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    private func performAction(for field: TextAreaField, at indexPath: IndexPath) {
-        let viewController = TextViewController(field: field)
-        viewController.delegate = self
-        viewController.indexPath = indexPath
-        navigationController?.pushViewController(viewController, animated: true)
     }
     
     private func showOptions(for field: SingleSelectField, at indexPath: IndexPath) {
@@ -259,7 +273,7 @@ extension FormTableViewController {
                 var field = field
                 field.select(item: item)
                 
-                self.sections[indexPath.section].fields[indexPath.row] = field
+                self.sections[indexPath.section].rows[indexPath.row] = field
                 self.tableView.reloadRows(at: [indexPath], with: .none)
                 self.formDelegate?.valueChanged(for: field, at: indexPath)
             })
@@ -274,7 +288,7 @@ extension FormTableViewController {
                 var field = field
                 field.clearSelection()
                 
-                self.sections[indexPath.section].fields[indexPath.row] = field
+                self.sections[indexPath.section].rows[indexPath.row] = field
                 self.tableView.reloadRows(at: [indexPath], with: .none)
                 self.formDelegate?.valueChanged(for: field, at: indexPath)
             }))
@@ -309,9 +323,9 @@ extension FormTableViewController: TextInputTableViewDelegate {
     private func nextIndexPath(for indexPath: IndexPath) -> IndexPath? {
         let nextSection = indexPath.section + 1
         
-        if indexPath.row + 1 < sections[indexPath.section].fields.count {
+        if indexPath.row + 1 < sections[indexPath.section].rows.count {
             return IndexPath(row: indexPath.row + 1, section: indexPath.section)
-        } else if nextSection < sections.count, sections[nextSection].fields.count > 0 {
+        } else if nextSection < sections.count, sections[nextSection].rows.count > 0 {
             return IndexPath(row: 0, section: nextSection)
         } else {
             return nil
@@ -319,9 +333,13 @@ extension FormTableViewController: TextInputTableViewDelegate {
     }
     
     private func indexPath(for field: FormField) -> IndexPath? {
-        guard let section = sections.index(where: { $0.fields.contains(where: { $0.key == field.key }) }) else { return nil }
-        guard let row = sections[section].fields.index(where: { $0.key == field.key }) else { return nil }
+        guard let section = sections.index(where: {
+            return $0.rows.contains(where: {
+                $0.key == field.key
+            })
+        }) else { return nil }
         
+        guard let row = sections[section].rows.index(where: { $0.key == field.key }) else { return nil }
         return IndexPath(row: row, section: section)
     }
 }
@@ -329,7 +347,7 @@ extension FormTableViewController: TextInputTableViewDelegate {
 extension FormTableViewController: MultipleSelectionViewControllerDelegate {
     func multipleSelectionViewControllerDidUpdate(field: MultipleSelectField) {
         guard let indexPath = self.indexPath(for: field) else { return }
-        self.sections[indexPath.section].fields[indexPath.row] = field
+        self.sections[indexPath.section].rows[indexPath.row] = field
         self.tableView.reloadRows(at: [indexPath], with: .none)
         self.formDelegate?.valueChanged(for: field, at: indexPath)
     }

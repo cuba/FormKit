@@ -12,11 +12,11 @@ import Foundation
 
 public struct FormSection {
     public var title: String?
-    public var fields: [FormField] = []
+    public var rows: [FormRow] = []
     
-    public init(title: String? = nil, fields: [FormField]) {
+    public init(title: String? = nil, rows: [FormRow]) {
         self.title = title
-        self.fields = fields
+        self.rows = rows
     }
 }
 
@@ -33,8 +33,11 @@ public struct FieldOptions: OptionSet {
     public static let disabled = FieldOptions(rawValue: 1 << 1)
 }
 
-public protocol FormField {
+public protocol FormRow {
     var key: String { get }
+}
+
+public protocol FormField: FormRow {
 }
 
 public protocol LabeledField: FormField {

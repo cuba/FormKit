@@ -68,5 +68,7 @@ class SingleSelectTableViewCell: LabeledFieldTableViewCell, SingleSelectFieldCel
         contentView.bottomAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor, constant: 15).isActive = true
         
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        subtitleLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     }
 }

@@ -43,7 +43,7 @@ class ViewController: FormTableViewController {
     
     override func setupSections() {
         sections = [
-            FormSection(title: "Some section", fields: [
+            FormSection(title: "Some section", rows: [
                 StringField(key: "text_field", label: "Text Field (This may go on seperate lines like this)", type: .text),
                 StringField(key: "password_field", label: "Password Field (This may go on seperate lines like this)", type: .password),
                 TextAreaField(key: "text_area_field", label: "Text Area Field (This may go on seperate lines like this)"),
