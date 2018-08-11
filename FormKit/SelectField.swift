@@ -24,7 +24,7 @@ public struct BasicSelectionOption: SelectionItem {
     public var label: String
     public var isEnabled: Bool
     
-    init(key: String, label: String, isEnabled: Bool = true) {
+    public init(key: String, label: String, isEnabled: Bool = true) {
         self.key = key
         self.label = label
         self.isEnabled = isEnabled

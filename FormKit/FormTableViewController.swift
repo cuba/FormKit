@@ -15,6 +15,7 @@ public protocol FormDelegate: class {
 }
 
 public protocol FormDataSource: class {
+    func makeSections() -> [FormSection]
     func cell(forCustomRow formRow: FormRow, at indexPath: IndexPath) -> UITableViewCell
 }
 
@@ -42,7 +43,7 @@ open class FormTableViewController: BaseTableViewController {
     }
     
     open func setupSections() {
-        // empty implementation
+        self.sections = formDataSource?.makeSections() ?? []
     }
     
     private func valueChanged(for field: EditableField, at indexPath: IndexPath, reloadRow: Bool) {
