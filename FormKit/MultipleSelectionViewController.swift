@@ -16,10 +16,6 @@ class MultipleSelectionViewController: BaseTableViewController {
     private(set) var field: MultipleSelectField
     weak var selectionDelegate: MultipleSelectionViewControllerDelegate?
     
-    private var itemOffset: Int {
-        return field.allowsSelectAll ? 1 : 0
-    }
-    
     init(field: MultipleSelectField) {
         self.field = field
         super.init(style: .plain)
@@ -34,7 +30,7 @@ class MultipleSelectionViewController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return field.allItems.count + itemOffset
+        return field.allItems.count + 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,14 +58,14 @@ class MultipleSelectionViewController: BaseTableViewController {
     }
     
     private func selectionItem(at indexPath: IndexPath) -> SelectionItem? {
-        let index = indexPath.row - itemOffset
+        let index = indexPath.row - 1
         guard index >= 0 else { return nil }
         return field.allItems[index]
     }
     
     private func index(of item: SelectionItem) -> Int? {
         guard var index = field.allItems.index(where: { $0.key == item.key }) else { return nil }
-        index = index + itemOffset
+        index = index + 1
         guard index >= 0 else { return nil }
         
         return index
@@ -82,12 +78,8 @@ class MultipleSelectionViewController: BaseTableViewController {
             field.select(item: item)
         }
         
-        if field.allowsSelectAll {
-            let indexPaths = [IndexPath(row: 0, section: 0), indexPath]
-            tableView.reloadRows(at: indexPaths, with: .automatic)
-        } else {
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-        }
+        let indexPaths = [IndexPath(row: 0, section: 0), indexPath]
+        tableView.reloadRows(at: indexPaths, with: .automatic)
         
         selectionDelegate?.multipleSelectionViewControllerDidUpdate(field: field)
     }

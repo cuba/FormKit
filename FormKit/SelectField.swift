@@ -38,9 +38,7 @@ public struct MultipleSelectField: EditableField {
     private(set) public var key: String
     private(set) public var label: String
     private(set) public var allItems: [SelectionItem]
-    
     public var selectedItems: [SelectionItem] = []
-    public var allowsSelectAll = true
     
     public var hasSelection: Bool {
         return !selectedItems.isEmpty
@@ -122,19 +120,21 @@ public struct SingleSelectField: EditableField {
         return selectedItem
     }
     
-    public init(key: String, label: String, allItems: [SelectionItem], selectedItem: SelectionItem? = nil) {
+    public init(key: String, label: String, allItems: [SelectionItem], selectedItem: SelectionItem? = nil, isClearable: Bool = true) {
         self.key = key
         self.label = label
         self.allItems = allItems
         self.selectedItem = selectedItem
+        self.isClearable = isClearable
     }
     
-    public init(provider: FieldProvider, allItems: [SelectionItem], selectedItem: SelectionItem?) {
+    public init(provider: FieldProvider, allItems: [SelectionItem], selectedItem: SelectionItem? = nil, isClearable: Bool = true) {
         self.key = provider.key
         self.label = provider.label
         self.options = provider.options
         self.allItems = allItems
         self.selectedItem = selectedItem
+        self.isClearable = isClearable
     }
     
     public mutating func select(item: SelectionItem) {
