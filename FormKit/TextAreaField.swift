@@ -16,6 +16,10 @@ public struct TextAreaField: TextInputField {
     
     public var value: String?
     
+    public var saveValue: Any? {
+        return value
+    }
+    
     public init(key: String, label: String, value: String? = nil) {
         self.key = key
         self.label = label

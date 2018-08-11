@@ -13,7 +13,14 @@ public protocol TextAreaFieldCell: FormFieldCell {
     func configure(with field: TextAreaField)
 }
 
-class TextAreaTableViewCell: LabeledFieldTableViewCell, TextAreaFieldCell {
+class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCell {
+    
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.configure(with: Style.current.label)
+        label.numberOfLines = 0
+        return label
+    }()
     
     lazy var valueLabel: UILabel = {
         let valueLabel = UILabel()
@@ -22,7 +29,7 @@ class TextAreaTableViewCell: LabeledFieldTableViewCell, TextAreaFieldCell {
         return valueLabel
     }()
     
-    private(set) var field: TextField?
+    private(set) var field: EditableField?
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -34,17 +41,7 @@ class TextAreaTableViewCell: LabeledFieldTableViewCell, TextAreaFieldCell {
     }
     
     func configure(with field: MultipleSelectField){
-        configure(with: field as TextField)
-    }
-    
-    func configure(with field: TextAreaField) {
-        configure(with: field as TextField)
-    }
-    
-    private func configure(with field: TextField) {
-        self.field = field
-        label.text = field.label
-        accessoryType = .disclosureIndicator
+        configure(with: field as EditableField)
         
         if let value = field.value, !value.isEmpty {
             valueLabel.configure(with: Style.current.value)
@@ -58,6 +55,29 @@ class TextAreaTableViewCell: LabeledFieldTableViewCell, TextAreaFieldCell {
                 valueLabel.text = "Label.Optional".localized().uppercased()
             }
         }
+    }
+    
+    func configure(with field: TextAreaField) {
+        configure(with: field as EditableField)
+        
+        if let value = field.value, !value.isEmpty {
+            valueLabel.configure(with: Style.current.value)
+            valueLabel.text = value.trim()
+        } else {
+            valueLabel.configure(with: Style.current.placeholder)
+            
+            if field.isRequired {
+                valueLabel.text = "Label.Required".localized().uppercased()
+            } else {
+                valueLabel.text = "Label.Optional".localized().uppercased()
+            }
+        }
+    }
+    
+    private func configure(with field: EditableField) {
+        self.field = field
+        label.text = field.label
+        accessoryType = .disclosureIndicator
     }
     
     private func setupLayout() {

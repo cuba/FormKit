@@ -21,7 +21,7 @@ public struct NumberField: TextInputField {
     public var type: NumberFieldType
     public var amount: Double?
     
-    public var intValue: Int? {
+    public var integerAmount: Int? {
         guard let value = self.amount else { return nil }
         return Int(value)
     }
@@ -29,11 +29,18 @@ public struct NumberField: TextInputField {
     public var value: String? {
         switch type {
         case .integer:
-            guard let value = self.intValue else { return nil }
+            guard let value = self.integerAmount else { return nil }
             return String(value)
         case .decimal:
             guard let value = self.amount else { return nil}
             return String(value)
+        }
+    }
+    
+    public var saveValue: Any? {
+        switch type {
+        case .integer: return integerAmount
+        case .decimal: return amount
         }
     }
     

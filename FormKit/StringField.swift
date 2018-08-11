@@ -22,6 +22,10 @@ public struct StringField: TextInputField {
     public var type = StringFieldType.text
     public var value: String?
     
+    public var saveValue: Any? {
+        return value
+    }
+    
     public init(key: String, label: String, type: StringFieldType = .text, value: String? = nil) {
         self.key = key
         self.label = label

@@ -8,7 +8,13 @@
 
 import Foundation
 
-open class InputTableViewCell: LabeledFieldTableViewCell {
+open class InputTableViewCell: FormFieldTableViewCell {
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.configure(with: Style.current.label)
+        label.numberOfLines = 0
+        return label
+    }()
     
     lazy var textField: UITextField = {
         let textField = UITextField()
@@ -44,7 +50,7 @@ open class InputTableViewCell: LabeledFieldTableViewCell {
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
     
-    func configure(with field: TextField) {
+    func configure(with field: InputField) {
         label.text = field.label
         textField.isEnabled = field.isEnabled
         textField.text = field.value

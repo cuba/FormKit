@@ -12,7 +12,14 @@ public protocol SingleSelectFieldCell: FormFieldCell {
     func configure(with field: SingleSelectField)
 }
 
-class SingleSelectTableViewCell: LabeledFieldTableViewCell, SingleSelectFieldCell {
+class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldCell {
+    
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.configure(with: Style.current.label)
+        label.numberOfLines = 0
+        return label
+    }()
     
     lazy var subtitleLabel: UILabel = {
         let subtitleLabel = UILabel()
@@ -21,7 +28,7 @@ class SingleSelectTableViewCell: LabeledFieldTableViewCell, SingleSelectFieldCel
         return subtitleLabel
     }()
     
-    private(set) var field: FormField?
+    private(set) var field: EditableField?
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

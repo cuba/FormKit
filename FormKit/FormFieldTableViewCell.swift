@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 public protocol FieldDelegate {
-    func valueChanged(for field: FormField, at indexPath: IndexPath)
+    func valueChanged(for field: EditableField, at indexPath: IndexPath)
 }
 
 public protocol FormFieldCell {
@@ -27,13 +27,4 @@ open class FormFieldTableViewCell: UITableViewCell, FormFieldCell {
     
     open var delegate: FieldDelegate?
     open var indexPath: IndexPath?
-}
-
-open class LabeledFieldTableViewCell: FormFieldTableViewCell {
-    lazy var label: UILabel = {
-        let label = UILabel()
-        label.configure(with: Style.current.label)
-        label.numberOfLines = 0
-        return label
-    }()
 }

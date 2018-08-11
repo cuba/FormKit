@@ -12,7 +12,14 @@ public protocol BoolFieldCell: FormFieldCell {
     func configure(with field: BoolField)
 }
 
-class SwitchTableViewCell: LabeledFieldTableViewCell, BoolFieldCell {
+class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCell {
+    
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.configure(with: Style.current.label)
+        label.numberOfLines = 0
+        return label
+    }()
     
     var onSwitch: UISwitch = {
         let onSwitch = UISwitch()

@@ -10,25 +10,20 @@ import Foundation
 import UIKit
 
 public protocol FormDelegate: class {
-    func valueChanged(for field: FormField, at indexPath: IndexPath)
+    func valueChanged(for field: EditableField, at indexPath: IndexPath)
+    func performAction(forCustomRow row: FormRow, at indexPath: IndexPath)
 }
 
-private protocol FormDataSource: class {
+public protocol FormDataSource: class {
     func cell(forCustomRow formRow: FormRow, at indexPath: IndexPath) -> UITableViewCell
-    func cell(for stringField: StringField, at indexPath: IndexPath) -> FormFieldCell
-    func cell(for numberField: NumberField, at indexPath: IndexPath) -> FormFieldCell
-    func cell(for boolField: BoolField, at indexPath: IndexPath) -> FormFieldCell
-    func cell(for dateField: DateField, at indexPath: IndexPath) -> FormFieldCell
-    func cell(for singleSelectField: SingleSelectField, at indexPath: IndexPath) -> FormFieldCell
-    func cell(for multipleSelectField: MultipleSelectField, at indexPath: IndexPath) -> FormFieldCell
-    func cell(for textAreaField: TextAreaField, at indexPath: IndexPath) -> FormFieldCell
 }
 
-open class FormTableViewController: BaseTableViewController, FieldDelegate, FormDataSource, FormDelegate {
-    public private(set) var changed = false
-    public private(set) var currentTextField: UITextField?
+open class FormTableViewController: BaseTableViewController, FieldDelegate {
+    public var isChanged = false
+    private var currentTextField: UITextField?
     
     open weak var formDelegate: FormDelegate?
+    open weak var formDataSource: FormDataSource?
     public var sections: [FormSection] = []
     
     override open func viewDidLoad() {
@@ -45,8 +40,8 @@ open class FormTableViewController: BaseTableViewController, FieldDelegate, Form
         // empty implementation
     }
     
-    public func valueChanged(for field: FormField, at indexPath: IndexPath) {
-        changed = true
+    public func valueChanged(for field: EditableField, at indexPath: IndexPath) {
+        isChanged = true
         sections[indexPath.section].rows[indexPath.row] = field
         let cell = tableView.cellForRow(at: indexPath)
         
@@ -67,11 +62,6 @@ open class FormTableViewController: BaseTableViewController, FieldDelegate, Form
     }
     
     // Mark: - Providers
-    
-    open func cell(forCustomRow row: FormRow, at indexPath: IndexPath) -> UITableViewCell {
-        assertionFailure("You need to provide a cell(for:at:) method when using custom cells")
-        return FormFieldTableViewCell()
-    }
     
     open func cell(for stringField: StringField, at indexPath: IndexPath) -> FormFieldCell {
         var cell = Cell.input.dequeCell(for: tableView, at: indexPath) as! TextInputFieldCell
@@ -118,10 +108,6 @@ open class FormTableViewController: BaseTableViewController, FieldDelegate, Form
     }
     
     // MARK: - Actions
-    
-    open func performAction(forCustomRow row: FormRow, at indexPath: IndexPath) {
-        // To be extended
-    }
     
     open func performAction(for stringField: StringField, at indexPath: IndexPath) {
         
@@ -216,7 +202,12 @@ extension FormTableViewController {
         case let field as TextAreaField:
             cell = self.cell(for: field, at: indexPath)
         default:
-            return self.cell(forCustomRow: row, at: indexPath)
+            if let cell = formDataSource?.cell(forCustomRow: row, at: indexPath) {
+                return cell
+            } else {
+                assertionFailure("You need to provide a `FormDataSource` for custom cells")
+                return UITableViewCell()
+            }
         }
         
         cell?.delegate = self
@@ -257,7 +248,7 @@ extension FormTableViewController {
         case let field as TextAreaField:
             performAction(for: field, at: indexPath)
         default:
-            performAction(forCustomRow: row, at: indexPath)
+            formDelegate?.performAction(forCustomRow: row, at: indexPath)
         }
     }
     
@@ -332,7 +323,7 @@ extension FormTableViewController: TextInputTableViewDelegate {
         }
     }
     
-    private func indexPath(for field: FormField) -> IndexPath? {
+    private func indexPath(for field: EditableField) -> IndexPath? {
         guard let section = sections.index(where: {
             return $0.rows.contains(where: {
                 $0.key == field.key

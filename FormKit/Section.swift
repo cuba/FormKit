@@ -8,6 +8,8 @@
 
 import Foundation
 
+infix operator <-
+
 // MARK: - Section
 
 public struct FormSection {
@@ -33,35 +35,84 @@ public struct FieldOptions: OptionSet {
     public static let disabled = FieldOptions(rawValue: 1 << 1)
 }
 
+public protocol FieldProvider {
+    var key: String { get }
+    var label: String { get }
+    var options: FieldOptions { get }
+}
+
 public protocol FormRow {
     var key: String { get }
 }
 
-public protocol FormField: FormRow {
+public protocol FieldMappable {
+    mutating func map(field: EditableField)
 }
 
-public protocol LabeledField: FormField {
+public protocol EditableField: FormRow {
     var label: String { get }
-}
-
-public protocol EditableField: LabeledField {
     var fieldOptions: FieldOptions { get }
+    var saveValue: Any? { get }
 }
 
-extension EditableField {
-    var isRequired: Bool {
+public extension EditableField {
+    public var isRequired: Bool {
         return fieldOptions.contains(.required)
     }
     
-    var isEnabled: Bool {
+    public var isEnabled: Bool {
         return !fieldOptions.contains(.disabled)
+    }
+    
+    public func value<T>(_ provider: FieldProvider) -> T? {
+        if self.key == provider.key {
+            return saveValue as? T
+        } else {
+            return nil
+        }
     }
 }
 
-public protocol TextField: EditableField {
+public protocol InputField: EditableField {
     var value: String? { get }
 }
 
-public protocol TextInputField: TextField {
+public protocol TextInputField: InputField {
     mutating func set(value: String?)
+}
+
+public func <-<T>(left: inout T?, right: (String, EditableField)) {
+    let key = right.0
+    let field = right.1
+    
+    if field.key == key {
+        left = field.saveValue as? T
+    }
+}
+
+public func <-<T>(left: inout T, right: (String, EditableField)) {
+    let key = right.0
+    let field = right.1
+    
+    if field.key == key {
+        left = field.saveValue as? T ?? left
+    }
+}
+
+public func <-<T>(left: inout T?, right: (FieldProvider, EditableField)) {
+    let key = right.0.key
+    let field = right.1
+    
+    if field.key == key {
+        left = field.saveValue as? T
+    }
+}
+
+public func <-<T>(left: inout T, right: (FieldProvider, EditableField)) {
+    let key = right.0.key
+    let field = right.1
+    
+    if field.key == key {
+        left = field.saveValue as? T ?? left
+    }
 }

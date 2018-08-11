@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct SignatureField: FormField {
+public struct SignatureField: FormRow {
     public var key: String
     
     public init(key: String) {

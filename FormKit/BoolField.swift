@@ -16,6 +16,10 @@ public struct BoolField: EditableField {
     
     public var isChecked: Bool?
     
+    public var saveValue: Any? {
+        return isChecked
+    }
+    
     public init(key: String, label: String, isChecked: Bool? = nil) {
         self.key = key
         self.label = label

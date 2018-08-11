@@ -14,7 +14,7 @@ public enum DateFieldType {
     case dateTime
 }
 
-public struct DateField: TextField {
+public struct DateField: InputField {
     public var fieldOptions: FieldOptions = []
     
     private(set) public var key: String
@@ -43,6 +43,10 @@ public struct DateField: TextField {
     
     public var date: Date?
     public var type: DateFieldType = .date
+    
+    public var saveValue: Any? {
+        return date
+    }
     
     public var formatter: DateFormatter {
         switch type {

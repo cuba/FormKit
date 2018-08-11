@@ -31,7 +31,7 @@ public struct BasicSelectionOption: SelectionItem {
     }
 }
 
-public struct MultipleSelectField: TextField {
+public struct MultipleSelectField: EditableField {
     public var fieldOptions: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String
@@ -50,6 +50,10 @@ public struct MultipleSelectField: TextField {
     
     public var value: String? {
         return selectedItems.map({ $0.label }).joined(separator: ", ")
+    }
+    
+    public var saveValue: Any? {
+        return selectedItems
     }
     
     public init(key: String, label: String, allItems: [SelectionItem], selectedItems: [SelectionItem] = []) {
@@ -102,6 +106,10 @@ public struct SingleSelectField: EditableField {
     
     public var value: String? {
         return selectedItem?.label
+    }
+    
+    public var saveValue: Any? {
+        return selectedItem
     }
     
     public init(key: String, label: String, allItems: [SelectionItem], selectedItem: SelectionItem? = nil) {
