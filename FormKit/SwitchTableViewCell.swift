@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol SwitchTableViewCellDelegate: class {
+    func switchTableViewCell(_ cell: SwitchTableViewCell, didUpdateField field: BoolField)
+}
+
 public protocol BoolFieldCell: FormFieldCellProvider {
     func configure(with field: BoolField)
 }
 
 open class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCell {
+    weak var delegate: SwitchTableViewCellDelegate?
     
     public lazy var label: UILabel = {
         let label = UILabel()
@@ -27,7 +32,7 @@ open class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCell {
         return onSwitch
     }()
     
-    public private(set) var boolField: BoolField?
+    public private(set) var field: BoolField?
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,18 +44,16 @@ open class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCell {
     }
     
     open func configure(with field: BoolField) {
-        self.boolField = field
+        self.field = field
         label.text = field.label
         onSwitch.isOn = field.isChecked ?? false
         onSwitch.isEnabled = field.isEnabled
     }
 
     @objc private func switchValueChanged(_ sender: UISwitch) {
-        boolField?.isChecked = sender.isOn
-        
-        if let field = self.boolField, let indexPath = self.indexPath {
-            delegate?.valueChanged(for: field, at: indexPath)
-        }
+        field?.isChecked = sender.isOn
+        guard let field = self.field else { return }
+        delegate?.switchTableViewCell(self, didUpdateField: field)
     }
     
     private func setupLayout() {

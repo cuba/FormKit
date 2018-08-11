@@ -10,6 +10,10 @@ import Foundation
 
 import UIKit
 
+protocol TextViewControllerDelegate {
+    func textViewController(_ textViewController: TextViewController, didUpdateField field: TextAreaField, at indexPath: IndexPath)
+}
+
 class TextViewController: UIViewController {
     lazy var textView: UITextView = {
         let textView = UITextView(frame: CGRect.zero)
@@ -21,7 +25,7 @@ class TextViewController: UIViewController {
     
     var field: TextAreaField
     var indexPath: IndexPath?
-    var delegate: FieldDelegate?
+    var delegate: TextViewControllerDelegate?
     
     init(field: TextAreaField) {
         self.field = field
@@ -57,7 +61,7 @@ class TextViewController: UIViewController {
         textView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor, constant: 0).isActive = true
     }
     
-    @objc private func keyboardWillShow(notification:NSNotification){
+    @objc private func keyboardWillShow(notification: NSNotification){
         //give room at the bottom of the scroll view, so it doesn't cover up anything the user needs to tap
         var userInfo = notification.userInfo!
         var keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
@@ -68,7 +72,7 @@ class TextViewController: UIViewController {
         self.textView.contentInset = contentInset
     }
     
-    @objc private func keyboardWillHide(notification:NSNotification){
+    @objc private func keyboardWillHide(notification: NSNotification){
         let contentInset:UIEdgeInsets = UIEdgeInsets.zero
         self.textView.contentInset = contentInset
     }
@@ -81,9 +85,7 @@ extension TextViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         field.value = textView.text
-        
-        if let indexPath = self.indexPath {
-            delegate?.valueChanged(for: field, at: indexPath)
-        }
+        guard let indexPath = self.indexPath else { return }
+        delegate?.textViewController(self, didUpdateField: field, at: indexPath)
     }
 }

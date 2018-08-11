@@ -13,6 +13,7 @@
 "Label.Required" = "Required";
 "Label.Optional" = "Optional";
 "Label.Today" = "Today";
+"Label.Now" = "Now";
 "Label.All" = "All";
 
 // Buttons (Actions)

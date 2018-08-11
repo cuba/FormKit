@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol TextInputTableViewCellDelegate: class {
+    func textInputTableViewCell(_ cell: TextInputTableViewCell, didUpdateField field: TextInputField)
+}
+
 public protocol TextInputTableViewDelegate: class {
     func textFieldShouldReturn(for cell: TextInputTableViewCell) -> Bool
     func textFieldDidBeginEditing(_ textField: UITextField, for cell: TextInputTableViewCell)
@@ -15,15 +19,14 @@ public protocol TextInputTableViewDelegate: class {
 }
 
 public protocol TextInputFieldCellProvider: FormFieldCellProvider {
-    var textInputCellDelegate: TextInputTableViewDelegate? { get set }
-    
     func configure(with field: StringField)
     func configure(with field: NumberField)
 }
 
 open class TextInputTableViewCell: InputTableViewCell, TextInputFieldCellProvider {
+    weak var textInputCellDelegate: TextInputTableViewDelegate?
+    weak var delegate: TextInputTableViewCellDelegate?
     private(set) var inputField: TextInputField?
-    weak public var textInputCellDelegate: TextInputTableViewDelegate?
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -77,9 +80,11 @@ extension TextInputTableViewCell: UITextFieldDelegate {
         textInputCellDelegate?.textFieldDidEndEditing(textField, for: self)
         inputField?.set(value: textField.text)
         
-        if let field = inputField, let indexPath = indexPath {
-            delegate?.valueChanged(for: field, at: indexPath)
+        guard let field = inputField else {
+            return
         }
+        
+        delegate?.textInputTableViewCell(self, didUpdateField: field)
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {

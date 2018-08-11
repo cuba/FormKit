@@ -28,8 +28,6 @@ open class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldC
         return subtitleLabel
     }()
     
-    public private(set) var field: EditableField?
-    
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
@@ -40,7 +38,6 @@ open class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldC
     }
     
     open func configure(with field: SingleSelectField) {
-        self.field = field
         label.text = field.label
         accessoryType = .disclosureIndicator
         

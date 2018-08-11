@@ -9,12 +9,16 @@
 import Foundation
 import UIKit
 
+protocol DateInputTableViewCellDelegate: class {
+    func dateInputTableViewCell(_ cell: DateInputTableViewCell, didUpdateField field: DateField)
+}
+
 public protocol DateFieldCellProvider: FormFieldCellProvider {
     func configure(with dateField: DateField)
 }
 
 open class DateInputTableViewCell: InputTableViewCell, DateFieldCellProvider {
-    
+    weak var delegate: DateInputTableViewCellDelegate?
     public private(set) var dateField: DateField?
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -40,19 +44,22 @@ open class DateInputTableViewCell: InputTableViewCell, DateFieldCellProvider {
     
     @objc private func datePickerValueChanged(sender: UIDatePicker) {
         setDate(date: sender.date)
+        informDelegate()
     }
     
     private func setupInputView(for field: DateField) {
+        super.configure(with: field)
         let datePicker = textField.inputView as? UIDatePicker
         datePicker?.date = field.date ?? Date()
-        super.configure(with: field)
-    }
-    
-    private func getDatePickerMode(field: DateField) -> UIDatePickerMode {
-        switch field.type {
-        case .date: return .date
-        case .time: return .time
-        case .dateTime: return .dateAndTime
+        datePicker?.datePickerMode = field.type.datePickerMode
+        
+        if let accessoryView = textField.inputAccessoryView as? DateInputAccessoryView {
+            switch field.type {
+            case .time, .dateTime:
+                accessoryView.todayButton?.title = "Label.Now".localized()
+            default:
+                accessoryView.todayButton?.title = "Label.Today".localized()
+            }
         }
     }
     
@@ -79,6 +86,11 @@ extension DateInputTableViewCell: DateInputAccessoryViewDelegate {
     func datePickerDonePressed() {
         textField.resignFirstResponder()
     }
+    
+    private func informDelegate() {
+        guard let field = dateField else { return }
+        delegate?.dateInputTableViewCell(self, didUpdateField: field)
+    }
 }
 
 extension DateInputTableViewCell: UITextFieldDelegate {
@@ -91,8 +103,16 @@ extension DateInputTableViewCell: UITextFieldDelegate {
     }
     
     public func textFieldDidEndEditing(_ textField: UITextField) {
-        if let field = dateField, let indexPath = self.indexPath {
-            delegate?.valueChanged(for: field, at: indexPath)
+        informDelegate()
+    }
+}
+
+private extension DateFieldType {
+    var datePickerMode: UIDatePickerMode {
+        switch self {
+        case .date:     return .date
+        case .dateTime: return .dateAndTime
+        case .time:     return .time
         }
     }
 }
