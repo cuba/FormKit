@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 public protocol FormDelegate: class {
-    func valueChanged(for field: EditableField, at indexPath: IndexPath)
     func performAction(forCustomRow row: FormRow, at indexPath: IndexPath)
 }
 
@@ -40,7 +39,7 @@ open class FormTableViewController: BaseTableViewController, FieldDelegate {
         // empty implementation
     }
     
-    public func valueChanged(for field: EditableField, at indexPath: IndexPath) {
+    open func valueChanged(for field: EditableField, at indexPath: IndexPath) {
         isChanged = true
         sections[indexPath.section].rows[indexPath.row] = field
         let cell = tableView.cellForRow(at: indexPath)
@@ -48,8 +47,6 @@ open class FormTableViewController: BaseTableViewController, FieldDelegate {
         if !(cell is TextInputTableViewCell || cell is DateInputTableViewCell || cell is SwitchTableViewCell) {
             tableView.reloadRows(at: [indexPath], with: .none)
         }
-        
-        formDelegate?.valueChanged(for: field, at: indexPath)
     }
     
     public func dismissKeyboard() {
@@ -263,10 +260,7 @@ extension FormTableViewController {
                 guard let indexPath = self.indexPath(for: field) else { return }
                 var field = field
                 field.select(item: item)
-                
-                self.sections[indexPath.section].rows[indexPath.row] = field
-                self.tableView.reloadRows(at: [indexPath], with: .none)
-                self.formDelegate?.valueChanged(for: field, at: indexPath)
+                self.valueChanged(for: field, at: indexPath)
             })
             
             action.isEnabled = item.isEnabled && !field.isSelected(item: item)
@@ -279,9 +273,7 @@ extension FormTableViewController {
                 var field = field
                 field.clearSelection()
                 
-                self.sections[indexPath.section].rows[indexPath.row] = field
-                self.tableView.reloadRows(at: [indexPath], with: .none)
-                self.formDelegate?.valueChanged(for: field, at: indexPath)
+                self.valueChanged(for: field, at: indexPath)
             }))
         }
         
@@ -338,9 +330,7 @@ extension FormTableViewController: TextInputTableViewDelegate {
 extension FormTableViewController: MultipleSelectionViewControllerDelegate {
     func multipleSelectionViewControllerDidUpdate(field: MultipleSelectField) {
         guard let indexPath = self.indexPath(for: field) else { return }
-        self.sections[indexPath.section].rows[indexPath.row] = field
-        self.tableView.reloadRows(at: [indexPath], with: .none)
-        self.formDelegate?.valueChanged(for: field, at: indexPath)
+        valueChanged(for: field, at: indexPath)
     }
     
     func multipleSelectionViewControllerDidCancel() {
