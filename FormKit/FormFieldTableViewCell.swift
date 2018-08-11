@@ -9,22 +9,22 @@
 import Foundation
 import UIKit
 
-public protocol FieldDelegate {
+public protocol FieldDelegate: class {
     func valueChanged(for field: EditableField, at indexPath: IndexPath)
 }
 
-public protocol FormFieldCell {
+public protocol FormFieldCellProvider {
     var tableViewCell: UITableViewCell { get }
     var delegate: FieldDelegate? { get set }
     var indexPath: IndexPath? { get set }
 }
 
-open class FormFieldTableViewCell: UITableViewCell, FormFieldCell {
+open class FormFieldTableViewCell: UITableViewCell, FormFieldCellProvider {
     
     public var tableViewCell: UITableViewCell {
         return self
     }
     
-    open var delegate: FieldDelegate?
+    open weak var delegate: FieldDelegate?
     open var indexPath: IndexPath?
 }

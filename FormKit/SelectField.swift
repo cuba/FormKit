@@ -32,7 +32,7 @@ public struct BasicSelectionOption: SelectionItem {
 }
 
 public struct MultipleSelectField: EditableField {
-    public var fieldOptions: FieldOptions = []
+    public var options: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String
     private(set) public var allItems: [SelectionItem]
@@ -59,6 +59,14 @@ public struct MultipleSelectField: EditableField {
     public init(key: String, label: String, allItems: [SelectionItem], selectedItems: [SelectionItem] = []) {
         self.key = key
         self.label = label
+        self.allItems = allItems
+        self.selectedItems = selectedItems
+    }
+    
+    public init(provider: FieldProvider, allItems: [SelectionItem], selectedItems: [SelectionItem] = []) {
+        self.key = provider.key
+        self.label = provider.label
+        self.options = provider.options
         self.allItems = allItems
         self.selectedItems = selectedItems
     }
@@ -92,7 +100,7 @@ public struct MultipleSelectField: EditableField {
 }
 
 public struct SingleSelectField: EditableField {
-    public var fieldOptions: FieldOptions = []
+    public var options: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String
     private(set) public var allItems: [SelectionItem]
@@ -115,6 +123,14 @@ public struct SingleSelectField: EditableField {
     public init(key: String, label: String, allItems: [SelectionItem], selectedItem: SelectionItem? = nil) {
         self.key = key
         self.label = label
+        self.allItems = allItems
+        self.selectedItem = selectedItem
+    }
+    
+    public init(provider: FieldProvider, allItems: [SelectionItem], selectedItem: SelectionItem?) {
+        self.key = provider.key
+        self.label = provider.label
+        self.options = provider.options
         self.allItems = allItems
         self.selectedItem = selectedItem
     }

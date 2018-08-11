@@ -8,38 +8,38 @@
 
 import UIKit
 
-public protocol SingleSelectFieldCell: FormFieldCell {
+public protocol SingleSelectFieldCell: FormFieldCellProvider {
     func configure(with field: SingleSelectField)
 }
 
-class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldCell {
+open class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldCell {
     
-    lazy var label: UILabel = {
+    public lazy var label: UILabel = {
         let label = UILabel()
         label.configure(with: Style.current.label)
         label.numberOfLines = 0
         return label
     }()
     
-    lazy var subtitleLabel: UILabel = {
+    public lazy var subtitleLabel: UILabel = {
         let subtitleLabel = UILabel()
         subtitleLabel.configure(with: Style.current.value)
         subtitleLabel.textAlignment = .right
         return subtitleLabel
     }()
     
-    private(set) var field: EditableField?
+    public private(set) var field: EditableField?
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with field: SingleSelectField) {
+    open func configure(with field: SingleSelectField) {
         self.field = field
         label.text = field.label
         accessoryType = .disclosureIndicator

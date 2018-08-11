@@ -8,26 +8,26 @@
 
 import UIKit
 
-public protocol BoolFieldCell: FormFieldCell {
+public protocol BoolFieldCell: FormFieldCellProvider {
     func configure(with field: BoolField)
 }
 
-class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCell {
+open class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCell {
     
-    lazy var label: UILabel = {
+    public lazy var label: UILabel = {
         let label = UILabel()
         label.configure(with: Style.current.label)
         label.numberOfLines = 0
         return label
     }()
     
-    var onSwitch: UISwitch = {
+    public var onSwitch: UISwitch = {
         let onSwitch = UISwitch()
         onSwitch.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
         return onSwitch
     }()
     
-    var boolField: BoolField?
+    public private(set) var boolField: BoolField?
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -37,6 +37,13 @@ class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCell {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    open func configure(with field: BoolField) {
+        self.boolField = field
+        label.text = field.label
+        onSwitch.isOn = field.isChecked ?? false
+        onSwitch.isEnabled = field.isEnabled
+    }
 
     @objc private func switchValueChanged(_ sender: UISwitch) {
         boolField?.isChecked = sender.isOn
@@ -44,13 +51,6 @@ class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCell {
         if let field = self.boolField, let indexPath = self.indexPath {
             delegate?.valueChanged(for: field, at: indexPath)
         }
-    }
-    
-    func configure(with field: BoolField) {
-        self.boolField = field
-        label.text = field.label
-        onSwitch.isOn = field.isChecked ?? false
-        onSwitch.isEnabled = field.isEnabled
     }
     
     private func setupLayout() {

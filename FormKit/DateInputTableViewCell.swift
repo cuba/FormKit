@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-public protocol DateFieldCell: FormFieldCell {
+public protocol DateFieldCellProvider: FormFieldCellProvider {
     func configure(with dateField: DateField)
 }
 
-class DateInputTableViewCell: InputTableViewCell, DateFieldCell {
+open class DateInputTableViewCell: InputTableViewCell, DateFieldCellProvider {
     
-    private(set) var dateField: DateField?
+    public private(set) var dateField: DateField?
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -31,7 +31,7 @@ class DateInputTableViewCell: InputTableViewCell, DateFieldCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with field: DateField) {
+    open func configure(with field: DateField) {
         self.dateField = field
         label.text = field.label
         textField.text = field.value
@@ -82,7 +82,7 @@ extension DateInputTableViewCell: DateInputAccessoryViewDelegate {
 }
 
 extension DateInputTableViewCell: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if string.count <= 1 {
             return false
         } else {
@@ -90,7 +90,7 @@ extension DateInputTableViewCell: UITextFieldDelegate {
         }
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    public func textFieldDidEndEditing(_ textField: UITextField) {
         if let field = dateField, let indexPath = self.indexPath {
             delegate?.valueChanged(for: field, at: indexPath)
         }

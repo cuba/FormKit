@@ -14,7 +14,7 @@ public enum NumberFieldType {
 }
 
 public struct NumberField: TextInputField {
-    public var fieldOptions: FieldOptions = []
+    public var options: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String
     
@@ -57,6 +57,26 @@ public struct NumberField: TextInputField {
     
     public init(key: String, label: String, amount: Int? = nil) {
         self.init(key: key, label: label, type: .integer)
+        
+        if let amount = amount {
+            self.amount = Double(amount)
+        }
+    }
+    
+    init(provider: FieldProvider, type: NumberFieldType) {
+        self.key = provider.key
+        self.label = provider.label
+        self.options = provider.options
+        self.type = type
+    }
+    
+    init(provider: FieldProvider, amount: Double?) {
+        self.init(provider: provider, type: .decimal)
+        self.amount = amount
+    }
+    
+    init(provider: FieldProvider, amount: Int?) {
+        self.init(provider: provider, type: .integer)
         
         if let amount = amount {
             self.amount = Double(amount)

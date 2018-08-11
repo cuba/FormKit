@@ -9,38 +9,38 @@
 import Foundation
 import UIKit
 
-public protocol TextAreaFieldCell: FormFieldCell {
+public protocol TextAreaFieldCellProvider: FormFieldCellProvider {
     func configure(with field: TextAreaField)
 }
 
-class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCell {
+open class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCellProvider {
     
-    lazy var label: UILabel = {
+    public lazy var label: UILabel = {
         let label = UILabel()
         label.configure(with: Style.current.label)
         label.numberOfLines = 0
         return label
     }()
     
-    lazy var valueLabel: UILabel = {
+    public lazy var valueLabel: UILabel = {
         let valueLabel = UILabel()
         valueLabel.configure(with: Style.current.value)
         valueLabel.numberOfLines = 0
         return valueLabel
     }()
     
-    private(set) var field: EditableField?
+    public private(set) var field: EditableField?
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with field: MultipleSelectField){
+    open func configure(with field: MultipleSelectField){
         configure(with: field as EditableField)
         
         if let value = field.value, !value.isEmpty {
@@ -57,7 +57,7 @@ class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCell {
         }
     }
     
-    func configure(with field: TextAreaField) {
+    open func configure(with field: TextAreaField) {
         configure(with: field as EditableField)
         
         if let value = field.value, !value.isEmpty {

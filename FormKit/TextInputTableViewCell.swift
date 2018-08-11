@@ -14,14 +14,14 @@ public protocol TextInputTableViewDelegate: class {
     func textFieldDidEndEditing(_ textField: UITextField, for cell: TextInputTableViewCell)
 }
 
-public protocol TextInputFieldCell: FormFieldCell {
+public protocol TextInputFieldCellProvider: FormFieldCellProvider {
     var textInputCellDelegate: TextInputTableViewDelegate? { get set }
     
     func configure(with field: StringField)
     func configure(with field: NumberField)
 }
 
-public class TextInputTableViewCell: InputTableViewCell, TextInputFieldCell {
+open class TextInputTableViewCell: InputTableViewCell, TextInputFieldCellProvider {
     private(set) var inputField: TextInputField?
     weak public var textInputCellDelegate: TextInputTableViewDelegate?
     

@@ -51,17 +51,17 @@ public protocol FieldMappable {
 
 public protocol EditableField: FormRow {
     var label: String { get }
-    var fieldOptions: FieldOptions { get }
+    var options: FieldOptions { get }
     var saveValue: Any? { get }
 }
 
 public extension EditableField {
     public var isRequired: Bool {
-        return fieldOptions.contains(.required)
+        return options.contains(.required)
     }
     
     public var isEnabled: Bool {
-        return !fieldOptions.contains(.disabled)
+        return !options.contains(.disabled)
     }
     
     public func value<T>(_ provider: FieldProvider) -> T? {

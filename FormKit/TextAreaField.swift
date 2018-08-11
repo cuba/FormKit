@@ -9,7 +9,7 @@
 import Foundation
 
 public struct TextAreaField: TextInputField {
-    public var fieldOptions: FieldOptions = []
+    public var options: FieldOptions = []
     
     private(set) public var key: String
     private(set) public var label: String

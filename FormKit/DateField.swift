@@ -15,7 +15,7 @@ public enum DateFieldType {
 }
 
 public struct DateField: InputField {
-    public var fieldOptions: FieldOptions = []
+    public var options: FieldOptions = []
     
     private(set) public var key: String
     private(set) public var label: String
@@ -68,10 +68,18 @@ public struct DateField: InputField {
         }
     }
     
-    public init(key: String, label: String, date: Date? = nil, fieldOptions: FieldOptions = []) {
+    public init(key: String, label: String, date: Date? = nil, options: FieldOptions = []) {
         self.key = key
         self.label = label
         self.date = date
-        self.fieldOptions = fieldOptions
+        self.options = options
+    }
+    
+    init(provider: FieldProvider, type: DateFieldType, date: Date?) {
+        self.key = provider.key
+        self.label = provider.label
+        self.options = provider.options
+        self.type = type
+        self.date = date
     }
 }

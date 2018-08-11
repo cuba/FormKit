@@ -9,26 +9,40 @@
 import Foundation
 
 open class InputTableViewCell: FormFieldTableViewCell {
-    lazy var label: UILabel = {
+    public lazy var label: UILabel = {
         let label = UILabel()
         label.configure(with: Style.current.label)
         label.numberOfLines = 0
         return label
     }()
     
-    lazy var textField: UITextField = {
+    public lazy var textField: UITextField = {
         let textField = UITextField()
         textField.configure(with: Style.current.value)
         return textField
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    open func configure(with field: InputField) {
+        label.text = field.label
+        textField.isEnabled = field.isEnabled
+        textField.text = field.value
+        
+        if field.isRequired {
+            textField.placeholder = "Label.Required".localized().uppercased()
+        } else {
+            textField.placeholder = "Label.Optional".localized().uppercased()
+        }
+        
+        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor: Style.current.placeholder.color])
     }
     
     private func setupLayout() {
@@ -48,19 +62,5 @@ open class InputTableViewCell: FormFieldTableViewCell {
         
         contentView.bottomAnchor.constraint(greaterThanOrEqualTo: textField.bottomAnchor, constant: 8).isActive = true
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
-    }
-    
-    func configure(with field: InputField) {
-        label.text = field.label
-        textField.isEnabled = field.isEnabled
-        textField.text = field.value
-        
-        if field.isRequired {
-            textField.placeholder = "Label.Required".localized().uppercased()
-        } else {
-            textField.placeholder = "Label.Optional".localized().uppercased()
-        }
-        
-        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor: Style.current.placeholder.color])
     }
 }

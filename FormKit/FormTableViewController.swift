@@ -63,45 +63,45 @@ open class FormTableViewController: BaseTableViewController, FieldDelegate {
     
     // Mark: - Providers
     
-    open func cell(for stringField: StringField, at indexPath: IndexPath) -> FormFieldCell {
-        var cell = Cell.input.dequeCell(for: tableView, at: indexPath) as! TextInputFieldCell
+    open func cell(for stringField: StringField, at indexPath: IndexPath) -> FormFieldCellProvider {
+        var cell = Cell.input.dequeCell(for: tableView, at: indexPath) as! TextInputFieldCellProvider
         cell.textInputCellDelegate = self
         cell.configure(with: stringField)
         return cell
     }
     
-    open func cell(for numberField: NumberField, at indexPath: IndexPath) -> FormFieldCell {
-        var cell = Cell.input.dequeCell(for: tableView, at: indexPath) as! TextInputFieldCell
+    open func cell(for numberField: NumberField, at indexPath: IndexPath) -> FormFieldCellProvider {
+        var cell = Cell.input.dequeCell(for: tableView, at: indexPath) as! TextInputFieldCellProvider
         cell.textInputCellDelegate = self
         cell.configure(with: numberField)
         return cell
     }
     
-    open func cell(for boolField: BoolField, at indexPath: IndexPath) -> FormFieldCell {
+    open func cell(for boolField: BoolField, at indexPath: IndexPath) -> FormFieldCellProvider {
         let cell = Cell.switch.dequeCell(for: tableView, at: indexPath) as! BoolFieldCell
         cell.configure(with: boolField)
         return cell
     }
     
-    open func cell(for dateField: DateField, at indexPath: IndexPath) -> FormFieldCell {
-        let cell = Cell.date.dequeCell(for: tableView, at: indexPath) as! DateFieldCell
+    open func cell(for dateField: DateField, at indexPath: IndexPath) -> FormFieldCellProvider {
+        let cell = Cell.date.dequeCell(for: tableView, at: indexPath) as! DateFieldCellProvider
         cell.configure(with: dateField)
         return cell
     }
     
-    open func cell(for selectField: SingleSelectField, at indexPath: IndexPath) -> FormFieldCell {
+    open func cell(for selectField: SingleSelectField, at indexPath: IndexPath) -> FormFieldCellProvider {
         let cell = Cell.select.dequeCell(for: tableView, at: indexPath) as! SingleSelectFieldCell
         cell.configure(with: selectField)
         return cell
     }
     
-    open func cell(for selectField: MultipleSelectField, at indexPath: IndexPath) -> FormFieldCell {
+    open func cell(for selectField: MultipleSelectField, at indexPath: IndexPath) -> FormFieldCellProvider {
         let cell = Cell.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
         cell.configure(with: selectField)
         return cell
     }
     
-    open func cell(for textAreaField: TextAreaField, at indexPath: IndexPath) -> FormFieldCell {
+    open func cell(for textAreaField: TextAreaField, at indexPath: IndexPath) -> FormFieldCellProvider {
         let cell = Cell.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
         cell.configure(with: textAreaField)
         return cell
@@ -184,7 +184,7 @@ extension FormTableViewController {
     }
     
     private func cell(for row: FormRow, at indexPath: IndexPath) -> UITableViewCell {
-        var cell: FormFieldCell? = nil
+        var cell: FormFieldCellProvider? = nil
         
         switch row {
         case let field as DateField:

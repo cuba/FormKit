@@ -14,7 +14,7 @@ public enum StringFieldType {
 }
 
 public struct StringField: TextInputField {
-    public var fieldOptions: FieldOptions = []
+    public var options: FieldOptions = []
     
     private(set) public var key: String
     private(set) public var label: String
@@ -29,6 +29,14 @@ public struct StringField: TextInputField {
     public init(key: String, label: String, type: StringFieldType = .text, value: String? = nil) {
         self.key = key
         self.label = label
+        self.type = type
+        self.value = value
+    }
+    
+    public init(provider: FieldProvider, type: StringFieldType, value: String?) {
+        self.key = provider.key
+        self.label = provider.label
+        self.options = provider.options
         self.type = type
         self.value = value
     }
