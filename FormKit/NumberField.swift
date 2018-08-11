@@ -63,7 +63,7 @@ public struct NumberField: TextInputField {
         }
     }
     
-    init(provider: FieldProvider, type: NumberFieldType) {
+    public init(provider: FieldProvider, type: NumberFieldType) {
         self.key = provider.key
         self.label = provider.label
         self.options = provider.options

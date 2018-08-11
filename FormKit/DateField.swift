@@ -75,7 +75,7 @@ public struct DateField: InputField {
         self.options = options
     }
     
-    init(provider: FieldProvider, type: DateFieldType, date: Date?) {
+    public init(provider: FieldProvider, type: DateFieldType, date: Date?) {
         self.key = provider.key
         self.label = provider.label
         self.options = provider.options

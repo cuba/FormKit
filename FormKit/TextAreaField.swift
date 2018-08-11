@@ -26,6 +26,13 @@ public struct TextAreaField: TextInputField {
         self.value = value
     }
     
+    public init(provider: FieldProvider, value: String?) {
+        self.key = provider.key
+        self.label = provider.label
+        self.options = provider.options
+        self.value = value
+    }
+    
     public mutating func set(value: String?) {
         self.value = value
     }

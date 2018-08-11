@@ -26,7 +26,7 @@ public struct BoolField: EditableField {
         self.isChecked = isChecked
     }
     
-    init(provider: FieldProvider, isChecked: Bool?) {
+    public init(provider: FieldProvider, isChecked: Bool?) {
         self.key = provider.key
         self.label = provider.label
         self.options = provider.options
