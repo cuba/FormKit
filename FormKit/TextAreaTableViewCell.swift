@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 public protocol TextAreaFieldCellProvider: FormFieldCellProvider {
-    func configure(with field: TextAreaField)
+    func configure(with field: InputField)
+    func configure(with field: MultipleSelectField)
 }
 
 open class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCellProvider {
@@ -40,7 +41,7 @@ open class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCellProvi
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func configure(with field: MultipleSelectField){
+    open func configure(with field: MultipleSelectField) {
         configure(with: field as EditableField)
         
         if let value = field.value, !value.isEmpty {
@@ -57,7 +58,7 @@ open class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCellProvi
         }
     }
     
-    open func configure(with field: TextAreaField) {
+    open func configure(with field: InputField) {
         configure(with: field as EditableField)
         
         if let value = field.value, !value.isEmpty {

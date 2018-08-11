@@ -70,12 +70,12 @@ public struct NumberField: TextInputField {
         self.type = type
     }
     
-    init(provider: FieldProvider, amount: Double?) {
+    public init(provider: FieldProvider, amount: Double?) {
         self.init(provider: provider, type: .decimal)
         self.amount = amount
     }
     
-    init(provider: FieldProvider, amount: Int?) {
+    public init(provider: FieldProvider, amount: Int?) {
         self.init(provider: provider, type: .integer)
         
         if let amount = amount {
