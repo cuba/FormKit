@@ -19,15 +19,17 @@ public protocol SelectionItem {
     var isEnabled: Bool { get }
 }
 
-public struct BasicSelectionOption: SelectionItem {
+public struct BasicSelectionOption<T>: SelectionItem {
     public var key: String
     public var label: String
     public var isEnabled: Bool
+    public var object: T?
     
-    public init(key: String, label: String, isEnabled: Bool = true) {
+    public init(key: String, label: String, isEnabled: Bool = true, object: T? = nil) {
         self.key = key
         self.label = label
         self.isEnabled = isEnabled
+        self.object = object
     }
 }
 
