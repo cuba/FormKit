@@ -74,7 +74,7 @@ public protocol SavableField {
 }
 
 extension SavableField {
-    public func saveValue<T>(provider: FieldProvider) -> T? {
+    public func saveValue<T>(_ provider: FieldProvider) -> T? {
         return saveValue(key: provider.key)
     }
     
@@ -100,10 +100,10 @@ public func <-<T>(left: inout T, right: (String, SavableField)) {
 
 public func <-<T>(left: inout T?, right: (FieldProvider, SavableField)) {
     let field = right.1
-    left = field.saveValue(provider: right.0)
+    left = field.saveValue(right.0)
 }
 
 public func <-<T>(left: inout T, right: (FieldProvider, SavableField)) {
     let field = right.1
-    left = field.saveValue(provider: right.0) ?? left
+    left = field.saveValue(right.0) ?? left
 }
