@@ -74,11 +74,11 @@ public protocol SavableField {
 }
 
 extension SavableField {
-    func saveValue<T>(provider: FieldProvider) -> T? {
+    public func saveValue<T>(provider: FieldProvider) -> T? {
         return saveValue(key: provider.key)
     }
     
-    func saveValue<T>(key: String) -> T? {
+    public func saveValue<T>(key: String) -> T? {
         guard key == self.key else { return nil }
         return saveValue()
     }
@@ -89,34 +89,21 @@ public protocol FieldMappable {
 }
 
 public func <-<T>(left: inout T?, right: (String, SavableField)) {
-    let key = right.0
     let field = right.1
-    
-    if field.key == key {
-        left = field.saveValue()
-    }
+    left = field.saveValue(key: right.0)
 }
 
 public func <-<T>(left: inout T, right: (String, SavableField)) {
-    let key = right.0
     let field = right.1
-    guard field.key == key else { return }
-    
-    left = field.saveValue() ?? left
+    left = field.saveValue(key: right.0) ?? left
 }
 
 public func <-<T>(left: inout T?, right: (FieldProvider, SavableField)) {
-    let key = right.0.key
     let field = right.1
-    guard field.key == key else { return }
-    
-    left = field.saveValue()
+    left = field.saveValue(provider: right.0)
 }
 
 public func <-<T>(left: inout T, right: (FieldProvider, SavableField)) {
-    let key = right.0.key
     let field = right.1
-    guard field.key == key else { return }
-    
-    left = field.saveValue() ?? left
+    left = field.saveValue(provider: right.0) ?? left
 }
