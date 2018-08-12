@@ -87,6 +87,7 @@ open class FormTableViewController: BaseTableViewController {
     open func cell(for boolField: BoolField, at indexPath: IndexPath) -> BoolFieldCellProvider {
         let cell = Cell.switch.dequeCell(for: tableView, at: indexPath) as! SwitchTableViewCell
         cell.configure(with: boolField)
+        cell.delegate = self
         return cell
     }
     

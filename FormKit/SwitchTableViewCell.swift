@@ -28,7 +28,6 @@ open class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCellProvider {
     
     public var onSwitch: UISwitch = {
         let onSwitch = UISwitch()
-        onSwitch.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
         return onSwitch
     }()
     
@@ -59,6 +58,7 @@ open class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCellProvider {
     private func setupLayout() {
         contentView.addSubview(label)
         accessoryView = onSwitch
+        onSwitch.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
         
         label.translatesAutoresizingMaskIntoConstraints = false
 
