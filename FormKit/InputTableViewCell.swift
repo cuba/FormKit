@@ -60,7 +60,7 @@ open class InputTableViewCell: FormFieldTableViewCell {
         textField.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
         textField.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
         
-        contentView.bottomAnchor.constraint(greaterThanOrEqualTo: textField.bottomAnchor, constant: 8).isActive = true
+        contentView.bottomAnchor.constraint(greaterThanOrEqualTo: textField.bottomAnchor, constant: 15).isActive = true
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
 }

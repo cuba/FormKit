@@ -73,8 +73,8 @@ class SignatureTableViewCell: FormFieldTableViewCell, SignatureFieldCellProvider
         
         signatureImageView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor).isActive = true
         signatureImageView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor).isActive = true
-        signatureImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: signatureImageView.bottomAnchor, constant: 0).isActive = true
+        signatureImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: signatureImageView.bottomAnchor, constant: 8).isActive = true
         
         label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
         label.leadingAnchor.constraint(equalTo: signatureImageView.leadingAnchor).isActive = true

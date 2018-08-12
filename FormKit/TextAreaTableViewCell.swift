@@ -99,7 +99,7 @@ open class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCellProvi
         valueLabel.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
         valueLabel.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
         
-        contentView.bottomAnchor.constraint(greaterThanOrEqualTo: valueLabel.bottomAnchor, constant: 8).isActive = true
+        contentView.bottomAnchor.constraint(greaterThanOrEqualTo: valueLabel.bottomAnchor, constant: 15).isActive = true
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
 }
