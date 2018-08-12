@@ -152,9 +152,8 @@ class ViewController: FormTableViewController {
 }
 
 extension ViewController: FormDelegate {
-    func updatedField(_ field: EditableField, at indexPath: IndexPath) {
+    func updatedField(_ field: SavableField, at indexPath: IndexPath) {
         // Handle any mapping to your model
-        guard let field = field as? SavableField else { return }
         example.map(field: field)
     }
     

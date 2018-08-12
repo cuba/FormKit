@@ -11,7 +11,7 @@ import UIKit
 
 public protocol FormDelegate: class {
     func performAction(forCustomRow row: FormRow, at indexPath: IndexPath)
-    func updatedField(_ field: EditableField, at indexPath: IndexPath)
+    func updatedField(_ field: SavableField, at indexPath: IndexPath)
 }
 
 public protocol FormDataSource: class {
@@ -54,7 +54,9 @@ open class FormTableViewController: BaseTableViewController {
             self.tableView.reloadRows(at: [indexPath], with: .none)
         }
         
-        formDelegate?.updatedField(field, at: indexPath)
+        if let field = field as? SavableField {
+            formDelegate?.updatedField(field, at: indexPath)
+        }
     }
     
     public func dismissKeyboard() {
