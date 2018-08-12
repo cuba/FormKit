@@ -60,7 +60,7 @@ open class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCellProvi
         configure(with: field as EditableField, value: field.value)
     }
     
-    private func configure(with field: EditableField, value: String?) {
+    open func configure(with field: EditableField, value: String?) {
         self.field = field
         label.text = field.label
         
