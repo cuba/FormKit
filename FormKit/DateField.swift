@@ -14,7 +14,7 @@ public enum DateFieldType {
     case dateTime
 }
 
-public struct DateField: InputField {
+public struct DateField: InputField, SavableField {
     public var options: FieldOptions = []
     
     private(set) public var key: String
@@ -44,8 +44,8 @@ public struct DateField: InputField {
     public var date: Date?
     public var type: DateFieldType = .date
     
-    public var saveValue: Any? {
-        return date
+    public func saveValue<T>() -> T? {
+        return date as? T
     }
     
     public var formatter: DateFormatter {

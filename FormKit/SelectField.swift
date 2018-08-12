@@ -17,6 +17,7 @@ public protocol SelectionItem {
     var key: String { get }
     var label: String { get }
     var isEnabled: Bool { get }
+    var saveValue: Any? { get }
 }
 
 public struct BasicSelectionOption<T>: SelectionItem {
@@ -24,6 +25,10 @@ public struct BasicSelectionOption<T>: SelectionItem {
     public var label: String
     public var isEnabled: Bool
     public var object: T?
+    
+    public var saveValue: Any? {
+        return object
+    }
     
     public init(key: String, label: String, isEnabled: Bool = true, object: T? = nil) {
         self.key = key
@@ -33,7 +38,7 @@ public struct BasicSelectionOption<T>: SelectionItem {
     }
 }
 
-public struct MultipleSelectField: EditableField {
+public struct MultipleSelectField: EditableField, SavableField {
     public var options: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String
@@ -51,9 +56,9 @@ public struct MultipleSelectField: EditableField {
     public var value: String? {
         return selectedItems.map({ $0.label }).joined(separator: ", ")
     }
-    
-    public var saveValue: Any? {
-        return selectedItems
+
+    public func saveValue<T>() -> T? {
+        return selectedItems.map({ $0.saveValue }) as? T
     }
     
     public init(key: String, label: String, allItems: [SelectionItem], selectedItems: [SelectionItem] = []) {
@@ -99,7 +104,7 @@ public struct MultipleSelectField: EditableField {
     }
 }
 
-public struct SingleSelectField: EditableField {
+public struct SingleSelectField: EditableField, SavableField {
     public var options: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String
@@ -116,8 +121,8 @@ public struct SingleSelectField: EditableField {
         return selectedItem?.label
     }
     
-    public var saveValue: Any? {
-        return selectedItem
+    public func saveValue<T>() -> T? {
+        return selectedItem?.saveValue as? T
     }
     
     public init(key: String, label: String, allItems: [SelectionItem], selectedItem: SelectionItem? = nil, isClearable: Bool = true) {

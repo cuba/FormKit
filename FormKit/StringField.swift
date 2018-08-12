@@ -13,7 +13,8 @@ public enum StringFieldType {
     case password
 }
 
-public struct StringField: TextInputField {
+public struct StringField: TextInputField, SavableField {
+    
     public var options: FieldOptions = []
     
     private(set) public var key: String
@@ -22,8 +23,8 @@ public struct StringField: TextInputField {
     public var type = StringFieldType.text
     public var value: String?
     
-    public var saveValue: Any? {
-        return value
+    public func saveValue<T>() -> T? {
+        return value as? T
     }
     
     public init(key: String, label: String, type: StringFieldType = .text, value: String? = nil) {

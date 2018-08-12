@@ -8,16 +8,15 @@
 
 import Foundation
 
-public struct TextAreaField: TextInputField {
+public struct TextAreaField: TextInputField, SavableField {
     public var options: FieldOptions = []
     
     private(set) public var key: String
     private(set) public var label: String
-    
     public var value: String?
-    
-    public var saveValue: Any? {
-        return value
+
+    public func saveValue<T>() -> T? {
+        return value as? T
     }
     
     public init(key: String, label: String, value: String? = nil) {

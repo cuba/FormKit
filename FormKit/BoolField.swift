@@ -8,16 +8,15 @@
 
 import Foundation
 
-public struct BoolField: EditableField {
+public struct BoolField: EditableField, SavableField {
     public var options: FieldOptions = []
     
     private(set) public var key: String
     private(set) public var label: String
-    
     public var isChecked: Bool?
     
-    public var saveValue: Any? {
-        return isChecked
+    public func saveValue<T>() -> T? {
+        return isChecked as? T
     }
     
     public init(key: String, label: String, isChecked: Bool? = nil) {

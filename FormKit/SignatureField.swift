@@ -8,14 +8,14 @@
 
 import Foundation
 
-public struct SignatureField: EditableField {
+public struct SignatureField: EditableField, SavableField {
     public var options: FieldOptions = []
     public var key: String
     public var label: String
     public var image: CGImage?
     
-    public var saveValue: Any? {
-        return image
+    public func saveValue<T>() -> T? {
+        return image as? T
     }
     
     public init(key: String, label: String, image: CGImage? = nil) {

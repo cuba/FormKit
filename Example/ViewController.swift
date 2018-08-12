@@ -11,6 +11,7 @@ import FormKit
 
 enum SelectionOption: String, SelectionItem {
     static let all: [SelectionOption] = [.first, .second, .third, .fourth]
+    
     case first  = "first"
     case second = "second"
     case third  = "third"
@@ -31,6 +32,10 @@ enum SelectionOption: String, SelectionItem {
     
     var isEnabled: Bool {
         return true
+    }
+    
+    var saveValue: Any? {
+        return self
     }
 }
 
@@ -91,7 +96,7 @@ struct Example: FieldMappable {
     
     init() {}
     
-    mutating func map(field: EditableField) {
+    mutating func map(field: SavableField) {
         title           <- (ExampleFieldProvider.title, field)
         password        <- (ExampleFieldProvider.password, field)
         description     <- (ExampleFieldProvider.description, field)
@@ -149,6 +154,7 @@ class ViewController: FormTableViewController {
 extension ViewController: FormDelegate {
     func updatedField(_ field: EditableField, at indexPath: IndexPath) {
         // Handle any mapping to your model
+        guard let field = field as? SavableField else { return }
         example.map(field: field)
     }
     

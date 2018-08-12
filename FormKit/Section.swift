@@ -45,14 +45,9 @@ public protocol FormRow {
     var key: String { get }
 }
 
-public protocol FieldMappable {
-    mutating func map(field: EditableField)
-}
-
 public protocol EditableField: FormRow {
     var label: String { get }
     var options: FieldOptions { get }
-    var saveValue: Any? { get }
 }
 
 public extension EditableField {
@@ -62,14 +57,6 @@ public extension EditableField {
     
     public var isEnabled: Bool {
         return !options.contains(.disabled)
-    }
-    
-    public func value<T>(_ provider: FieldProvider) -> T? {
-        if self.key == provider.key {
-            return saveValue as? T
-        } else {
-            return nil
-        }
     }
 }
 
@@ -81,38 +68,47 @@ public protocol TextInputField: InputField {
     mutating func set(value: String?)
 }
 
-public func <-<T>(left: inout T?, right: (String, EditableField)) {
+public protocol SavableField {
+    var key: String { get }
+    func saveValue<T>() -> T?
+}
+
+public protocol FieldMappable {
+    mutating func map(field: SavableField)
+}
+
+public func <-<T>(left: inout T?, right: (String, SavableField)) {
     let key = right.0
     let field = right.1
     
     if field.key == key {
-        left = field.saveValue as? T
+        left = field.saveValue()
     }
 }
 
-public func <-<T>(left: inout T, right: (String, EditableField)) {
+public func <-<T>(left: inout T, right: (String, SavableField)) {
     let key = right.0
     let field = right.1
     
     if field.key == key {
-        left = field.saveValue as? T ?? left
+        left = field.saveValue() ?? left
     }
 }
 
-public func <-<T>(left: inout T?, right: (FieldProvider, EditableField)) {
+public func <-<T>(left: inout T?, right: (FieldProvider, SavableField)) {
     let key = right.0.key
     let field = right.1
     
     if field.key == key {
-        left = field.saveValue as? T
+        left = field.saveValue()
     }
 }
 
-public func <-<T>(left: inout T, right: (FieldProvider, EditableField)) {
+public func <-<T>(left: inout T, right: (FieldProvider, SavableField)) {
     let key = right.0.key
     let field = right.1
     
     if field.key == key {
-        left = field.saveValue as? T ?? left
+        left = field.saveValue() ?? left
     }
 }

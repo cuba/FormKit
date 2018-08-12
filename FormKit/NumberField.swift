@@ -13,7 +13,7 @@ public enum NumberFieldType {
     case decimal
 }
 
-public struct NumberField: TextInputField {
+public struct NumberField: TextInputField, SavableField {
     public var options: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String
@@ -37,10 +37,10 @@ public struct NumberField: TextInputField {
         }
     }
     
-    public var saveValue: Any? {
+    public func saveValue<T>() -> T? {
         switch type {
-        case .integer: return integerAmount
-        case .decimal: return amount
+        case .integer: return integerAmount as? T
+        case .decimal: return amount as? T
         }
     }
     
