@@ -12,11 +12,11 @@ protocol SwitchTableViewCellDelegate: class {
     func switchTableViewCell(_ cell: SwitchTableViewCell, didUpdateField field: BoolField)
 }
 
-public protocol BoolFieldCell: FormFieldCellProvider {
+public protocol BoolFieldCellProvider: FormFieldCellProvider {
     func configure(with field: BoolField)
 }
 
-open class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCell {
+open class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCellProvider {
     weak var delegate: SwitchTableViewCellDelegate?
     
     public lazy var label: UILabel = {

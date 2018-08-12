@@ -10,11 +10,18 @@ import Foundation
 import UIKit
 
 public protocol TextAreaFieldCellProvider: FormFieldCellProvider {
-    func configure(with field: InputField)
+    func configure(with field: TextAreaField)
+}
+
+public protocol MultipleSelectFieldCellProvider: FormFieldCellProvider {
     func configure(with field: MultipleSelectField)
 }
 
-open class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCellProvider {
+public protocol InputFieldCellProvider: FormFieldCellProvider {
+    func configure(with field: TextAreaField)
+}
+
+open class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCellProvider, MultipleSelectFieldCellProvider, InputFieldCellProvider {
     
     public lazy var label: UILabel = {
         let label = UILabel()
@@ -42,26 +49,22 @@ open class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCellProvi
     }
     
     open func configure(with field: MultipleSelectField) {
-        configure(with: field as EditableField)
-        
-        if let value = field.value, !value.isEmpty {
-            valueLabel.configure(with: Style.current.value)
-            valueLabel.text = value.trim()
-        } else {
-            valueLabel.configure(with: Style.current.placeholder)
-            
-            if field.isRequired {
-                valueLabel.text = "Label.Required".localized().uppercased()
-            } else {
-                valueLabel.text = "Label.Optional".localized().uppercased()
-            }
-        }
+        configure(with: field as EditableField, value: field.value)
+    }
+    
+    open func configure(with field: TextAreaField) {
+        configure(with: field as EditableField, value: field.value)
     }
     
     open func configure(with field: InputField) {
-        configure(with: field as EditableField)
+        configure(with: field as EditableField, value: field.value)
+    }
+    
+    private func configure(with field: EditableField, value: String?) {
+        self.field = field
+        label.text = field.label
         
-        if let value = field.value, !value.isEmpty {
+        if let value = value, !value.isEmpty {
             valueLabel.configure(with: Style.current.value)
             valueLabel.text = value.trim()
         } else {
@@ -73,12 +76,12 @@ open class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCellProvi
                 valueLabel.text = "Label.Optional".localized().uppercased()
             }
         }
-    }
-    
-    private func configure(with field: EditableField) {
-        self.field = field
-        label.text = field.label
-        accessoryType = .disclosureIndicator
+        
+        if field.isEnabled {
+            accessoryType = .disclosureIndicator
+        } else {
+            accessoryType = .none
+        }
     }
     
     private func setupLayout() {

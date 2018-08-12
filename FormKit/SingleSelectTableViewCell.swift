@@ -8,11 +8,11 @@
 
 import UIKit
 
-public protocol SingleSelectFieldCell: FormFieldCellProvider {
+public protocol SingleSelectFieldCellProvider: FormFieldCellProvider {
     func configure(with field: SingleSelectField)
 }
 
-open class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldCell {
+open class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldCellProvider {
     
     public lazy var label: UILabel = {
         let label = UILabel()
@@ -39,7 +39,6 @@ open class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldC
     
     open func configure(with field: SingleSelectField) {
         label.text = field.label
-        accessoryType = .disclosureIndicator
         
         if let value = field.value {
             subtitleLabel.configure(with: Style.current.value)
@@ -52,6 +51,12 @@ open class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldC
             } else {
                 subtitleLabel.text = "Label.Optional".localized().uppercased()
             }
+        }
+        
+        if field.isEnabled {
+            accessoryType = .disclosureIndicator
+        } else {
+            accessoryType = .none
         }
     }
     

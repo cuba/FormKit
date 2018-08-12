@@ -47,6 +47,7 @@ enum ExampleFieldProvider: String, FieldProvider {
     case selectMultiple     = "selectMultiple"
     case age                = "age"
     case amount             = "amount"
+    case signature          = "signature"
     
     var key: String {
         return rawValue
@@ -65,6 +66,7 @@ enum ExampleFieldProvider: String, FieldProvider {
         case .selectMultiple    : return "Select multiple"
         case .age               : return "Age (Years)"
         case .amount            : return "Amount"
+        case .signature         : return "Click to enter your signature"
         }
     }
     
@@ -85,6 +87,7 @@ struct Example: FieldMappable {
     var selectMultiple: [SelectionOption] = []
     var age: Int?
     var amount: Double?
+    var signature: CGImage?
     
     init() {}
     
@@ -100,6 +103,7 @@ struct Example: FieldMappable {
         selectMultiple  <- (ExampleFieldProvider.selectMultiple, field)
         age             <- (ExampleFieldProvider.age, field)
         amount          <- (ExampleFieldProvider.amount, field)
+        signature       <- (ExampleFieldProvider.signature, field)
     }
 }
 
@@ -136,6 +140,7 @@ class ViewController: FormTableViewController {
                 MultipleSelectField(provider: ExampleFieldProvider.selectMultiple, allItems: SelectionOption.all, selectedItems: example.selectMultiple),
                 NumberField(provider: ExampleFieldProvider.age, amount: example.age),
                 NumberField(provider: ExampleFieldProvider.amount, amount: example.amount),
+                SignatureField(provider: ExampleFieldProvider.signature, image: example.signature)
                 ]
             )
         ]

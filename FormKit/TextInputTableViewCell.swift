@@ -18,12 +18,15 @@ public protocol TextInputTableViewDelegate: class {
     func textFieldDidEndEditing(_ textField: UITextField, for cell: TextInputTableViewCell)
 }
 
-public protocol TextInputFieldCellProvider: FormFieldCellProvider {
+public protocol StringFieldCellProvider: FormFieldCellProvider {
     func configure(with field: StringField)
+}
+
+public protocol NumberFieldCellProvider: FormFieldCellProvider {
     func configure(with field: NumberField)
 }
 
-open class TextInputTableViewCell: InputTableViewCell, TextInputFieldCellProvider {
+open class TextInputTableViewCell: InputTableViewCell, StringFieldCellProvider, NumberFieldCellProvider {
     weak var textInputCellDelegate: TextInputTableViewDelegate?
     weak var delegate: TextInputTableViewCellDelegate?
     private(set) var inputField: TextInputField?

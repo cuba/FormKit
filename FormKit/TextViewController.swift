@@ -1,5 +1,5 @@
 //
-//  TextViewController.swift
+//  EditTextAreaFieldViewController.swift
 //  FormKit
 //
 //  Created by Jacob Sikorski on 2018-08-08.
@@ -10,11 +10,11 @@ import Foundation
 
 import UIKit
 
-protocol TextViewControllerDelegate {
-    func textViewController(_ textViewController: TextViewController, didUpdateField field: TextAreaField, at indexPath: IndexPath)
+protocol EditTextAreaFieldViewControllerDelegate {
+    func textViewController(_ textViewController: EditTextAreaFieldViewController, didUpdateField textAreaField: TextAreaField)
 }
 
-class TextViewController: UIViewController {
+class EditTextAreaFieldViewController: UIViewController {
     lazy var textView: UITextView = {
         let textView = UITextView(frame: CGRect.zero)
         textView.text = field.value
@@ -24,8 +24,7 @@ class TextViewController: UIViewController {
     }()
     
     var field: TextAreaField
-    var indexPath: IndexPath?
-    var delegate: TextViewControllerDelegate?
+    var delegate: EditTextAreaFieldViewControllerDelegate?
     
     init(field: TextAreaField) {
         self.field = field
@@ -49,6 +48,11 @@ class TextViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.textView.becomeFirstResponder()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        textView.resignFirstResponder()
     }
     
     private func setupLayout() {
@@ -78,14 +82,13 @@ class TextViewController: UIViewController {
     }
 }
 
-extension TextViewController: UITextViewDelegate {
+extension EditTextAreaFieldViewController: UITextViewDelegate {
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         return true
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         field.value = textView.text
-        guard let indexPath = self.indexPath else { return }
-        delegate?.textViewController(self, didUpdateField: field, at: indexPath)
+        delegate?.textViewController(self, didUpdateField: field)
     }
 }

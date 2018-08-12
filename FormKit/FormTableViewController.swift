@@ -68,7 +68,7 @@ open class FormTableViewController: BaseTableViewController {
     
     // Mark: - Providers
     
-    open func cell(for stringField: StringField, at indexPath: IndexPath) -> FormFieldCellProvider {
+    open func cell(for stringField: StringField, at indexPath: IndexPath) -> StringFieldCellProvider {
         let cell = Cell.input.dequeCell(for: tableView, at: indexPath) as! TextInputTableViewCell
         cell.textInputCellDelegate = self
         cell.delegate = self
@@ -76,7 +76,7 @@ open class FormTableViewController: BaseTableViewController {
         return cell
     }
     
-    open func cell(for numberField: NumberField, at indexPath: IndexPath) -> FormFieldCellProvider {
+    open func cell(for numberField: NumberField, at indexPath: IndexPath) -> NumberFieldCellProvider {
         let cell = Cell.input.dequeCell(for: tableView, at: indexPath) as! TextInputTableViewCell
         cell.textInputCellDelegate = self
         cell.delegate = self
@@ -84,40 +84,47 @@ open class FormTableViewController: BaseTableViewController {
         return cell
     }
     
-    open func cell(for boolField: BoolField, at indexPath: IndexPath) -> FormFieldCellProvider {
+    open func cell(for boolField: BoolField, at indexPath: IndexPath) -> BoolFieldCellProvider {
         let cell = Cell.switch.dequeCell(for: tableView, at: indexPath) as! SwitchTableViewCell
         cell.configure(with: boolField)
         return cell
     }
     
-    open func cell(for dateField: DateField, at indexPath: IndexPath) -> FormFieldCellProvider {
+    open func cell(for dateField: DateField, at indexPath: IndexPath) -> DateFieldCellProvider {
         let cell = Cell.date.dequeCell(for: tableView, at: indexPath) as! DateInputTableViewCell
         cell.configure(with: dateField)
         cell.delegate = self
         return cell
     }
     
-    open func cell(for selectField: SingleSelectField, at indexPath: IndexPath) -> FormFieldCellProvider {
+    open func cell(for selectField: SingleSelectField, at indexPath: IndexPath) -> SingleSelectFieldCellProvider {
         let cell = Cell.select.dequeCell(for: tableView, at: indexPath) as! SingleSelectTableViewCell
         cell.configure(with: selectField)
         return cell
     }
     
-    open func cell(for selectField: MultipleSelectField, at indexPath: IndexPath) -> FormFieldCellProvider {
+    open func cell(for selectField: MultipleSelectField, at indexPath: IndexPath) -> MultipleSelectFieldCellProvider {
         let cell = Cell.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
         cell.configure(with: selectField)
         return cell
     }
     
-    open func cell(for textAreaField: TextAreaField, at indexPath: IndexPath) -> FormFieldCellProvider {
+    open func cell(for textAreaField: TextAreaField, at indexPath: IndexPath) -> TextAreaFieldCellProvider {
         let cell = Cell.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
         cell.configure(with: textAreaField)
+        return cell
+    }
+    
+    open func cell(for signatureField: SignatureField, at indexPath: IndexPath) -> SignatureFieldCellProvider {
+        let cell = Cell.signature.dequeCell(for: tableView, at: indexPath) as! SignatureTableViewCell
+        cell.configure(with: signatureField)
         return cell
     }
     
     // MARK: - Actions
     
     open func performAction(for stringField: StringField, at indexPath: IndexPath) {
+        guard stringField.isEnabled else { return }
         
         if let cell = tableView.cellForRow(at: indexPath) as? TextInputTableViewCell {
             cell.textField.becomeFirstResponder()
@@ -125,6 +132,7 @@ open class FormTableViewController: BaseTableViewController {
     }
     
     open func performAction(for numberField: NumberField, at indexPath: IndexPath) {
+        guard numberField.isEnabled else { return }
         
         if let cell = tableView.cellForRow(at: indexPath) as? TextInputTableViewCell {
             cell.textField.becomeFirstResponder()
@@ -132,6 +140,7 @@ open class FormTableViewController: BaseTableViewController {
     }
     
     open func performAction(for dateField: DateField, at indexPath: IndexPath) {
+        guard dateField.isEnabled else { return }
         
         if let cell = tableView.cellForRow(at: indexPath) as? DateInputTableViewCell {
             cell.textField.becomeFirstResponder()
@@ -139,6 +148,8 @@ open class FormTableViewController: BaseTableViewController {
     }
     
     open func performAction(for boolField: BoolField, at indexPath: IndexPath) {
+        guard boolField.isEnabled else { return }
+        
         guard let cell = tableView.cellForRow(at: indexPath) as? SwitchTableViewCell else { return }
         var boolField = boolField
         let value = !cell.onSwitch.isOn
@@ -148,21 +159,37 @@ open class FormTableViewController: BaseTableViewController {
         valueChanged(for: boolField, at: indexPath, reloadRow: false)
     }
     
-    open func performAction(for field: SingleSelectField, at indexPath: IndexPath) {
-        showOptions(for: field, at: indexPath)
+    open func performAction(for singleSelectField: SingleSelectField, at indexPath: IndexPath) {
+        guard singleSelectField.isEnabled else { return }
+        showOptions(for: singleSelectField, at: indexPath)
     }
     
-    open func performAction(for field: MultipleSelectField, at indexPath: IndexPath) {
-        let viewController = MultipleSelectionViewController(field: field)
+    open func performAction(for multipleSelectField: MultipleSelectField, at indexPath: IndexPath) {
+        guard multipleSelectField.isEnabled else { return }
+        let viewController = MultipleSelectionViewController(field: multipleSelectField)
         viewController.selectionDelegate = self
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    open func performAction(for field: TextAreaField, at indexPath: IndexPath) {
-        let viewController = TextViewController(field: field)
+    open func performAction(for textAreaField: TextAreaField, at indexPath: IndexPath) {
+        guard textAreaField.isEnabled else { return }
+        let viewController = EditTextAreaFieldViewController(field: textAreaField)
         viewController.delegate = self
-        viewController.indexPath = indexPath
         navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    open func performAction(for signatureField: SignatureField, at indexPath: IndexPath) {
+        guard signatureField.isEnabled else { return }
+        let viewController = EditSignatureViewController(signatureField: signatureField)
+        viewController.delegate = self
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    public func indexPath(for formRow: FormRow) -> IndexPath? {
+        guard let section = sections.index(where: { $0.rows.contains(where: { $0.key == formRow.key })}) else { return nil }
+        guard let row = sections[section].rows.index(where: { $0.key == formRow.key }) else { return nil }
+        
+        return IndexPath(row: row, section: section)
     }
 }
 
@@ -208,6 +235,8 @@ extension FormTableViewController {
         case let field as MultipleSelectField:
             cell = self.cell(for: field, at: indexPath)
         case let field as TextAreaField:
+            cell = self.cell(for: field, at: indexPath)
+        case let field as SignatureField:
             cell = self.cell(for: field, at: indexPath)
         default:
             if let cell = formDataSource?.cell(forCustomRow: row, at: indexPath) {
@@ -349,7 +378,7 @@ extension FormTableViewController: MultipleSelectionViewControllerDelegate {
 
 extension FormTableViewController: TextInputTableViewCellDelegate {
     func textInputTableViewCell(_ cell: TextInputTableViewCell, didUpdateField field: TextInputField) {
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard let indexPath = self.indexPath(for: field) else { return }
         valueChanged(for: field, at: indexPath, reloadRow: false)
     }
     
@@ -358,13 +387,21 @@ extension FormTableViewController: TextInputTableViewCellDelegate {
 
 extension FormTableViewController: DateInputTableViewCellDelegate {
     func dateInputTableViewCell(_ cell: DateInputTableViewCell, didUpdateField field: DateField) {
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard let indexPath = self.indexPath(for: field) else { return }
         valueChanged(for: field, at: indexPath, reloadRow: false)
     }
 }
 
-extension FormTableViewController: TextViewControllerDelegate {
-    func textViewController(_ textViewController: TextViewController, didUpdateField field: TextAreaField, at indexPath: IndexPath) {
-        valueChanged(for: field, at: indexPath, reloadRow: true)
+extension FormTableViewController: EditTextAreaFieldViewControllerDelegate {
+    func textViewController(_ textViewController: EditTextAreaFieldViewController, didUpdateField textAreaField: TextAreaField) {
+        guard let indexPath = self.indexPath(for: textAreaField) else { return }
+        valueChanged(for: textAreaField, at: indexPath, reloadRow: true)
+    }
+}
+
+extension FormTableViewController: EditSignatureViewControllerDelegate {
+    func editSignatureViewController(_ controller: EditSignatureViewController, didUpdateField signatureField: SignatureField) {
+        guard let indexPath = self.indexPath(for: signatureField) else { return }
+        valueChanged(for: signatureField, at: indexPath, reloadRow: true)
     }
 }
