@@ -141,8 +141,7 @@ class ViewController: FormTableViewController {
                 NumberField(provider: ExampleFieldProvider.age, amount: example.age),
                 NumberField(provider: ExampleFieldProvider.amount, amount: example.amount),
                 SignatureField(provider: ExampleFieldProvider.signature, image: example.signature)
-                ]
-            )
+                ])
         ]
     }
 }
@@ -151,9 +150,6 @@ extension ViewController: FormDelegate {
     func updatedField(_ field: EditableField, at indexPath: IndexPath) {
         // Handle any mapping to your model
         example.map(field: field)
-        
-        // Add any custom logic after changing a value especially for custom cells
-        print(example)
     }
     
     func performAction(forCustomRow row: FormRow, at indexPath: IndexPath) {

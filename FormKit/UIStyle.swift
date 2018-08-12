@@ -23,9 +23,18 @@ public struct BackgroundStyle {
         self.color = color
     }
 }
+
 public struct ButtonStyle {
     var text = TextStyle(color: UIColor.white)
     var background = BackgroundStyle(color: UIColor.green)
+    
+    init() {}
+}
+
+public struct PageStyle {
+    var background = BackgroundStyle(color: UIColor.groupTableViewBackground)
+    
+    init() {}
 }
 
 public struct Style {
@@ -36,6 +45,7 @@ public struct Style {
     var placeholder = TextStyle(color: UIColor.lightGray)
     var value = TextStyle(color: UIColor.darkGray)
     var primaryButton = ButtonStyle()
+    var page = PageStyle()
 }
 
 extension UITextView {

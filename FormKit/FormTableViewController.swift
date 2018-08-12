@@ -181,8 +181,9 @@ open class FormTableViewController: BaseTableViewController {
     open func performAction(for signatureField: SignatureField, at indexPath: IndexPath) {
         guard signatureField.isEnabled else { return }
         let viewController = EditSignatureViewController(signatureField: signatureField)
+        let navigationController = UINavigationController(rootViewController: viewController)
         viewController.delegate = self
-        navigationController?.pushViewController(viewController, animated: true)
+        self.navigationController?.present(navigationController, animated: true, completion: nil)
     }
     
     public func indexPath(for formRow: FormRow) -> IndexPath? {
@@ -280,6 +281,8 @@ extension FormTableViewController {
         case let field as DateField:
             performAction(for: field, at: indexPath)
         case let field as TextAreaField:
+            performAction(for: field, at: indexPath)
+        case let field as SignatureField:
             performAction(for: field, at: indexPath)
         default:
             formDelegate?.performAction(forCustomRow: row, at: indexPath)
@@ -381,8 +384,6 @@ extension FormTableViewController: TextInputTableViewCellDelegate {
         guard let indexPath = self.indexPath(for: field) else { return }
         valueChanged(for: field, at: indexPath, reloadRow: false)
     }
-    
-    
 }
 
 extension FormTableViewController: DateInputTableViewCellDelegate {
@@ -400,7 +401,12 @@ extension FormTableViewController: EditTextAreaFieldViewControllerDelegate {
 }
 
 extension FormTableViewController: EditSignatureViewControllerDelegate {
+    func editSignatureViewControllerDidCancel(_ controller: EditSignatureViewController) {
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
     func editSignatureViewController(_ controller: EditSignatureViewController, didUpdateField signatureField: SignatureField) {
+        navigationController?.dismiss(animated: true, completion: nil)
         guard let indexPath = self.indexPath(for: signatureField) else { return }
         valueChanged(for: signatureField, at: indexPath, reloadRow: true)
     }

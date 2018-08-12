@@ -41,6 +41,7 @@
 		DADCB7E9211B587E00F5CB49 /* SignatureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB7E8211B587E00F5CB49 /* SignatureField.swift */; };
 		DADCB7EC211BF29D00F5CB49 /* PrefixLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB7EB211BF29D00F5CB49 /* PrefixLabelView.swift */; };
 		DADCB818211FAE8400F5CB49 /* EditSignatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB817211FAE8400F5CB49 /* EditSignatureViewController.swift */; };
+		DADCB81A211FB32B00F5CB49 /* SignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB819211FB32B00F5CB49 /* SignatureView.swift */; };
 		DAF60BFB211A7DB300A7D537 /* MultipleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF60BFA211A7DB300A7D537 /* MultipleSelectionViewController.swift */; };
 		DAF60BFE211A7FC800A7D537 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF60BFD211A7FC800A7D537 /* BaseTableViewController.swift */; };
 		DAF60C01211A930B00A7D537 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = DAF60C00211A930B00A7D537 /* Cartfile */; };
@@ -97,6 +98,7 @@
 		DADCB7E8211B587E00F5CB49 /* SignatureField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureField.swift; sourceTree = "<group>"; };
 		DADCB7EB211BF29D00F5CB49 /* PrefixLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefixLabelView.swift; sourceTree = "<group>"; };
 		DADCB817211FAE8400F5CB49 /* EditSignatureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSignatureViewController.swift; sourceTree = "<group>"; };
+		DADCB819211FB32B00F5CB49 /* SignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureView.swift; sourceTree = "<group>"; };
 		DAF60BFA211A7DB300A7D537 /* MultipleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectionViewController.swift; sourceTree = "<group>"; };
 		DAF60BFD211A7FC800A7D537 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		DAF60C00211A930B00A7D537 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
@@ -149,6 +151,7 @@
 			children = (
 				8C077BC11ED92BA5007BCCFC /* DateInputAccessoryView.swift */,
 				DADCB7EB211BF29D00F5CB49 /* PrefixLabelView.swift */,
+				DADCB819211FB32B00F5CB49 /* SignatureView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 			files = (
 				8C0168531EEC501E001C105D /* UIStyle.swift in Sources */,
 				8C2184FD1ED91D7100BB0FE9 /* Section.swift in Sources */,
+				DADCB81A211FB32B00F5CB49 /* SignatureView.swift in Sources */,
 				8C21850C1ED91EAC00BB0FE9 /* Date+Extensions.swift in Sources */,
 				8C21850D1ED91EAC00BB0FE9 /* DateFormatter+Extensions.swift in Sources */,
 				8C21851E1ED91F2200BB0FE9 /* DateInputTableViewCell.swift in Sources */,
