@@ -154,6 +154,7 @@ open class FormTableViewController: BaseTableViewController {
         var boolField = boolField
         let value = !cell.onSwitch.isOn
         cell.onSwitch.setOn(value, animated: true)
+        cell.delegate = self
         
         boolField.isChecked = value
         valueChanged(for: boolField, at: indexPath, reloadRow: false)
@@ -409,5 +410,12 @@ extension FormTableViewController: EditSignatureViewControllerDelegate {
         navigationController?.dismiss(animated: true, completion: nil)
         guard let indexPath = self.indexPath(for: signatureField) else { return }
         valueChanged(for: signatureField, at: indexPath, reloadRow: true)
+    }
+}
+
+extension FormTableViewController: SwitchTableViewCellDelegate {
+    func switchTableViewCell(_ cell: SwitchTableViewCell, didUpdateField field: BoolField) {
+        guard let indexPath = self.indexPath(for: field) else { return }
+        valueChanged(for: field, at: indexPath, reloadRow: false)
     }
 }
