@@ -9,7 +9,7 @@
 import Foundation
 
 public struct TextStyle {
-    var color = UIColor.black
+    public var color = UIColor.black
     
     public init(color: UIColor) {
         self.color = color
@@ -17,7 +17,7 @@ public struct TextStyle {
 }
 
 public struct BackgroundStyle {
-    var color = UIColor.white
+    public var color = UIColor.white
     
     public init(color: UIColor) {
         self.color = color
@@ -25,49 +25,51 @@ public struct BackgroundStyle {
 }
 
 public struct ButtonStyle {
-    var text = TextStyle(color: UIColor.white)
-    var background = BackgroundStyle(color: UIColor.green)
+    public var text = TextStyle(color: UIColor.white)
+    public var background = BackgroundStyle(color: UIColor.green)
     
-    init() {}
+    public init() {}
 }
 
 public struct PageStyle {
-    var background = BackgroundStyle(color: UIColor.groupTableViewBackground)
+    public var background = BackgroundStyle(color: UIColor.groupTableViewBackground)
     
-    init() {}
+    public init() {}
 }
 
 public struct Style {
-    static var current = Style.default
-    static let `default` = Style()
+    public static var current = Style.default
+    public static let `default` = Style()
     
-    var label = TextStyle(color: UIColor.black)
-    var placeholder = TextStyle(color: UIColor.lightGray)
-    var value = TextStyle(color: UIColor.darkGray)
-    var primaryButton = ButtonStyle()
-    var page = PageStyle()
+    public var label = TextStyle(color: UIColor.black)
+    public var placeholder = TextStyle(color: UIColor.lightGray)
+    public var value = TextStyle(color: UIColor.darkGray)
+    public var primaryButton = ButtonStyle()
+    public var page = PageStyle()
+    
+    public init() {}
 }
 
-extension UITextView {
-    func configure(with style: TextStyle) {
+public extension UITextView {
+    public func configure(with style: TextStyle) {
         textColor = style.color
     }
 }
 
-extension UILabel {
-    func configure(with style: TextStyle) {
+public extension UILabel {
+    public func configure(with style: TextStyle) {
         textColor = style.color
     }
 }
 
-extension UITextField {
-    func configure(with style: TextStyle) {
+public extension UITextField {
+    public func configure(with style: TextStyle) {
         textColor = style.color
     }
 }
 
-extension UIButton {
-    func configure(with style: ButtonStyle) {
+public extension UIButton {
+    public func configure(with style: ButtonStyle) {
         setTitleColor(style.text.color, for: .normal)
         backgroundColor = style.background.color
     }
