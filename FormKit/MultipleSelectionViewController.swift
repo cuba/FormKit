@@ -34,7 +34,7 @@ class MultipleSelectionViewController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = Cell.standard.dequeCell(for: tableView, at: indexPath)
+        let cell = CellProvider.standard.dequeCell(for: tableView, at: indexPath)
         
         if let item = selectionItem(at: indexPath) {
             cell.accessoryType = field.isSelected(item: item) ? .checkmark : .none

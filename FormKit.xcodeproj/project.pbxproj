@@ -42,6 +42,7 @@
 		DADCB7EC211BF29D00F5CB49 /* PrefixLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB7EB211BF29D00F5CB49 /* PrefixLabelView.swift */; };
 		DADCB818211FAE8400F5CB49 /* EditSignatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB817211FAE8400F5CB49 /* EditSignatureViewController.swift */; };
 		DADCB81A211FB32B00F5CB49 /* SignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB819211FB32B00F5CB49 /* SignatureView.swift */; };
+		DAE7982421264B35005428AF /* CellProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE7982321264B35005428AF /* CellProvider.swift */; };
 		DAF60BFB211A7DB300A7D537 /* MultipleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF60BFA211A7DB300A7D537 /* MultipleSelectionViewController.swift */; };
 		DAF60BFE211A7FC800A7D537 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF60BFD211A7FC800A7D537 /* BaseTableViewController.swift */; };
 		DAF60C01211A930B00A7D537 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = DAF60C00211A930B00A7D537 /* Cartfile */; };
@@ -99,6 +100,7 @@
 		DADCB7EB211BF29D00F5CB49 /* PrefixLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefixLabelView.swift; sourceTree = "<group>"; };
 		DADCB817211FAE8400F5CB49 /* EditSignatureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSignatureViewController.swift; sourceTree = "<group>"; };
 		DADCB819211FB32B00F5CB49 /* SignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureView.swift; sourceTree = "<group>"; };
+		DAE7982321264B35005428AF /* CellProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellProvider.swift; sourceTree = "<group>"; };
 		DAF60BFA211A7DB300A7D537 /* MultipleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectionViewController.swift; sourceTree = "<group>"; };
 		DAF60BFD211A7FC800A7D537 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		DAF60C00211A930B00A7D537 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
@@ -177,6 +179,7 @@
 		8C2182711ED8FB2700BB0FE9 /* FormKit */ = {
 			isa = PBXGroup;
 			children = (
+				DAE7982221264B1E005428AF /* Providers */,
 				8C0168511EEC500E001C105D /* Models */,
 				8C2185021ED91E9A00BB0FE9 /* Extensions */,
 				8C077BC01ED92B95007BCCFC /* Views */,
@@ -262,6 +265,14 @@
 			children = (
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		DAE7982221264B1E005428AF /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				DAE7982321264B35005428AF /* CellProvider.swift */,
+			);
+			name = Providers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -392,6 +403,7 @@
 				8C2185111ED91EAC00BB0FE9 /* String+Extensions.swift in Sources */,
 				8CE3C4121FA6ECD100617D67 /* InputTableViewCell.swift in Sources */,
 				8C2184F81ED91AF400BB0FE9 /* NumberField.swift in Sources */,
+				DAE7982421264B35005428AF /* CellProvider.swift in Sources */,
 				8C2185121ED91EAC00BB0FE9 /* UIView+Extensions.swift in Sources */,
 				8C21851C1ED91F2200BB0FE9 /* SingleSelectTableViewCell.swift in Sources */,
 				DAF60BFE211A7FC800A7D537 /* BaseTableViewController.swift in Sources */,

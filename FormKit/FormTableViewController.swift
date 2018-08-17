@@ -71,7 +71,7 @@ open class FormTableViewController: BaseTableViewController {
     // Mark: - Providers
     
     open func cell(for stringField: StringField, at indexPath: IndexPath) -> StringFieldCellProvider {
-        let cell = Cell.input.dequeCell(for: tableView, at: indexPath) as! TextInputTableViewCell
+        let cell = CellProvider.input.dequeCell(for: tableView, at: indexPath) as! TextInputTableViewCell
         cell.textInputCellDelegate = self
         cell.delegate = self
         cell.configure(with: stringField)
@@ -79,7 +79,7 @@ open class FormTableViewController: BaseTableViewController {
     }
     
     open func cell(for numberField: NumberField, at indexPath: IndexPath) -> NumberFieldCellProvider {
-        let cell = Cell.input.dequeCell(for: tableView, at: indexPath) as! TextInputTableViewCell
+        let cell = CellProvider.input.dequeCell(for: tableView, at: indexPath) as! TextInputTableViewCell
         cell.textInputCellDelegate = self
         cell.delegate = self
         cell.configure(with: numberField)
@@ -87,39 +87,39 @@ open class FormTableViewController: BaseTableViewController {
     }
     
     open func cell(for boolField: BoolField, at indexPath: IndexPath) -> BoolFieldCellProvider {
-        let cell = Cell.switch.dequeCell(for: tableView, at: indexPath) as! SwitchTableViewCell
+        let cell = CellProvider.switch.dequeCell(for: tableView, at: indexPath) as! SwitchTableViewCell
         cell.configure(with: boolField)
         cell.delegate = self
         return cell
     }
     
     open func cell(for dateField: DateField, at indexPath: IndexPath) -> DateFieldCellProvider {
-        let cell = Cell.date.dequeCell(for: tableView, at: indexPath) as! DateInputTableViewCell
+        let cell = CellProvider.date.dequeCell(for: tableView, at: indexPath) as! DateInputTableViewCell
         cell.configure(with: dateField)
         cell.delegate = self
         return cell
     }
     
     open func cell(for selectField: SingleSelectField, at indexPath: IndexPath) -> SingleSelectFieldCellProvider {
-        let cell = Cell.select.dequeCell(for: tableView, at: indexPath) as! SingleSelectTableViewCell
+        let cell = CellProvider.select.dequeCell(for: tableView, at: indexPath) as! SingleSelectTableViewCell
         cell.configure(with: selectField)
         return cell
     }
     
     open func cell(for selectField: MultipleSelectField, at indexPath: IndexPath) -> MultipleSelectFieldCellProvider {
-        let cell = Cell.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
+        let cell = CellProvider.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
         cell.configure(with: selectField)
         return cell
     }
     
     open func cell(for textAreaField: TextAreaField, at indexPath: IndexPath) -> TextAreaFieldCellProvider {
-        let cell = Cell.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
+        let cell = CellProvider.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
         cell.configure(with: textAreaField)
         return cell
     }
     
     open func cell(for signatureField: SignatureField, at indexPath: IndexPath) -> SignatureFieldCellProvider {
-        let cell = Cell.signature.dequeCell(for: tableView, at: indexPath) as! SignatureTableViewCell
+        let cell = CellProvider.signature.dequeCell(for: tableView, at: indexPath) as! SignatureTableViewCell
         cell.configure(with: signatureField)
         return cell
     }
