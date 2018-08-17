@@ -10,16 +10,16 @@ import Foundation
 import UIKit
 
 protocol DateInputTableViewCellDelegate: class {
-    func dateInputTableViewCell(_ cell: DateInputTableViewCell, didUpdateField field: DateField)
+    func dateInputTableViewCell(_ cell: DateInputTableViewCell, didUpdateField field: BasicDateField)
 }
 
 public protocol DateFieldCellProvider: FormFieldCellProvider {
-    func configure(with dateField: DateField)
+    func configure(with dateField: BasicDateField)
 }
 
 open class DateInputTableViewCell: InputTableViewCell, DateFieldCellProvider {
     weak var delegate: DateInputTableViewCellDelegate?
-    public private(set) var dateField: DateField?
+    public private(set) var dateField: BasicDateField?
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -35,7 +35,7 @@ open class DateInputTableViewCell: InputTableViewCell, DateFieldCellProvider {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func configure(with field: DateField) {
+    open func configure(with field: BasicDateField) {
         self.dateField = field
         label.text = field.label
         textField.text = field.value
@@ -47,7 +47,7 @@ open class DateInputTableViewCell: InputTableViewCell, DateFieldCellProvider {
         informDelegate()
     }
     
-    private func setupInputView(for field: DateField) {
+    private func setupInputView(for field: BasicDateField) {
         super.configure(with: field)
         let datePicker = textField.inputView as? UIDatePicker
         datePicker?.date = field.date ?? Date()

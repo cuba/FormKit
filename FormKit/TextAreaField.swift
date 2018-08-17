@@ -1,5 +1,5 @@
 //
-//  TextAreaField.swift
+//  BasicTextAreaField.swift
 //  FormKit
 //
 //  Created by Jacob Sikorski on 2018-08-07.
@@ -8,7 +8,11 @@
 
 import Foundation
 
-public struct TextAreaField: TextInputField, SavableField {
+public protocol TextAreaField: TextInputField {
+    var value: String? { get set }
+}
+
+public struct BasicTextAreaField: TextAreaField, SavableField {
     public var options: FieldOptions = []
     
     private(set) public var key: String

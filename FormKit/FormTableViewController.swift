@@ -86,14 +86,14 @@ open class FormTableViewController: BaseTableViewController {
         return cell
     }
     
-    open func cell(for boolField: BoolField, at indexPath: IndexPath) -> BoolFieldCellProvider {
+    open func cell(for boolField: BasicBoolField, at indexPath: IndexPath) -> BoolFieldCellProvider {
         let cell = CellProvider.switch.dequeCell(for: tableView, at: indexPath) as! SwitchTableViewCell
         cell.configure(with: boolField)
         cell.delegate = self
         return cell
     }
     
-    open func cell(for dateField: DateField, at indexPath: IndexPath) -> DateFieldCellProvider {
+    open func cell(for dateField: BasicDateField, at indexPath: IndexPath) -> DateFieldCellProvider {
         let cell = CellProvider.date.dequeCell(for: tableView, at: indexPath) as! DateInputTableViewCell
         cell.configure(with: dateField)
         cell.delegate = self
@@ -142,7 +142,7 @@ open class FormTableViewController: BaseTableViewController {
         }
     }
     
-    open func performAction(for dateField: DateField, at indexPath: IndexPath) {
+    open func performAction(for dateField: BasicDateField, at indexPath: IndexPath) {
         guard dateField.isEnabled else { return }
         
         if let cell = tableView.cellForRow(at: indexPath) as? DateInputTableViewCell {
@@ -150,7 +150,7 @@ open class FormTableViewController: BaseTableViewController {
         }
     }
     
-    open func performAction(for boolField: BoolField, at indexPath: IndexPath) {
+    open func performAction(for boolField: BasicBoolField, at indexPath: IndexPath) {
         guard boolField.isEnabled else { return }
         
         guard let cell = tableView.cellForRow(at: indexPath) as? SwitchTableViewCell else { return }
@@ -227,13 +227,13 @@ extension FormTableViewController {
         var cell: FormFieldCellProvider? = nil
         
         switch row {
-        case let field as DateField:
+        case let field as BasicDateField:
             cell = self.cell(for: field, at: indexPath)
         case let field as StringField:
             cell = self.cell(for: field, at: indexPath)
         case let field as NumberField:
             cell = self.cell(for: field, at: indexPath)
-        case let field as BoolField:
+        case let field as BasicBoolField:
             cell = self.cell(for: field, at: indexPath)
         case let field as SingleSelectField:
             cell = self.cell(for: field, at: indexPath)
@@ -272,7 +272,7 @@ extension FormTableViewController {
         let row = section.rows[indexPath.row]
         
         switch row {
-        case let field as BoolField:
+        case let field as BasicBoolField:
             performAction(for: field, at: indexPath)
         case let field as SingleSelectField:
             performAction(for: field, at: indexPath)
@@ -282,7 +282,7 @@ extension FormTableViewController {
             performAction(for: field, at: indexPath)
         case let field as NumberField:
             performAction(for: field, at: indexPath)
-        case let field as DateField:
+        case let field as BasicDateField:
             performAction(for: field, at: indexPath)
         case let field as TextAreaField:
             performAction(for: field, at: indexPath)
@@ -391,7 +391,7 @@ extension FormTableViewController: TextInputTableViewCellDelegate {
 }
 
 extension FormTableViewController: DateInputTableViewCellDelegate {
-    func dateInputTableViewCell(_ cell: DateInputTableViewCell, didUpdateField field: DateField) {
+    func dateInputTableViewCell(_ cell: DateInputTableViewCell, didUpdateField field: BasicDateField) {
         guard let indexPath = self.indexPath(for: field) else { return }
         valueChanged(for: field, at: indexPath, reloadRow: false)
     }
@@ -417,7 +417,7 @@ extension FormTableViewController: EditSignatureViewControllerDelegate {
 }
 
 extension FormTableViewController: SwitchTableViewCellDelegate {
-    func switchTableViewCell(_ cell: SwitchTableViewCell, didUpdateField field: BoolField) {
+    func switchTableViewCell(_ cell: SwitchTableViewCell, didUpdateField field: BasicBoolField) {
         guard let indexPath = self.indexPath(for: field) else { return }
         valueChanged(for: field, at: indexPath, reloadRow: false)
     }

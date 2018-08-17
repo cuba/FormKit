@@ -1,5 +1,5 @@
 //
-//  StringField.swift
+//  BasicStringField.swift
 //  SafetyBoot
 //
 //  Created by Jacob Sikorski on 2017-03-26.
@@ -13,8 +13,12 @@ public enum StringFieldType {
     case password
 }
 
-public struct StringField: TextInputField, SavableField {
-    
+public protocol StringField: TextInputField {
+    var type: StringFieldType { get }
+    var value: String? { get set }
+}
+
+public struct BasicStringField: StringField, SavableField {
     public var options: FieldOptions = []
     
     private(set) public var key: String

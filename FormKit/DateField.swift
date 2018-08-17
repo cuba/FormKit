@@ -1,5 +1,5 @@
 //
-//  DateField.swift
+//  BasicDateField.swift
 //  SafetyBoot
 //
 //  Created by Jacob Sikorski on 2017-03-26.
@@ -14,7 +14,13 @@ public enum DateFieldType {
     case dateTime
 }
 
-public struct DateField: InputField, SavableField {
+public protocol DateField: InputField {
+    var type: DateFieldType { get }
+    var date: Date? { get set }
+    var value: String? { get }
+}
+
+public struct BasicDateField: DateField, SavableField {
     public var options: FieldOptions = []
     
     private(set) public var key: String
@@ -51,11 +57,11 @@ public struct DateField: InputField, SavableField {
     public var formatter: DateFormatter {
         switch type {
         case .date:
-            return DateField.dateFormatter
+            return BasicDateField.dateFormatter
         case .time:
-            return DateField.timeFormatter
+            return BasicDateField.timeFormatter
         case .dateTime:
-            return DateField.dateTimeFormatter
+            return BasicDateField.dateTimeFormatter
         }
     }
     

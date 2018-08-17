@@ -9,11 +9,11 @@
 import UIKit
 
 protocol SwitchTableViewCellDelegate: class {
-    func switchTableViewCell(_ cell: SwitchTableViewCell, didUpdateField field: BoolField)
+    func switchTableViewCell(_ cell: SwitchTableViewCell, didUpdateField field: BasicBoolField)
 }
 
 public protocol BoolFieldCellProvider: FormFieldCellProvider {
-    func configure(with field: BoolField)
+    func configure(with field: BasicBoolField)
 }
 
 open class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCellProvider {
@@ -31,7 +31,7 @@ open class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCellProvider {
         return onSwitch
     }()
     
-    public private(set) var field: BoolField?
+    public private(set) var field: BasicBoolField?
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,7 +42,7 @@ open class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCellProvider {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func configure(with field: BoolField) {
+    open func configure(with field: BasicBoolField) {
         self.field = field
         label.text = field.label
         onSwitch.isOn = field.isChecked ?? false

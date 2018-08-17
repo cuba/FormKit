@@ -1,5 +1,5 @@
 //
-//  NumberField.swift
+//  BasicNumberField.swift
 //  SafetyBoot
 //
 //  Created by Jacob Sikorski on 2017-04-03.
@@ -13,7 +13,12 @@ public enum NumberFieldType {
     case decimal
 }
 
-public struct NumberField: TextInputField, SavableField {
+public protocol NumberField: TextInputField {
+    var type: NumberFieldType { get }
+    var amount: Double? { get set }
+}
+
+public struct BasicNumberField: NumberField, SavableField {
     public var options: FieldOptions = []
     private(set) public var key: String
     private(set) public var label: String

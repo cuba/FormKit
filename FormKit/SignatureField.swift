@@ -1,5 +1,5 @@
 //
-//  SignatureField.swift
+//  BasicSignatureField.swift
 //  FormKit
 //
 //  Created by Jacob Sikorski on 2018-08-08.
@@ -8,7 +8,11 @@
 
 import Foundation
 
-public struct SignatureField: EditableField, SavableField {
+public protocol SignatureField: EditableField {
+    var image: CGImage? { get set }
+}
+
+public struct BasicSignatureField: SignatureField, SavableField {
     public var options: FieldOptions = []
     public var key: String
     public var label: String

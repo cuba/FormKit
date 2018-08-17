@@ -134,18 +134,18 @@ class ViewController: FormTableViewController {
     override func setupSections() {
         sections = [
             FormSection(title: "Section Title", rows: [
-                StringField(provider: ExampleFieldProvider.title, type: .text, value: example.title),
-                StringField(provider: ExampleFieldProvider.password, type: .password, value: example.password),
-                TextAreaField(provider: ExampleFieldProvider.description, value: example.password),
-                DateField(provider: ExampleFieldProvider.date, type: .date, date: example.date),
-                DateField(provider: ExampleFieldProvider.time, type: .time, date: example.time),
-                DateField(provider: ExampleFieldProvider.dateTime, type: .dateTime, date: example.dateTime),
-                BoolField(provider: ExampleFieldProvider.isOn, isChecked: example.isOn),
-                SingleSelectField(provider: ExampleFieldProvider.selectOne, allItems: SelectionOption.all, selectedItem: example.selectOne),
-                MultipleSelectField(provider: ExampleFieldProvider.selectMultiple, allItems: SelectionOption.all, selectedItems: example.selectMultiple),
-                NumberField(provider: ExampleFieldProvider.age, amount: example.age),
-                NumberField(provider: ExampleFieldProvider.amount, amount: example.amount),
-                SignatureField(provider: ExampleFieldProvider.signature, image: example.signature)
+                BasicStringField(provider: ExampleFieldProvider.title, type: .text, value: example.title),
+                BasicStringField(provider: ExampleFieldProvider.password, type: .password, value: example.password),
+                BasicTextAreaField(provider: ExampleFieldProvider.description, value: example.password),
+                BasicDateField(provider: ExampleFieldProvider.date, type: .date, date: example.date),
+                BasicDateField(provider: ExampleFieldProvider.time, type: .time, date: example.time),
+                BasicDateField(provider: ExampleFieldProvider.dateTime, type: .dateTime, date: example.dateTime),
+                BasicBoolField(provider: ExampleFieldProvider.isOn, isChecked: example.isOn),
+                BasicSingleSelectField(provider: ExampleFieldProvider.selectOne, allItems: SelectionOption.all, selectedItem: example.selectOne),
+                BasicMultipleSelectField(provider: ExampleFieldProvider.selectMultiple, allItems: SelectionOption.all, selectedItems: example.selectMultiple),
+                BasicNumberField(provider: ExampleFieldProvider.age, amount: example.age),
+                BasicNumberField(provider: ExampleFieldProvider.amount, amount: example.amount),
+                BasicSignatureField(provider: ExampleFieldProvider.signature, image: example.signature)
                 ])
         ]
     }

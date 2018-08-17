@@ -1,5 +1,5 @@
 //
-//  BoolField.swift
+//  BasicBoolField.swift
 //  SafetyBoot
 //
 //  Created by Jacob Sikorski on 2017-03-26.
@@ -8,7 +8,11 @@
 
 import Foundation
 
-public struct BoolField: EditableField, SavableField {
+public protocol BoolField: EditableField {
+    var isChecked: Bool? { get set }
+}
+
+public struct BasicBoolField: BoolField, SavableField {
     public var options: FieldOptions = []
     
     private(set) public var key: String

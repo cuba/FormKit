@@ -37,6 +37,8 @@
 		8C21851E1ED91F2200BB0FE9 /* DateInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C21851A1ED91F2200BB0FE9 /* DateInputTableViewCell.swift */; };
 		8C2185221ED929F900BB0FE9 /* TextAreaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2185211ED929F900BB0FE9 /* TextAreaTableViewCell.swift */; };
 		8CE3C4121FA6ECD100617D67 /* InputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE3C4111FA6ECD100617D67 /* InputTableViewCell.swift */; };
+		DAD9C209212664A1002A88DE /* MultipleSelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD9C208212664A1002A88DE /* MultipleSelectField.swift */; };
+		DAD9C20B212664C0002A88DE /* SingleSelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD9C20A212664C0002A88DE /* SingleSelectField.swift */; };
 		DADCB7E7211B583600F5CB49 /* SignatureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB7E6211B583600F5CB49 /* SignatureTableViewCell.swift */; };
 		DADCB7E9211B587E00F5CB49 /* SignatureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB7E8211B587E00F5CB49 /* SignatureField.swift */; };
 		DADCB7EC211BF29D00F5CB49 /* PrefixLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB7EB211BF29D00F5CB49 /* PrefixLabelView.swift */; };
@@ -95,6 +97,8 @@
 		8C21851A1ED91F2200BB0FE9 /* DateInputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateInputTableViewCell.swift; sourceTree = "<group>"; };
 		8C2185211ED929F900BB0FE9 /* TextAreaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAreaTableViewCell.swift; sourceTree = "<group>"; };
 		8CE3C4111FA6ECD100617D67 /* InputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTableViewCell.swift; sourceTree = "<group>"; };
+		DAD9C208212664A1002A88DE /* MultipleSelectField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectField.swift; sourceTree = "<group>"; };
+		DAD9C20A212664C0002A88DE /* SingleSelectField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelectField.swift; sourceTree = "<group>"; };
 		DADCB7E6211B583600F5CB49 /* SignatureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureTableViewCell.swift; sourceTree = "<group>"; };
 		DADCB7E8211B587E00F5CB49 /* SignatureField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureField.swift; sourceTree = "<group>"; };
 		DADCB7EB211BF29D00F5CB49 /* PrefixLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefixLabelView.swift; sourceTree = "<group>"; };
@@ -220,8 +224,10 @@
 				8C2184EC1ED91AF400BB0FE9 /* StringField.swift */,
 				8C2184ED1ED91AF400BB0FE9 /* DateField.swift */,
 				8C2184EE1ED91AF400BB0FE9 /* BoolField.swift */,
+				DAD9C208212664A1002A88DE /* MultipleSelectField.swift */,
 				8C2184F11ED91AF400BB0FE9 /* NumberField.swift */,
 				8C2184F01ED91AF400BB0FE9 /* SelectField.swift */,
+				DAD9C20A212664C0002A88DE /* SingleSelectField.swift */,
 				DADCB7E8211B587E00F5CB49 /* SignatureField.swift */,
 				DAF60C04211A9D4600A7D537 /* TextAreaField.swift */,
 			);
@@ -393,6 +399,7 @@
 			files = (
 				8C0168531EEC501E001C105D /* UIStyle.swift in Sources */,
 				8C2184FD1ED91D7100BB0FE9 /* Section.swift in Sources */,
+				DAD9C20B212664C0002A88DE /* SingleSelectField.swift in Sources */,
 				DADCB81A211FB32B00F5CB49 /* SignatureView.swift in Sources */,
 				8C21850C1ED91EAC00BB0FE9 /* Date+Extensions.swift in Sources */,
 				8C21850D1ED91EAC00BB0FE9 /* DateFormatter+Extensions.swift in Sources */,
@@ -408,6 +415,7 @@
 				8C21851C1ED91F2200BB0FE9 /* SingleSelectTableViewCell.swift in Sources */,
 				DAF60BFE211A7FC800A7D537 /* BaseTableViewController.swift in Sources */,
 				8C2185141ED91EAC00BB0FE9 /* Extensions.swift in Sources */,
+				DAD9C209212664A1002A88DE /* MultipleSelectField.swift in Sources */,
 				DADCB7EC211BF29D00F5CB49 /* PrefixLabelView.swift in Sources */,
 				8C2185131ED91EAC00BB0FE9 /* UIColor+Extensions.swift in Sources */,
 				8C2184F31ED91AF400BB0FE9 /* StringField.swift in Sources */,
