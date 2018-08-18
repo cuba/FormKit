@@ -16,7 +16,10 @@ public protocol SignatureViewDelegate: class {
 open class SignatureView: UIView {
     open weak var delegate: SignatureViewDelegate?
     
-    open var maximumStrokeWidth: CGFloat = 4 {
+    /**
+     The the maximum stroke width should be a 1 or greater. The largest line width will be determined by this value.
+     */
+    open var maximumStrokeWidth: CGFloat = 2 {
         didSet {
             if(maximumStrokeWidth < minimumStrokeWidth || maximumStrokeWidth <= 0) {
                 maximumStrokeWidth = oldValue
@@ -24,7 +27,10 @@ open class SignatureView: UIView {
         }
     }
     
-    open var minimumStrokeWidth:CGFloat = 1 {
+    /**
+     The the minimum stroke width should be a 1 or greater. The smallest line width will be determined by this value. Default is
+     */
+    open var minimumStrokeWidth: CGFloat = 1 {
         didSet {
             if(minimumStrokeWidth > maximumStrokeWidth || minimumStrokeWidth <= 0) {
                 minimumStrokeWidth = oldValue
@@ -32,6 +38,15 @@ open class SignatureView: UIView {
         }
     }
     
+    /**
+     The fudge factor should be a value between 0 and 100. Any value closer to 0 means that you have to move your finger slower to get a thick line.
+     0 means that the minimum stroke is always applied. 100 means the maximum stroke is always applied. Default is 20.
+    */
+    var fudgeFactor: CGFloat = 20
+    
+    /**
+     The the color of the signature (pen ink) used. Default is black.
+     */
     open var strokeColor: UIColor = UIColor.black
     
     /**
@@ -139,9 +154,8 @@ open class SignatureView: UIView {
                 // Draw the prior signature
                 signature?.draw(in: rect)
                 
-                let delta:CGFloat = 0.5
-                let strokeScale:CGFloat = 50 // fudge factor based on empirical tests
-                let currentWidth = max(minimumStrokeWidth,min(maximumStrokeWidth, 1/strokeLength*strokeScale*delta + previousWidth*(1-delta)))
+                let delta: CGFloat = 0.5
+                let currentWidth = max(minimumStrokeWidth, min(maximumStrokeWidth, 1/strokeLength * fudgeFactor * delta + previousWidth * (1 - delta)))
                 let midPoint = CGPointMid(p0:currentPoint, p1:previousPoint)
                 
                 drawQuadCurve(previousEndPoint, control: previousPoint, end: midPoint, startWidth:previousWidth, endWidth: currentWidth)
