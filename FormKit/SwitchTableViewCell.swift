@@ -63,8 +63,8 @@ open class SwitchTableViewCell: FormFieldTableViewCell, BoolFieldCellProvider {
         label.translatesAutoresizingMaskIntoConstraints = false
 
         label.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor).isActive = true
-        label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
+        label.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: Style.current.cell.topMargin).isActive = true
         label.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 15).isActive = true
+        contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: Style.current.cell.bottomMargin).isActive = true
     }
 }

@@ -37,8 +37,6 @@ open class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCellProvi
         return valueLabel
     }()
     
-    public private(set) var field: EditableField?
-    
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
@@ -60,8 +58,19 @@ open class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCellProvi
         configure(with: field as EditableField, value: field.value)
     }
     
+    open func configure(with field: StandardField) {
+        label.text = field.title
+        valueLabel.text = field.subtitle
+        valueLabel.configure(with: Style.current.value)
+        
+        if let accessoryType = field.accessoryType {
+            self.accessoryType = accessoryType
+        } else {
+            accessoryType = .none
+        }
+    }
+    
     open func configure(with field: EditableField, value: String?) {
-        self.field = field
         label.text = field.label
         
         if let value = value, !value.isEmpty {
@@ -91,15 +100,15 @@ open class TextAreaTableViewCell: FormFieldTableViewCell, TextAreaFieldCellProvi
         label.translatesAutoresizingMaskIntoConstraints = false
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
+        label.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: Style.current.cell.topMargin).isActive = true
         label.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor).isActive = true
-        label.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
+        label.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor).isActive = true
         
         valueLabel.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 6).isActive = true
         valueLabel.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
         valueLabel.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
         
-        contentView.bottomAnchor.constraint(greaterThanOrEqualTo: valueLabel.bottomAnchor, constant: 15).isActive = true
+        contentView.layoutMarginsGuide.bottomAnchor.constraint(greaterThanOrEqualTo: valueLabel.bottomAnchor, constant: Style.current.cell.bottomMargin).isActive = true
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
 }

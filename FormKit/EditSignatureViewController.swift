@@ -45,13 +45,18 @@ class EditSignatureViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configure(with: Style.current.page)
+    }
+    
     private func setupLayout() {
         view.addSubview(signatureView)
         
         signatureView.translatesAutoresizingMaskIntoConstraints = false
         
-        signatureView.topAnchor.constraint(greaterThanOrEqualTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
-        signatureView.bottomAnchor.constraint(greaterThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor, constant: -15).isActive = true
+//        signatureView.topAnchor.constraint(greaterThanOrEqualTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
+//        signatureView.bottomAnchor.constraint(greaterThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor, constant: -15).isActive = true
         signatureView.heightAnchor.constraint(equalTo: signatureView.widthAnchor, multiplier: 1.0/3.0).isActive = true
         signatureView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor).isActive = true
         signatureView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor).isActive = true

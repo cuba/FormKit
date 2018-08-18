@@ -67,14 +67,14 @@ open class SingleSelectTableViewCell: FormFieldTableViewCell, SingleSelectFieldC
         label.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
-        label.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
+        label.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: Style.current.cell.topMargin).isActive = true
+        label.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor).isActive = true
         
-        subtitleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: label.trailingAnchor, constant: 15).isActive = true
+        subtitleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: label.trailingAnchor).isActive = true
         subtitleLabel.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
         subtitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         
-        contentView.bottomAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor, constant: 15).isActive = true
+        contentView.layoutMarginsGuide.bottomAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor, constant: Style.current.cell.bottomMargin).isActive = true
         
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)

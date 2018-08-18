@@ -22,7 +22,7 @@ public struct ButtonStyle {
     public var text: TextStyle
     public var backgroundColor: UIColor
     
-    init(text: TextStyle, backgroundColor: UIColor) {
+    public init(text: TextStyle, backgroundColor: UIColor) {
         self.text = text
         self.backgroundColor = backgroundColor
     }
@@ -32,7 +32,7 @@ public struct TextViewStyle {
     public var text: TextStyle
     public var backgroundColor: UIColor
     
-    init(text: TextStyle, backgroundColor: UIColor) {
+    public init(text: TextStyle, backgroundColor: UIColor) {
         self.text = text
         self.backgroundColor = backgroundColor
     }
@@ -41,7 +41,7 @@ public struct TextViewStyle {
 public struct TextFieldStyle {
     public var text: TextStyle
     
-    init(text: TextStyle) {
+    public init(text: TextStyle) {
         self.text = text
     }
 }
@@ -51,6 +51,15 @@ public struct PageStyle {
     
     public init(backgroundColor: UIColor) {
         self.backgroundColor = backgroundColor
+    }
+}
+
+public struct CellStyle {
+    public var backgroundColor: UIColor = UIColor.white
+    public var topMargin: CGFloat = 5
+    public var bottomMargin: CGFloat = 5
+    
+    public init() {
     }
 }
 
@@ -64,6 +73,7 @@ public struct Style {
     public var textArea = TextViewStyle(text: TextStyle(color: UIColor.darkGray, font: UIFont.systemFont(ofSize: 14)), backgroundColor: UIColor.white)
     public var primaryButton = ButtonStyle(text: TextStyle(color: UIColor.white, font: UIFont.systemFont(ofSize: 16, weight: .medium)), backgroundColor: UIColor.green)
     public var page = PageStyle(backgroundColor: UIColor.groupTableViewBackground)
+    public var cell = CellStyle()
     
     public init() {}
 }

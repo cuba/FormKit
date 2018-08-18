@@ -12,6 +12,7 @@ open class BaseTableViewController: UITableViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        configure(with: Style.current.page)
         setupView()
     }
     

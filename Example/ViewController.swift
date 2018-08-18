@@ -53,6 +53,7 @@ enum ExampleFieldProvider: String, FieldProvider {
     case age                = "age"
     case amount             = "amount"
     case signature          = "signature"
+    case signature2         = "signature_2"
     
     var key: String {
         return rawValue
@@ -72,6 +73,7 @@ enum ExampleFieldProvider: String, FieldProvider {
         case .age               : return "Age (Years)"
         case .amount            : return "Amount"
         case .signature         : return "Click to enter your signature"
+        case .signature2        : return "Click to enter another signature"
         }
     }
     
@@ -93,6 +95,7 @@ struct Example: FieldMappable {
     var age: Int?
     var amount: Double?
     var signature: CGImage?
+    var signature2: CGImage?
     
     init() {}
     
@@ -109,6 +112,7 @@ struct Example: FieldMappable {
         age             <- (ExampleFieldProvider.age, field)
         amount          <- (ExampleFieldProvider.amount, field)
         signature       <- (ExampleFieldProvider.signature, field)
+        signature2       <- (ExampleFieldProvider.signature2, field)
     }
 }
 
@@ -145,7 +149,10 @@ class ViewController: FormTableViewController {
                 MultipleSelectField(provider: ExampleFieldProvider.selectMultiple, allItems: SelectionOption.all, selectedItems: example.selectMultiple),
                 NumberField(provider: ExampleFieldProvider.age, amount: example.age),
                 NumberField(provider: ExampleFieldProvider.amount, amount: example.amount),
-                SignatureField(provider: ExampleFieldProvider.signature, image: example.signature)
+                SignatureField(provider: ExampleFieldProvider.signature, image: example.signature),
+                SignatureField(provider: ExampleFieldProvider.signature2, image: example.signature2),
+                StandardField(key: "standard", title: "Standard Cell", subtitle: nil, accessoryType: .disclosureIndicator),
+                StandardField(key: "subtitle", title: "Subtitle Cell", subtitle: "Some subtitle", accessoryType: .disclosureIndicator)
                 ])
         ]
     }

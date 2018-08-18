@@ -70,7 +70,7 @@ open class FormTableViewController: BaseTableViewController {
     
     // Mark: - Providers
     
-    open func cell(for stringField: StringField, at indexPath: IndexPath) -> StringFieldCellProvider {
+    open func cell(for stringField: StringField, at indexPath: IndexPath) -> UITableViewCell {
         let cell = CellProvider.input.dequeCell(for: tableView, at: indexPath) as! TextInputTableViewCell
         cell.textInputCellDelegate = self
         cell.delegate = self
@@ -78,7 +78,7 @@ open class FormTableViewController: BaseTableViewController {
         return cell
     }
     
-    open func cell(for numberField: NumberField, at indexPath: IndexPath) -> NumberFieldCellProvider {
+    open func cell(for numberField: NumberField, at indexPath: IndexPath) -> UITableViewCell {
         let cell = CellProvider.input.dequeCell(for: tableView, at: indexPath) as! TextInputTableViewCell
         cell.textInputCellDelegate = self
         cell.delegate = self
@@ -86,42 +86,62 @@ open class FormTableViewController: BaseTableViewController {
         return cell
     }
     
-    open func cell(for boolField: BoolField, at indexPath: IndexPath) -> BoolFieldCellProvider {
+    open func cell(for boolField: BoolField, at indexPath: IndexPath) -> UITableViewCell {
         let cell = CellProvider.switch.dequeCell(for: tableView, at: indexPath) as! SwitchTableViewCell
         cell.configure(with: boolField)
         cell.delegate = self
         return cell
     }
     
-    open func cell(for dateField: DateField, at indexPath: IndexPath) -> DateFieldCellProvider {
+    open func cell(for dateField: DateField, at indexPath: IndexPath) -> UITableViewCell {
         let cell = CellProvider.date.dequeCell(for: tableView, at: indexPath) as! DateInputTableViewCell
         cell.configure(with: dateField)
         cell.delegate = self
         return cell
     }
     
-    open func cell(for selectField: SingleSelectField, at indexPath: IndexPath) -> SingleSelectFieldCellProvider {
+    open func cell(for selectField: SingleSelectField, at indexPath: IndexPath) -> UITableViewCell {
         let cell = CellProvider.select.dequeCell(for: tableView, at: indexPath) as! SingleSelectTableViewCell
         cell.configure(with: selectField)
         return cell
     }
     
-    open func cell(for selectField: MultipleSelectField, at indexPath: IndexPath) -> MultipleSelectFieldCellProvider {
+    open func cell(for selectField: MultipleSelectField, at indexPath: IndexPath) -> UITableViewCell {
         let cell = CellProvider.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
         cell.configure(with: selectField)
         return cell
     }
     
-    open func cell(for textAreaField: TextAreaField, at indexPath: IndexPath) -> TextAreaFieldCellProvider {
+    open func cell(for textAreaField: TextAreaField, at indexPath: IndexPath) -> UITableViewCell {
         let cell = CellProvider.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
         cell.configure(with: textAreaField)
         return cell
     }
     
-    open func cell(for signatureField: SignatureField, at indexPath: IndexPath) -> SignatureFieldCellProvider {
+    open func cell(for signatureField: SignatureField, at indexPath: IndexPath) -> UITableViewCell {
         let cell = CellProvider.signature.dequeCell(for: tableView, at: indexPath) as! SignatureTableViewCell
         cell.configure(with: signatureField)
         return cell
+    }
+    
+    open func cell(for standardField: StandardField, at indexPath: IndexPath) -> UITableViewCell {
+        if standardField.subtitle != nil {
+            let cell = CellProvider.textArea.dequeCell(for: tableView, at: indexPath) as! TextAreaTableViewCell
+            cell.configure(with: standardField)
+            return cell
+        } else {
+            let cell = CellProvider.standard.dequeCell(for: tableView, at: indexPath)
+            cell.textLabel?.text = standardField.title
+            cell.textLabel?.configure(with: Style.current.label)
+            
+            if let accessoryType = standardField.accessoryType {
+                cell.accessoryType = accessoryType
+            } else {
+                cell.accessoryType = .none
+            }
+            
+            return cell
+        }
     }
     
     // MARK: - Actions
@@ -228,7 +248,7 @@ extension FormTableViewController {
     }
     
     private func cell(for row: FormRow, at indexPath: IndexPath) -> UITableViewCell {
-        var cell: FormFieldCellProvider? = nil
+        var cell: UITableViewCell? = nil
         
         switch row {
         case let field as DateField:
@@ -247,6 +267,8 @@ extension FormTableViewController {
             cell = self.cell(for: field, at: indexPath)
         case let field as SignatureField:
             cell = self.cell(for: field, at: indexPath)
+        case let field as StandardField:
+            cell = self.cell(for: field, at: indexPath)
         default:
             if let cell = formDataSource?.cell(forCustomRow: row, at: indexPath) {
                 return cell
@@ -256,10 +278,10 @@ extension FormTableViewController {
             }
         }
         
-        if let tableViewCell = cell?.tableViewCell {
-            tableViewCell.setNeedsLayout()
-            tableViewCell.layoutIfNeeded()
-            return tableViewCell
+        if let cell = cell {
+            cell.setNeedsLayout()
+            cell.layoutIfNeeded()
+            return cell
         } else {
             assertionFailure("No cell registered for row \(row)")
             return UITableViewCell()

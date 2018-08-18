@@ -52,15 +52,15 @@ open class InputTableViewCell: FormFieldTableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         textField.translatesAutoresizingMaskIntoConstraints = false
         
-        label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
-        label.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
-        label.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
+        label.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: Style.current.cell.topMargin).isActive = true
+        label.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor).isActive = true
+        label.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor).isActive = true
         
         textField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 6).isActive = true
-        textField.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
-        textField.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
+        textField.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor).isActive = true
+        textField.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor).isActive = true
         
-        contentView.bottomAnchor.constraint(greaterThanOrEqualTo: textField.bottomAnchor, constant: 15).isActive = true
+        contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: textField.bottomAnchor, constant: Style.current.cell.bottomMargin).isActive = true
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
 }

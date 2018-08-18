@@ -37,9 +37,9 @@ class EditTextAreaFieldViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configure(with: Style.current.page)
         setupLayout()
         title = field.label
-        configure(with: Style.current.page)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -59,8 +59,8 @@ class EditTextAreaFieldViewController: UIViewController {
         view.addSubview(textView)
         textView.translatesAutoresizingMaskIntoConstraints = false
         
-        textView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 0).isActive = true
-        textView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: 0).isActive = true
+        textView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 15).isActive = true
+        textView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -15).isActive = true
         textView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 0).isActive = true
         textView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor, constant: 0).isActive = true
     }

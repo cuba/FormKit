@@ -27,8 +27,12 @@ class SignatureTableViewCell: FormFieldTableViewCell, SignatureFieldCellProvider
         return imageView
     }()
     
-    private lazy var signatureHeightConstraint: NSLayoutConstraint = {
-        return signatureImageView.heightAnchor.constraint(equalTo: signatureImageView.widthAnchor, multiplier: 1.0/3.0)
+    private lazy var signatureImageViewBottomMargin: NSLayoutConstraint = {
+        return signatureImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+    }()
+    
+    private lazy var labelBottomMargin: NSLayoutConstraint = {
+        return label.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -Style.current.cell.bottomMargin)
     }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -47,12 +51,14 @@ class SignatureTableViewCell: FormFieldTableViewCell, SignatureFieldCellProvider
             label.text = nil
             label.isHidden = true
             signatureImageView.isHidden = false
-            signatureHeightConstraint.isActive = true
+            signatureImageViewBottomMargin.isActive = true
+            labelBottomMargin.isActive = false
         } else {
             label.text = field.label
             label.isHidden = false
-            signatureHeightConstraint.isActive = false
             signatureImageView.isHidden = true
+            signatureImageViewBottomMargin.isActive = false
+            labelBottomMargin.isActive = true
         }
         
         if field.isEnabled {
@@ -60,8 +66,6 @@ class SignatureTableViewCell: FormFieldTableViewCell, SignatureFieldCellProvider
         } else {
             accessoryType = .none
         }
-        
-        // TODO: @JS Handle isRequired
     }
     
     private func setupLayout() {
@@ -71,14 +75,16 @@ class SignatureTableViewCell: FormFieldTableViewCell, SignatureFieldCellProvider
         label.translatesAutoresizingMaskIntoConstraints = false
         signatureImageView.translatesAutoresizingMaskIntoConstraints = false
         
+        signatureImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         signatureImageView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor).isActive = true
         signatureImageView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor).isActive = true
-        signatureImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: signatureImageView.bottomAnchor, constant: 8).isActive = true
+        signatureImageView.heightAnchor.constraint(lessThanOrEqualTo: signatureImageView.widthAnchor, multiplier: 1.0/3.0).isActive = true
         
-        label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
-        label.leadingAnchor.constraint(equalTo: signatureImageView.leadingAnchor).isActive = true
-        label.trailingAnchor.constraint(equalTo: signatureImageView.trailingAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 15).isActive = true
+        label.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: Style.current.cell.topMargin).isActive = true
+        label.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor).isActive = true
+        label.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor).isActive = true
+    
+        signatureImageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        signatureImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
     }
 }

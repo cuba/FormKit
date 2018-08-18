@@ -40,10 +40,10 @@ class ButtonTableViewCell: FormFieldTableViewCell {
         
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        button.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
-        button.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0).isActive = true
-        button.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 0).isActive = true
-        contentView.bottomAnchor.constraint(greaterThanOrEqualTo: button.bottomAnchor, constant: 8).isActive = true
+        button.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: Style.current.cell.topMargin).isActive = true
+        button.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor).isActive = true
+        button.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor).isActive = true
+        contentView.layoutMarginsGuide.bottomAnchor.constraint(greaterThanOrEqualTo: button.bottomAnchor, constant: Style.current.cell.bottomMargin).isActive = true
         
         button.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
