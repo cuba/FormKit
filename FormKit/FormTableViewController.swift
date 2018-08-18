@@ -191,8 +191,12 @@ open class FormTableViewController: BaseTableViewController {
     }
     
     public func indexPath(for formRow: FormRow) -> IndexPath? {
-        guard let section = sections.index(where: { $0.rows.contains(where: { $0.key == formRow.key })}) else { return nil }
-        guard let row = sections[section].rows.index(where: { $0.key == formRow.key }) else { return nil }
+        return indexPath(forFieldKey: formRow.key)
+    }
+    
+    public func indexPath(forFieldKey key: String) -> IndexPath? {
+        guard let section = sections.index(where: { $0.rows.contains(where: { $0.key == key })}) else { return nil }
+        guard let row = sections[section].rows.index(where: { $0.key == key }) else { return nil }
         
         return IndexPath(row: row, section: section)
     }
