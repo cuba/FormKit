@@ -23,11 +23,6 @@ open class DateInputTableViewCell: InputTableViewCell, DateFieldCellProvider {
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        textField.inputView = dateTimePicker(mode: .dateAndTime)
-        let accessoryView = DateInputAccessoryView(frame: CGRect(x: 0, y: self.frame.size.height/6, width: self.frame.size.width, height: 44.0))
-        accessoryView.dateInputDelegate = self
-        textField.inputAccessoryView = accessoryView
         textField.delegate = self
     }
     
@@ -51,16 +46,11 @@ open class DateInputTableViewCell: InputTableViewCell, DateFieldCellProvider {
         super.configure(with: field)
         let datePicker = textField.inputView as? UIDatePicker
         datePicker?.date = field.date ?? Date()
-        datePicker?.datePickerMode = field.type.datePickerMode
         
-        if let accessoryView = textField.inputAccessoryView as? DateInputAccessoryView {
-            switch field.type {
-            case .time, .dateTime:
-                accessoryView.todayButton?.title = "Label.Now".localized()
-            default:
-                accessoryView.todayButton?.title = "Label.Today".localized()
-            }
-        }
+        let accessoryView = field.type.makeAccessoryView(for: frame)
+        accessoryView.dateInputDelegate = self
+        textField.inputAccessoryView = accessoryView
+        textField.inputView = dateTimePicker(mode: field.type.datePickerMode)
     }
     
     private func dateTimePicker(mode: UIDatePickerMode) -> UIDatePicker {
@@ -114,5 +104,18 @@ private extension DateFieldType {
         case .dateTime: return .dateAndTime
         case .time:     return .time
         }
+    }
+    
+    func makeAccessoryView(for frame: CGRect) -> DateInputAccessoryView {
+        let accessoryView = DateInputAccessoryView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 44.0))
+        
+        switch self {
+        case .time, .dateTime:
+            accessoryView.todayButton?.title = "Label.Now".localized()
+        default:
+            accessoryView.todayButton?.title = "Label.Today".localized()
+        }
+        
+        return accessoryView
     }
 }

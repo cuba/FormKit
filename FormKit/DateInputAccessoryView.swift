@@ -56,11 +56,11 @@ class DateInputAccessoryView: UIToolbar {
         setItems([todayButton,flexSpace,textBtn,flexSpace,okButton], animated: true)
     }
     
-    @objc func datePickerSelectedToday() {
+    @objc private func datePickerSelectedToday() {
         dateInputDelegate?.datePickerSelectedToday()
     }
     
-    @objc func datePickerDonePressed() {
+    @objc private func datePickerDonePressed() {
         dateInputDelegate?.datePickerDonePressed()
     }
 }
