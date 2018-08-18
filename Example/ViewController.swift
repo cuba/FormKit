@@ -137,22 +137,40 @@ class ViewController: FormTableViewController {
     
     override func setupSections() {
         sections = [
-            FormSection(title: "Section Title", rows: [
+            FormSection(title: "Strings", rows: [
                 StringField(provider: ExampleFieldProvider.title, type: .text, value: example.title),
                 StringField(provider: ExampleFieldProvider.password, type: .password, value: example.password),
-                TextAreaField(provider: ExampleFieldProvider.description, value: example.password),
+                TextAreaField(provider: ExampleFieldProvider.description, value: example.password)
+                ]),
+            
+            FormSection(title: "Dates", rows: [
                 DateField(provider: ExampleFieldProvider.date, type: .date, date: example.date),
                 DateField(provider: ExampleFieldProvider.time, type: .time, date: example.time),
-                DateField(provider: ExampleFieldProvider.dateTime, type: .dateTime, date: example.dateTime),
-                BoolField(provider: ExampleFieldProvider.isOn, isChecked: example.isOn),
-                SingleSelectField(provider: ExampleFieldProvider.selectOne, allItems: SelectionOption.all, selectedItem: example.selectOne),
-                MultipleSelectField(provider: ExampleFieldProvider.selectMultiple, allItems: SelectionOption.all, selectedItems: example.selectMultiple),
+                DateField(provider: ExampleFieldProvider.dateTime, type: .dateTime, date: example.dateTime)
+                ]),
+            
+            FormSection(title: "Numbers", rows: [
                 NumberField(provider: ExampleFieldProvider.age, amount: example.age),
-                NumberField(provider: ExampleFieldProvider.amount, amount: example.amount),
+                NumberField(provider: ExampleFieldProvider.amount, amount: example.amount)
+                ]),
+            
+            FormSection(title: "Toggles", rows: [
+                BoolField(provider: ExampleFieldProvider.isOn, isChecked: example.isOn)
+                ]),
+            
+            FormSection(title: "Selections", rows: [
+                SingleSelectField(provider: ExampleFieldProvider.selectOne, allItems: SelectionOption.all, selectedItem: example.selectOne),
+                MultipleSelectField(provider: ExampleFieldProvider.selectMultiple, allItems: SelectionOption.all, selectedItems: example.selectMultiple)
+                ]),
+            
+            FormSection(title: "Signatures", rows: [
                 SignatureField(provider: ExampleFieldProvider.signature, image: example.signature),
-                SignatureField(provider: ExampleFieldProvider.signature2, image: example.signature2),
+                SignatureField(provider: ExampleFieldProvider.signature2, image: example.signature2)
+                ]),
+            
+            FormSection(title: "Static Content", rows: [
                 StandardField(key: "standard", title: "Standard Cell", subtitle: nil, accessoryType: .disclosureIndicator),
-                StandardField(key: "subtitle", title: "Subtitle Cell", subtitle: "Some subtitle", accessoryType: .disclosureIndicator)
+                StandardField(key: "subtitle", title: "Standard Cell With Subtitle", subtitle: "Some subtitle", accessoryType: .disclosureIndicator)
                 ])
         ]
     }
