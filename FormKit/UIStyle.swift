@@ -67,11 +67,11 @@ public struct Style {
     public static var current = Style.default
     public static let `default` = Style()
     
-    public var label = TextStyle(color: UIColor.black, font: UIFont.systemFont(ofSize: 16, weight: .medium))
-    public var placeholder = TextStyle(color: UIColor.lightGray, font: UIFont.systemFont(ofSize: 14))
-    public var value = TextStyle(color: UIColor.darkGray, font: UIFont.systemFont(ofSize: 14))
-    public var textArea = TextViewStyle(text: TextStyle(color: UIColor.darkGray, font: UIFont.systemFont(ofSize: 14)), backgroundColor: UIColor.white)
-    public var primaryButton = ButtonStyle(text: TextStyle(color: UIColor.white, font: UIFont.systemFont(ofSize: 16, weight: .medium)), backgroundColor: UIColor.green)
+    public var label = TextStyle(color: UIColor.black, font: UIFont.systemFont(ofSize: 17))
+    public var placeholder = TextStyle(color: UIColor.lightGray, font: UIFont.systemFont(ofSize: 15))
+    public var value = TextStyle(color: UIColor.darkGray, font: UIFont.systemFont(ofSize: 15))
+    public var textArea = TextViewStyle(text: TextStyle(color: UIColor.darkGray, font: UIFont.systemFont(ofSize: 15)), backgroundColor: UIColor.white)
+    public var primaryButton = ButtonStyle(text: TextStyle(color: UIColor.white, font: UIFont.systemFont(ofSize: 17, weight: .medium)), backgroundColor: UIColor.green)
     public var page = PageStyle(backgroundColor: UIColor.groupTableViewBackground)
     public var cell = CellStyle()
     
