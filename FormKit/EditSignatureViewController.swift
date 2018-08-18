@@ -28,7 +28,7 @@ class EditSignatureViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         setupLayout()
         
-        view.backgroundColor = Style.current.page.background.color
+        view.backgroundColor = Style.current.page.backgroundColor
         
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(tappedCancelButton))
         self.navigationItem.leftBarButtonItem = cancelButton

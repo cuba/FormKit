@@ -48,7 +48,7 @@
 		DAF60C01211A930B00A7D537 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = DAF60C00211A930B00A7D537 /* Cartfile */; };
 		DAF60C03211A931A00A7D537 /* Cartfile.resolved in Resources */ = {isa = PBXBuildFile; fileRef = DAF60C02211A931A00A7D537 /* Cartfile.resolved */; };
 		DAF60C05211A9D4600A7D537 /* TextAreaField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF60C04211A9D4600A7D537 /* TextAreaField.swift */; };
-		DAF60C08211AAB0900A7D537 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF60C07211AAB0900A7D537 /* TextViewController.swift */; };
+		DAF60C08211AAB0900A7D537 /* EditTextAreaFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF60C07211AAB0900A7D537 /* EditTextAreaFieldViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,7 +106,7 @@
 		DAF60C00211A930B00A7D537 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		DAF60C02211A931A00A7D537 /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = SOURCE_ROOT; };
 		DAF60C04211A9D4600A7D537 /* TextAreaField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaField.swift; sourceTree = "<group>"; };
-		DAF60C07211AAB0900A7D537 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		DAF60C07211AAB0900A7D537 /* EditTextAreaFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTextAreaFieldViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,7 +207,7 @@
 				8C2184E81ED91ABE00BB0FE9 /* FormTableViewController.swift */,
 				DAF60BFA211A7DB300A7D537 /* MultipleSelectionViewController.swift */,
 				DAF60BFD211A7FC800A7D537 /* BaseTableViewController.swift */,
-				DAF60C07211AAB0900A7D537 /* TextViewController.swift */,
+				DAF60C07211AAB0900A7D537 /* EditTextAreaFieldViewController.swift */,
 				DADCB817211FAE8400F5CB49 /* EditSignatureViewController.swift */,
 			);
 			name = Form;
@@ -398,7 +398,7 @@
 				8C21850D1ED91EAC00BB0FE9 /* DateFormatter+Extensions.swift in Sources */,
 				8C21851E1ED91F2200BB0FE9 /* DateInputTableViewCell.swift in Sources */,
 				DADCB7E7211B583600F5CB49 /* SignatureTableViewCell.swift in Sources */,
-				DAF60C08211AAB0900A7D537 /* TextViewController.swift in Sources */,
+				DAF60C08211AAB0900A7D537 /* EditTextAreaFieldViewController.swift in Sources */,
 				8C2184F41ED91AF400BB0FE9 /* DateField.swift in Sources */,
 				8C2185111ED91EAC00BB0FE9 /* String+Extensions.swift in Sources */,
 				8CE3C4121FA6ECD100617D67 /* InputTableViewCell.swift in Sources */,

@@ -19,7 +19,7 @@ class EditTextAreaFieldViewController: UIViewController {
         let textView = UITextView(frame: CGRect.zero)
         textView.text = field.value
         textView.delegate = self
-        
+        textView.configure(with: Style.current.textArea)
         return textView
     }()
     
@@ -39,7 +39,7 @@ class EditTextAreaFieldViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         title = field.label
-        view.backgroundColor = UIColor.groupTableViewBackground
+        configure(with: Style.current.page)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
