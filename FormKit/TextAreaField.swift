@@ -9,6 +9,11 @@
 import Foundation
 
 public struct TextAreaField: TextInputField, SavableField {
+    public var autocorrectionType: UITextAutocorrectionType = .default
+    public var autocapitalizationType: UITextAutocapitalizationType = .sentences
+    public var keyboardType: UIKeyboardType = .default
+    public var textContentType: UITextContentType?
+    
     public var options: FieldOptions = []
     
     private(set) public var key: String

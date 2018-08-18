@@ -42,13 +42,32 @@ open class TextInputTableViewCell: InputTableViewCell, StringFieldCellProvider, 
     
     public func configure(with field: StringField) {
         self.configure(with: field as TextInputField)
-        textField.isSecureTextEntry = field.type == .password
-        textField.keyboardType = .alphabet
+        
+        textField.autocapitalizationType = field.autocapitalizationType
+        textField.autocorrectionType = field.autocorrectionType
+        textField.keyboardType = field.keyboardType
+        
+        switch field.type {
+        case .password:
+            textField.isSecureTextEntry = true
+            
+            if #available(iOSApplicationExtension 11.0, *) {
+                textField.textContentType = field.textContentType ?? .password
+            } else {
+                textField.textContentType = field.textContentType ?? UITextContentType("")
+                // Fallback on earlier versions
+            }
+        default:
+            textField.isSecureTextEntry = false
+            textField.textContentType = field.textContentType ?? UITextContentType("")
+        }
     }
     
     public func configure(with field: NumberField) {
         self.configure(with: field as TextInputField)
         textField.isSecureTextEntry = false
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         
         switch field.type {
         case .integer: textField.keyboardType = .numberPad

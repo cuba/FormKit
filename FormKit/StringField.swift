@@ -11,10 +11,26 @@ import Foundation
 public enum StringFieldType {
     case text
     case password
+    
+    var defaultTextContentType: UITextContentType {
+        switch self {
+        case .password:
+            if #available(iOSApplicationExtension 11.0, *) {
+                return .password
+            } else {
+                return UITextContentType("")
+            }
+        default:
+            return UITextContentType("")
+        }
+    }
 }
 
 public struct StringField: TextInputField, SavableField {
-    
+    public var autocorrectionType: UITextAutocorrectionType = .default
+    public var autocapitalizationType: UITextAutocapitalizationType = .words
+    public var keyboardType: UIKeyboardType = .default
+    public var textContentType: UITextContentType?
     public var options: FieldOptions = []
     
     private(set) public var key: String

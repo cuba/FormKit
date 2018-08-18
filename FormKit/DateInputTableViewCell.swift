@@ -51,6 +51,8 @@ open class DateInputTableViewCell: InputTableViewCell, DateFieldCellProvider {
         accessoryView.dateInputDelegate = self
         textField.inputAccessoryView = accessoryView
         textField.inputView = dateTimePicker(mode: field.type.datePickerMode)
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
     }
     
     private func dateTimePicker(mode: UIDatePickerMode) -> UIDatePicker {

@@ -40,6 +40,13 @@ class EditTextAreaFieldViewController: UIViewController {
         configure(with: Style.current.page)
         setupLayout()
         title = field.label
+        textView.autocapitalizationType = field.autocapitalizationType
+        textView.autocorrectionType = field.autocorrectionType
+        textView.keyboardType = field.keyboardType
+        
+        if let textContentType = field.textContentType {
+            textView.textContentType = textContentType
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)

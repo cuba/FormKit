@@ -138,8 +138,8 @@ class ViewController: FormTableViewController {
     override func setupSections() {
         sections = [
             FormSection(title: "Strings", rows: [
-                StringField(provider: ExampleFieldProvider.title, type: .text, value: example.title),
                 StringField(provider: ExampleFieldProvider.password, type: .password, value: example.password),
+                StringField(provider: ExampleFieldProvider.title, type: .text, value: example.title),
                 TextAreaField(provider: ExampleFieldProvider.description, value: example.password)
                 ]),
             
