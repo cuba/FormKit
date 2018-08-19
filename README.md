@@ -164,14 +164,6 @@ In addition, one (and only one) field has the key `"name"`. The convienience met
 If you require more customized logic, you may do the following:
 
 ```swift
-if let name: String? = field.saveValue("name") {
-    // Do something custom with name
-}
-```
-
-The main difference here is that `saveValue("name")` returns `nil` if the key is incorrect so you should not be overwriting your value on your model in case its the wrong field. In order to overcome this, you may do the following:
-
-```swift
 if field.isField(forKey: "name") {
     let name: String? = field.saveValue()
     // Do something custom with name
@@ -226,14 +218,6 @@ In addition we can save our fields back on our model like this:
 
 ```swift
 myModel.name <- (SignatureFieldProvider.name, field)
-```
-
-or 
-
-```swift
-if let name: String? = field.saveValue(SignatureFieldProvider.name) {
-    // Do something custom with name
-}
 ```
 
 or 
