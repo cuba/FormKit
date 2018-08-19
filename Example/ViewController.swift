@@ -134,9 +134,11 @@ class ViewController: FormTableViewController {
         super.viewDidLoad()
         title = "Example Form"
     }
-    
-    override func setupSections() {
-        sections = [
+}
+
+extension ViewController: FormDataSource {
+    func makeSections() -> [FormSection] {
+        return [
             FormSection(title: "Strings", rows: [
                 StringField(provider: ExampleFieldProvider.password, type: .password, value: example.password),
                 StringField(provider: ExampleFieldProvider.title, type: .text, value: example.title),
@@ -173,6 +175,11 @@ class ViewController: FormTableViewController {
                 StandardField(key: "subtitle", title: "Standard Cell With Subtitle", subtitle: "Some subtitle", accessoryType: .disclosureIndicator)
                 ])
         ]
+    }
+    
+    func cell(forCustomRow formRow: FormRow, at indexPath: IndexPath) -> UITableViewCell {
+        // Provide cells for your custom rows
+        fatalError("You need to provide a UITableViewCell for custom FormRows")
     }
 }
 
