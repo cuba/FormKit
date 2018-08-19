@@ -45,6 +45,16 @@ public protocol FormRow {
     var key: String { get }
 }
 
+public extension FormRow {
+    public func isRow(for provider: FieldProvider) -> Bool {
+        return provider.key == self.key
+    }
+    
+    public func isRow(forKey key: String) -> Bool {
+        return key == self.key
+    }
+}
+
 public protocol EditableField: FormRow {
     var label: String { get }
     var options: FieldOptions { get }
@@ -74,19 +84,13 @@ public protocol SavableField {
 }
 
 extension SavableField {
-    public func saveValue<T>(_ provider: FieldProvider) -> T? {
-        guard provider.key == self.key else { return nil }
-        return saveValue()
+    public func isField(for provider: FieldProvider) -> Bool {
+        return provider.key == self.key
     }
     
-    public func saveValue<T>(key: String) -> T? {
-        guard key == self.key else { return nil }
-        return saveValue()
+    public func isField(forKey key: String) -> Bool {
+        return key == self.key
     }
-}
-
-public protocol FieldMappable {
-    mutating func map(field: SavableField)
 }
 
 public func <-<T>(left: inout T?, right: (String, SavableField)) {

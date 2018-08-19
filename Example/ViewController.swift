@@ -82,7 +82,7 @@ enum ExampleFieldProvider: String, FieldProvider {
     }
 }
 
-struct Example: FieldMappable {
+struct Example {
     var title: String?
     var password: String?
     var description: String?
@@ -94,25 +94,12 @@ struct Example: FieldMappable {
     var selectMultiple: [SelectionOption] = []
     var age: Int?
     var amount: Double?
-    var signature: CGImage?
-    var signature2: CGImage?
+    var signature: UIImage?
+    var signature2: UIImage?
     
     init() {}
     
     mutating func map(field: SavableField) {
-        title           <- (ExampleFieldProvider.title, field)
-        password        <- (ExampleFieldProvider.password, field)
-        description     <- (ExampleFieldProvider.description, field)
-        dateTime        <- (ExampleFieldProvider.dateTime, field)
-        time            <- (ExampleFieldProvider.time, field)
-        date            <- (ExampleFieldProvider.date, field)
-        isOn            <- (ExampleFieldProvider.isOn, field)
-        selectOne       <- (ExampleFieldProvider.selectOne, field)
-        selectMultiple  <- (ExampleFieldProvider.selectMultiple, field)
-        age             <- (ExampleFieldProvider.age, field)
-        amount          <- (ExampleFieldProvider.amount, field)
-        signature       <- (ExampleFieldProvider.signature, field)
-        signature2       <- (ExampleFieldProvider.signature2, field)
     }
 }
 
@@ -124,6 +111,7 @@ class ViewController: FormTableViewController {
         self.example = Example()
         super.init(style: .grouped)
         self.formDelegate = self
+        self.formDataSource = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -166,8 +154,8 @@ extension ViewController: FormDataSource {
                 ]),
             
             FormSection(title: "Signatures", rows: [
-                SignatureField(provider: ExampleFieldProvider.signature, image: example.signature),
-                SignatureField(provider: ExampleFieldProvider.signature2, image: example.signature2)
+                SignatureField(provider: ExampleFieldProvider.signature, image: example.signature?.cgImage),
+                SignatureField(provider: ExampleFieldProvider.signature2, image: example.signature2?.cgImage)
                 ]),
             
             FormSection(title: "Static Content", rows: [
@@ -186,7 +174,33 @@ extension ViewController: FormDataSource {
 extension ViewController: FormDelegate {
     func updatedField(_ field: SavableField, at indexPath: IndexPath) {
         // Handle any mapping to your model
-        example.map(field: field)
+        example.title           <- (ExampleFieldProvider.title, field)
+        example.password        <- (ExampleFieldProvider.password, field)
+        example.description     <- (ExampleFieldProvider.description, field)
+        example.dateTime        <- (ExampleFieldProvider.dateTime, field)
+        example.time            <- (ExampleFieldProvider.time, field)
+        example.date            <- (ExampleFieldProvider.date, field)
+        example.isOn            <- (ExampleFieldProvider.isOn, field)
+        example.selectOne       <- (ExampleFieldProvider.selectOne, field)
+        example.selectMultiple  <- (ExampleFieldProvider.selectMultiple, field)
+        example.age             <- (ExampleFieldProvider.age, field)
+        example.amount          <- (ExampleFieldProvider.amount, field)
+        
+        if field.isField(for: ExampleFieldProvider.signature) {
+            if let image: CGImage = field.saveValue() {
+                example.signature = UIImage(cgImage: image)
+            } else {
+                example.signature = nil
+            }
+        }
+        
+        if field.isField(for: ExampleFieldProvider.signature2) {
+            if let image: CGImage = field.saveValue() {
+                example.signature2 = UIImage(cgImage: image)
+            } else {
+                example.signature2 = nil
+            }
+        }
     }
     
     func performAction(forCustomRow row: FormRow, at indexPath: IndexPath) {
