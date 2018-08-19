@@ -4,6 +4,7 @@ FormKit
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Fields](#fields)
 - [Credits](#credits)
 - [License](#license)
 
@@ -86,7 +87,7 @@ class ViewController: FormTableViewController {
 
 ### Listening to form changes
 
-To get form changes, implement the FormDelegate protocol
+To get form changes, implement the FormDelegate protocol.
 
 ```swift
 extension ViewController: FormDelegate {
@@ -116,6 +117,134 @@ class ViewController: FormTableViewController {
 }
 ```
 
+All built in fields except for `StandardField` implement the `SavableField` protocol and will trigger the `func updatedField(_ field: SavableField, at indexPath: IndexPath)` delegate method.
+
+## Fields
+
+### Built in fields
+
+The following fields are supported:
+
+`StringField`
+`TextAreaField`
+`DateField`
+`NumberField`
+`BoolField`
+`SingleSelectField`
+`MultipleSelectField`
+`SignatureField`
+`StandardField`
+
+### Custom Fields
+
+You may also create custom fields by implementing the `FormRow` protocol.
+
+If you do this, will need to provide a cell for your custom field in the `FormDataSource` method.
+
+```swift
+func cell(forCustomRow formRow: FormRow, at indexPath: IndexPath) -> UITableViewCell {
+    // Return a cell for your custom row
+}
+```
+
+## Synchronizing Data
+
+You may use the following convenience methods to syncronize your models on form changes.
+
+```swift
+myModel.name <- ("name", field)
+```
+
+For this to work your field needs to implement the `SavableField` protocol. All built in fields (except for `StandardField`) implement this protocol already.
+
+In addition, one (and only one) field has the key `"name"`. The convienience method will ignore all fields that don't have the key provided.
+
+### Customized mapping
+
+If you require more customized logic, you may do the following:
+
+```swift
+if let name: String? = field.saveValue("name") {
+    // Do something custom with name
+}
+```
+
+The main difference here is that `saveValue("name")` returns `nil` if the key is incorrect so you should not be overwriting your value on your model in case its the wrong field. In order to overcome this, you may do the following:
+
+```swift
+if field.isField(forKey: "name") {
+    let name: String? = field.saveValue()
+    // Do something custom with name
+}
+```
+
+## Field provider
+
+The field provider is a quick way of setting static content on a field such as a key or title and helps in syncronizing the data back to your model. First create an object (preferrably enum) that implements the `FieldProvider` protocol.  
+
+Here is an example:
+
+```swift
+enum SignatureFieldProvider: String, FieldProvider {
+    case name               = "name"
+    case date               = "date"
+    case signature          = "signature"
+    
+    var key: String {
+        return rawValue
+    }
+    
+    var label: String {
+        switch self {
+        case .name              : return "Full Name"
+        case .date              : return "Date signed"
+        case .signature         : return "Click to sign your form"
+        }
+    }
+    
+    var options: FieldOptions {
+        return [.required]
+    }
+}
+```
+
+### Creating fields using FieldProvider
+
+We can create our fields easily using the field provider like this:
+
+```swift
+FormSection(title: "Signature", rows: [
+    StringField(provider: SignatureFieldProvider.name, type: .text, value: myModel.name),
+    DateField(provider: SignatureFieldProvider.date, type: .date, date: example.date),
+    SignatureField(provider: SignatureFieldProvider.signature, image: example.signature)
+    ]),
+```
+
+### Syncronizing fields using the FieldProvider
+
+In addition we can save our fields back on our model like this:
+
+```swift
+myModel.name <- (SignatureFieldProvider.name, field)
+```
+
+or 
+
+```swift
+if let name: String? = field.saveValue(SignatureFieldProvider.name) {
+    // Do something custom with name
+}
+```
+
+or 
+
+```swift
+if field.isField(for: SignatureFieldProvider.name) {
+    let name: String? = field.saveValue()
+    // Do something custom with name
+}
+```
+
 ## Dependencies
 
 FormKit is only usable on iOS 10 or above.
@@ -126,4 +255,4 @@ FormKit is owned and maintained by Jacob Sikorski.
 
 ## License
 
-FormkKit is released under the MIT license. [See LICENSE](https://github.com/cuba/NetworkKit/blob/master/LICENSE) for details
+FormKit is released under the MIT license. [See LICENSE](https://github.com/cuba/FormKit/blob/master/LICENSE) for details
