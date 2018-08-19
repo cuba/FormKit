@@ -4,6 +4,7 @@ FormKit
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Fields](#fields)
 - [Credits](#credits)
 - [License](#license)
 
@@ -115,6 +116,20 @@ class ViewController: FormTableViewController {
     }
 }
 ```
+
+## Fields
+
+The following fields are supported:
+
+`StringField`
+`TextAreaField`
+`DateField`
+`NumberField`
+`BoolField`
+`SingleSelectField`
+`MultipleSelectField`
+`SignatureField`
+`StandardField`
 
 ## Dependencies
 
