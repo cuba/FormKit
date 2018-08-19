@@ -122,7 +122,7 @@ FormKit is only usable on iOS 10 or above.
 
 ## Credits
 
-FormkKit is owned and maintained by Jacob Sikorski.
+FormKit is owned and maintained by Jacob Sikorski.
 
 ## License
 
