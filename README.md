@@ -7,6 +7,7 @@ FormKit
 - [Fields](#fields)
 - [Credits](#credits)
 - [License](#license)
+- [Screenshots](#screenshots)
 
 ## Features
 
@@ -240,3 +241,8 @@ FormKit is owned and maintained by Jacob Sikorski.
 ## License
 
 FormKit is released under the MIT license. [See LICENSE](https://github.com/cuba/FormKit/blob/master/LICENSE) for details
+
+## Screenshots
+![Screenshot 1](https://github.com/cuba/FormKit/blob/master/Screenshots/IMG_B46074DFBAF8-1.jpg)
+![Screenshot 2](https://github.com/cuba/FormKit/blob/master/Screenshots/IMG_E1E8E0AACC2A-1.jpg)
+![Screenshot 3](https://github.com/cuba/FormKit/blob/master/Screenshots/IMG_825EF2B57CF0-1.jpg)
