@@ -21,7 +21,7 @@ public protocol FormDataSource: class {
 
 open class FormTableViewController: BaseTableViewController {
     public var isChanged = false
-    private var currentTextField: UITextField?
+    private(set) public var currentTextField: UITextField?
     
     open weak var formDelegate: FormDelegate?
     open weak var formDataSource: FormDataSource?
