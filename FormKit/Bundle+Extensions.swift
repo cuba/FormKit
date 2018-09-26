@@ -9,7 +9,7 @@
 import Foundation
 
 extension Bundle {
-    open static var formKit: Bundle {
+    public static var formKit: Bundle {
         return Bundle(identifier: "com.pineapplepush.FormKit")!
     }
     

@@ -19,7 +19,7 @@ open class BaseTableViewController: UITableViewController {
     private func setupView() {
         // Setup Table View
         tableView.keyboardDismissMode = .onDrag
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 400
     }
 }

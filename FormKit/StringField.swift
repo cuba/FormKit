@@ -11,19 +11,6 @@ import Foundation
 public enum StringFieldType {
     case text
     case password
-    
-    var defaultTextContentType: UITextContentType {
-        switch self {
-        case .password:
-            if #available(iOSApplicationExtension 11.0, *) {
-                return .password
-            } else {
-                return UITextContentType("")
-            }
-        default:
-            return UITextContentType("")
-        }
-    }
 }
 
 public struct StringField: TextInputField, SavableField {

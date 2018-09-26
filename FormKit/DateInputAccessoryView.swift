@@ -37,9 +37,9 @@ class DateInputAccessoryView: UIToolbar {
         backgroundColor = UIColor.black
         
         // Set the buttons
-        let todayButton = UIBarButtonItem(title: "Label.Today".localized(), style: UIBarButtonItemStyle.plain, target: self, action: #selector(datePickerSelectedToday))
-        let okButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(datePickerDonePressed))
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
+        let todayButton = UIBarButtonItem(title: "Label.Today".localized(), style: UIBarButtonItem.Style.plain, target: self, action: #selector(datePickerSelectedToday))
+        let okButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(datePickerDonePressed))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
         
         // Set the label
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.size.width / 3, height: self.frame.size.height))

@@ -53,9 +53,9 @@ public enum CellProvider {
     public func dequeCell(for tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         switch self {
         case .subtitle:
-            return tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) ?? UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: reuseIdentifier)
+            return tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) ?? UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: reuseIdentifier)
         case .rightValue:
-            return tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) ?? UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: reuseIdentifier)
+            return tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) ?? UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: reuseIdentifier)
         default:
             if let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) {
                 return cell

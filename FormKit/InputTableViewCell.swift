@@ -22,7 +22,7 @@ open class InputTableViewCell: FormFieldTableViewCell {
         return textField
     }()
     
-    public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
     }
@@ -42,7 +42,7 @@ open class InputTableViewCell: FormFieldTableViewCell {
             textField.placeholder = "Label.Optional".localized().uppercased()
         }
         
-        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor: Style.current.placeholder.color])
+        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSAttributedString.Key.foregroundColor: Style.current.placeholder.color])
     }
     
     private func setupLayout() {

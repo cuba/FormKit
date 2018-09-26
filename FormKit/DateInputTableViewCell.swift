@@ -21,7 +21,7 @@ open class DateInputTableViewCell: InputTableViewCell, DateFieldCellProvider {
     weak var delegate: DateInputTableViewCellDelegate?
     public private(set) var dateField: DateField?
     
-    public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         textField.delegate = self
     }
@@ -55,10 +55,10 @@ open class DateInputTableViewCell: InputTableViewCell, DateFieldCellProvider {
         textField.autocapitalizationType = .none
     }
     
-    private func dateTimePicker(mode: UIDatePickerMode) -> UIDatePicker {
+    private func dateTimePicker(mode: UIDatePicker.Mode) -> UIDatePicker {
         let datePickerView = UIDatePicker()
         datePickerView.datePickerMode = mode
-        datePickerView.addTarget(self, action: #selector(datePickerValueChanged), for: UIControlEvents.valueChanged)
+        datePickerView.addTarget(self, action: #selector(datePickerValueChanged), for: UIControl.Event.valueChanged)
         
         return datePickerView
     }
@@ -100,7 +100,7 @@ extension DateInputTableViewCell: UITextFieldDelegate {
 }
 
 private extension DateFieldType {
-    var datePickerMode: UIDatePickerMode {
+    var datePickerMode: UIDatePicker.Mode {
         switch self {
         case .date:     return .date
         case .dateTime: return .dateAndTime

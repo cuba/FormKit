@@ -35,7 +35,7 @@ class SignatureTableViewCell: FormFieldTableViewCell, SignatureFieldCellProvider
         return label.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -Style.current.cell.bottomMargin)
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
     }

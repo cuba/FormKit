@@ -30,12 +30,12 @@ class EditSignatureViewController: UIViewController {
         
         view.backgroundColor = Style.current.page.backgroundColor
         
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(tappedCancelButton))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(tappedCancelButton))
         self.navigationItem.leftBarButtonItem = cancelButton
         
-        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(tappedDoneButton))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(tappedDoneButton))
         
-        let clearButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.trash, target: self, action: #selector(tappedClearButton))
+        let clearButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.trash, target: self, action: #selector(tappedClearButton))
         
         self.navigationItem.rightBarButtonItems = [doneButton, clearButton]
         title = "Title.Signature".localized()
@@ -64,9 +64,9 @@ class EditSignatureViewController: UIViewController {
     }
     
     @objc private func tappedDoneButton() {
-        let alertController = UIAlertController(title: "Button.Save".localized(), message: "Message.SignatureUpdateConfirmation".localized(), preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alertController = UIAlertController(title: "Button.Save".localized(), message: "Message.SignatureUpdateConfirmation".localized(), preferredStyle: UIAlertController.Style.actionSheet)
         
-        alertController.addAction(UIAlertAction(title: "Button.Save".localized(), style: UIAlertActionStyle.destructive, handler: { action in
+        alertController.addAction(UIAlertAction(title: "Button.Save".localized(), style: UIAlertAction.Style.destructive, handler: { action in
             let image = self.signatureView.croppedSignature?.cgImage
             self.signatureField.image = image
             self.delegate?.editSignatureViewController(self, didUpdateField: self.signatureField)

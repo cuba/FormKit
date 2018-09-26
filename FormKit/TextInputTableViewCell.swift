@@ -31,7 +31,7 @@ open class TextInputTableViewCell: InputTableViewCell, StringFieldCellProvider, 
     weak var delegate: TextInputTableViewCellDelegate?
     private(set) var inputField: TextInputField?
     
-    public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         textField.delegate = self
     }
@@ -54,12 +54,12 @@ open class TextInputTableViewCell: InputTableViewCell, StringFieldCellProvider, 
             if #available(iOSApplicationExtension 11.0, *) {
                 textField.textContentType = field.textContentType ?? .password
             } else {
-                textField.textContentType = field.textContentType ?? UITextContentType("")
+                textField.textContentType = field.textContentType ?? UITextContentType(rawValue: "")
                 // Fallback on earlier versions
             }
         default:
             textField.isSecureTextEntry = false
-            textField.textContentType = field.textContentType ?? UITextContentType("")
+            textField.textContentType = field.textContentType ?? UITextContentType(rawValue: "")
         }
     }
     
