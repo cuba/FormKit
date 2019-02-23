@@ -22,8 +22,10 @@
 "Button.Back" = "Back";
 "Button.Edit" = "Edit";
 "Button.Save" = "Save";
+"Button.Update" = "Update";
 "Button.Ok" = "Ok";
 
+"Title.UpdateSignature?" = "Update signature?";
 "Title.Signature" = "Signature";
 
 "Message.SignatureUpdateConfirmation" = "Are you sure you want to update the signature?";

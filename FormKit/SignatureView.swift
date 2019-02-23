@@ -60,6 +60,18 @@ open class SignatureView: UIView {
         }
     }
     
+    private var relativeMinimumStrokeWidth: CGFloat {
+        let viewWidth = self.frame.width
+        let multiplier = viewWidth / 528
+        return minimumStrokeWidth * multiplier
+    }
+    
+    private var relativeMaximumStrokeWidth: CGFloat {
+        let viewWidth = self.frame.width
+        let multiplier = viewWidth / 528
+        return maximumStrokeWidth * multiplier
+    }
+    
     /**
      The UIImage representation of the signature. Read only.
      */
@@ -155,7 +167,7 @@ open class SignatureView: UIView {
                 signature?.draw(in: rect)
                 
                 let delta: CGFloat = 0.5
-                let currentWidth = max(minimumStrokeWidth, min(maximumStrokeWidth, 1/strokeLength * fudgeFactor * delta + previousWidth * (1 - delta)))
+                let currentWidth = max(relativeMinimumStrokeWidth, min(relativeMaximumStrokeWidth, 1/strokeLength * fudgeFactor * delta + previousWidth * (1 - delta)))
                 let midPoint = CGPointMid(p0:currentPoint, p1:previousPoint)
                 
                 drawQuadCurve(previousEndPoint, control: previousPoint, end: midPoint, startWidth:previousWidth, endWidth: currentWidth)
