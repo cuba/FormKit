@@ -20,6 +20,7 @@ public protocol FormDataSource: class {
 }
 
 open class FormTableViewController: BaseTableViewController {
+    private var estimatedHeights: [String: CGFloat] = [:]
     public var isChanged = false
     private(set) public var currentTextField: UITextField?
     
@@ -245,6 +246,18 @@ extension FormTableViewController {
     
     override open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section].title
+    }
+    
+    open override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let section = sections[indexPath.section]
+        let row = section.rows[indexPath.row]
+        estimatedHeights[row.key] = cell.frame.height
+    }
+    
+    open override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        let section = sections[indexPath.section]
+        let row = section.rows[indexPath.row]
+        return estimatedHeights[row.key] ?? 200
     }
     
     private func cell(for row: FormRow, at indexPath: IndexPath) -> UITableViewCell {

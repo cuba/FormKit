@@ -54,9 +54,6 @@ class EditSignatureViewController: UIViewController {
         view.addSubview(signatureView)
         
         signatureView.translatesAutoresizingMaskIntoConstraints = false
-        
-//        signatureView.topAnchor.constraint(greaterThanOrEqualTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
-//        signatureView.bottomAnchor.constraint(greaterThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor, constant: -15).isActive = true
         signatureView.heightAnchor.constraint(equalTo: signatureView.widthAnchor, multiplier: 1.0/3.0).isActive = true
         signatureView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor).isActive = true
         signatureView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor).isActive = true
@@ -64,12 +61,16 @@ class EditSignatureViewController: UIViewController {
     }
     
     @objc private func tappedDoneButton() {
-        let alertController = UIAlertController(title: "Button.Save".localized(), message: "Message.SignatureUpdateConfirmation".localized(), preferredStyle: UIAlertController.Style.actionSheet)
+        guard signatureField.image != nil else {
+            setSignature()
+            return
+        }
         
-        alertController.addAction(UIAlertAction(title: "Button.Save".localized(), style: UIAlertAction.Style.destructive, handler: { action in
-            let image = self.signatureView.croppedSignature?.cgImage
-            self.signatureField.image = image
-            self.delegate?.editSignatureViewController(self, didUpdateField: self.signatureField)
+        // Only show alert if we're changing the signature.
+        let alertController = UIAlertController(title: "Title.UpdateSignature?".localized(), message: "Message.SignatureUpdateConfirmation".localized(), preferredStyle: UIAlertController.Style.actionSheet)
+        
+        alertController.addAction(UIAlertAction(title: "Button.Update".localized(), style: UIAlertAction.Style.destructive, handler: { action in
+            self.setSignature()
         }))
         
         alertController.addAction(UIAlertAction(title: "Button.Cancel".localized(), style: .cancel, handler: nil))
@@ -84,5 +85,11 @@ class EditSignatureViewController: UIViewController {
     
     @objc private func tappedClearButton() {
         signatureView.clear()
+    }
+    
+    private func setSignature() {
+        let image = signatureView.croppedSignature?.cgImage
+        signatureField.image = image
+        delegate?.editSignatureViewController(self, didUpdateField: self.signatureField)
     }
 }

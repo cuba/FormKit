@@ -23,7 +23,7 @@ public enum CellProvider {
     public var reuseIdentifier: String {
         switch self {
         case .standard                          : return "com.pineapplepush.FormKit.StandardCell"
-        case .subtitle                          : return "com.pineapplepush.FormKit,SubtitleCell"
+        case .subtitle                          : return "com.pineapplepush.FormKit.SubtitleCell"
         case .rightValue                        : return "com.pineapplepush.FormKit.RightValueCell"
         case .input                             : return "com.pineapplepush.FormKit.InputCell"
         case .select                            : return "com.pineapplepush.FormKit.SelectCell"
