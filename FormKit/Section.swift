@@ -46,11 +46,11 @@ public protocol FormRow {
 }
 
 public extension FormRow {
-    public func isRow(for provider: FieldProvider) -> Bool {
+    func isRow(for provider: FieldProvider) -> Bool {
         return provider.key == self.key
     }
     
-    public func isRow(forKey key: String) -> Bool {
+    func isRow(forKey key: String) -> Bool {
         return key == self.key
     }
 }
@@ -61,11 +61,11 @@ public protocol EditableField: FormRow {
 }
 
 public extension EditableField {
-    public var isRequired: Bool {
+    var isRequired: Bool {
         return options.contains(.required)
     }
     
-    public var isEnabled: Bool {
+    var isEnabled: Bool {
         return !options.contains(.disabled)
     }
 }

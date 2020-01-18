@@ -216,8 +216,8 @@ open class FormTableViewController: BaseTableViewController {
     }
     
     public func indexPath(forFieldKey key: String) -> IndexPath? {
-        guard let section = sections.index(where: { $0.rows.contains(where: { $0.key == key })}) else { return nil }
-        guard let row = sections[section].rows.index(where: { $0.key == key }) else { return nil }
+        guard let section = sections.firstIndex(where: { $0.rows.contains(where: { $0.key == key })}) else { return nil }
+        guard let row = sections[section].rows.firstIndex(where: { $0.key == key }) else { return nil }
         
         return IndexPath(row: row, section: section)
     }
@@ -400,13 +400,13 @@ extension FormTableViewController: TextInputTableViewDelegate {
     }
     
     private func indexPath(for field: EditableField) -> IndexPath? {
-        guard let section = sections.index(where: {
+        guard let section = sections.firstIndex(where: {
             return $0.rows.contains(where: {
                 $0.key == field.key
             })
         }) else { return nil }
         
-        guard let row = sections[section].rows.index(where: { $0.key == field.key }) else { return nil }
+        guard let row = sections[section].rows.firstIndex(where: { $0.key == field.key }) else { return nil }
         return IndexPath(row: row, section: section)
     }
 }

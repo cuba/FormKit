@@ -87,7 +87,7 @@ public struct MultipleSelectField: EditableField, SavableField {
     }
     
     public mutating func deselect(item: SelectionItem) {
-        guard let index = selectedItems.index(where: { $0.key == item.key }) else { return }
+        guard let index = selectedItems.firstIndex(where: { $0.key == item.key }) else { return }
         selectedItems.remove(at: index)
     }
     

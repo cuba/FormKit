@@ -79,28 +79,28 @@ public struct Style {
 }
 
 public extension UITextView {
-    public func configure(with style: TextStyle) {
+    func configure(with style: TextStyle) {
         textColor = style.color
         font = style.font
     }
 }
 
 public extension UILabel {
-    public func configure(with style: TextStyle) {
+    func configure(with style: TextStyle) {
         textColor = style.color
         font = style.font
     }
 }
 
 public extension UITextField {
-    public func configure(with style: TextStyle) {
+    func configure(with style: TextStyle) {
         textColor = style.color
         font = style.font
     }
 }
 
 public extension UIButton {
-    public func configure(with buttonStyle: ButtonStyle) {
+    func configure(with buttonStyle: ButtonStyle) {
         setTitleColor(buttonStyle.text.color, for: .normal)
         titleLabel?.font = buttonStyle.text.font
         backgroundColor = buttonStyle.backgroundColor
@@ -108,7 +108,7 @@ public extension UIButton {
 }
 
 public extension UITextView {
-    public func configure(with textViewStyle: TextViewStyle) {
+    func configure(with textViewStyle: TextViewStyle) {
         backgroundColor = textViewStyle.backgroundColor
         font = textViewStyle.text.font
         textColor = textViewStyle.text.color
@@ -116,7 +116,7 @@ public extension UITextView {
 }
 
 public extension UIViewController {
-    public func configure(with pageStyle: PageStyle) {
+    func configure(with pageStyle: PageStyle) {
         view.backgroundColor = pageStyle.backgroundColor
     }
 }

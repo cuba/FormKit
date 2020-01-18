@@ -88,7 +88,7 @@ extension TextInputTableViewCell: UITextFieldDelegate {
         case .numberPad:
             return string.isEmpty || Int(string) != nil
         case .decimalPad:
-            return string.isEmpty || Double(string) != nil || (string == "." && textField.text?.index(of: ".") == nil)
+            return string.isEmpty || Double(string) != nil || (string == "." && textField.text?.firstIndex(of: ".") == nil)
         default:
             return true
         }

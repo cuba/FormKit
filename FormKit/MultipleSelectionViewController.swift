@@ -64,7 +64,7 @@ class MultipleSelectionViewController: BaseTableViewController {
     }
     
     private func index(of item: SelectionItem) -> Int? {
-        guard var index = field.allItems.index(where: { $0.key == item.key }) else { return nil }
+        guard var index = field.allItems.firstIndex(where: { $0.key == item.key }) else { return nil }
         index = index + 1
         guard index >= 0 else { return nil }
         
