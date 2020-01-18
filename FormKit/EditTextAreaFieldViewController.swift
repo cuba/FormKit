@@ -19,7 +19,7 @@ class EditTextAreaFieldViewController: UIViewController {
         let textView = UITextView(frame: CGRect.zero)
         textView.text = field.value
         textView.delegate = self
-        textView.configure(with: Style.current.textArea)
+        textView.configure(with: Style.current)
         return textView
     }()
     
@@ -37,7 +37,7 @@ class EditTextAreaFieldViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure(with: Style.current.page)
+        configure(with: Style.current)
         setupLayout()
         title = field.label
         textView.autocapitalizationType = field.autocapitalizationType

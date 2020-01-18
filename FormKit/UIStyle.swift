@@ -12,29 +12,9 @@ public struct TextStyle {
     public var color: UIColor
     public var font: UIFont
     
-    public init(color: UIColor, font: UIFont) {
+    public init(color: UIColor, font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)) {
         self.color = color
         self.font = font
-    }
-}
-
-public struct ButtonStyle {
-    public var text: TextStyle
-    public var backgroundColor: UIColor
-    
-    public init(text: TextStyle, backgroundColor: UIColor) {
-        self.text = text
-        self.backgroundColor = backgroundColor
-    }
-}
-
-public struct TextViewStyle {
-    public var text: TextStyle
-    public var backgroundColor: UIColor
-    
-    public init(text: TextStyle, backgroundColor: UIColor) {
-        self.text = text
-        self.backgroundColor = backgroundColor
     }
 }
 
@@ -67,15 +47,25 @@ public struct Style {
     public static var current = Style.default
     public static let `default` = Style()
     
-    public var label = TextStyle(color: UIColor.black, font: UIFont.systemFont(ofSize: 17))
-    public var placeholder = TextStyle(color: UIColor.lightGray, font: UIFont.systemFont(ofSize: 15))
-    public var value = TextStyle(color: UIColor.darkGray, font: UIFont.systemFont(ofSize: 15))
-    public var textArea = TextViewStyle(text: TextStyle(color: UIColor.darkGray, font: UIFont.systemFont(ofSize: 15)), backgroundColor: UIColor.white)
-    public var primaryButton = ButtonStyle(text: TextStyle(color: UIColor.white, font: UIFont.systemFont(ofSize: 17, weight: .medium)), backgroundColor: UIColor.green)
-    public var page = PageStyle(backgroundColor: UIColor.groupTableViewBackground)
+    public var label: TextStyle
+    public var placeholder: TextStyle
+    public var value: TextStyle
     public var cell = CellStyle()
+    public var backgroundColor: UIColor
     
-    public init() {}
+    public init() {
+        if #available(iOSApplicationExtension 13.0, *) {
+            label = TextStyle(color: .label, font: UIFont.systemFont(ofSize: UIFont.labelFontSize))
+            placeholder = TextStyle(color: UIColor.placeholderText)
+            value = TextStyle(color: UIColor.label)
+            backgroundColor = UIColor.systemBackground
+        } else {
+            label = TextStyle(color: .black, font: UIFont.systemFont(ofSize: UIFont.labelFontSize))
+            placeholder = TextStyle(color: UIColor.lightGray, font: UIFont.systemFont(ofSize: UIFont.systemFontSize))
+            value = TextStyle(color: UIColor.darkGray)
+            backgroundColor = UIColor.groupTableViewBackground
+        }
+    }
 }
 
 public extension UITextView {
@@ -99,24 +89,16 @@ public extension UITextField {
     }
 }
 
-public extension UIButton {
-    func configure(with buttonStyle: ButtonStyle) {
-        setTitleColor(buttonStyle.text.color, for: .normal)
-        titleLabel?.font = buttonStyle.text.font
-        backgroundColor = buttonStyle.backgroundColor
-    }
-}
-
 public extension UITextView {
-    func configure(with textViewStyle: TextViewStyle) {
-        backgroundColor = textViewStyle.backgroundColor
-        font = textViewStyle.text.font
-        textColor = textViewStyle.text.color
+    func configure(with style: Style) {
+        font = style.value.font
+        textColor = style.value.color
+        
     }
 }
 
 public extension UIViewController {
-    func configure(with pageStyle: PageStyle) {
-        view.backgroundColor = pageStyle.backgroundColor
+    func configure(with style: Style) {
+        view.backgroundColor = style.backgroundColor
     }
 }

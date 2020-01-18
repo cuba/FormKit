@@ -28,8 +28,6 @@ class EditSignatureViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         setupLayout()
         
-        view.backgroundColor = Style.current.page.backgroundColor
-        
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(tappedCancelButton))
         self.navigationItem.leftBarButtonItem = cancelButton
         
@@ -47,7 +45,7 @@ class EditSignatureViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure(with: Style.current.page)
+        configure(with: Style.current)
     }
     
     private func setupLayout() {
