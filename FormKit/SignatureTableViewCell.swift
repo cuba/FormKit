@@ -47,7 +47,8 @@ class SignatureTableViewCell: FormFieldTableViewCell, SignatureFieldCellProvider
     func configure(with field: SignatureField) {
         if let image = field.image {
             let uiImage = UIImage(cgImage: image)
-            signatureImageView.image = uiImage
+            signatureImageView.image = uiImage.withRenderingMode(.alwaysTemplate)
+            signatureImageView.tintColor = Style.current.value.color
             label.text = nil
             label.isHidden = true
             signatureImageView.isHidden = false

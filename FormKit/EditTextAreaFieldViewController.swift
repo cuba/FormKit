@@ -37,9 +37,10 @@ class EditTextAreaFieldViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure(with: Style.current)
         setupLayout()
         title = field.label
+        view.backgroundColor = Style.current.secondaryBackgroundColor
+        textView.backgroundColor = Style.current.backgroundColor
         textView.autocapitalizationType = field.autocapitalizationType
         textView.autocorrectionType = field.autocorrectionType
         textView.keyboardType = field.keyboardType

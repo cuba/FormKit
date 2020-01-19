@@ -37,6 +37,7 @@
 		8C21851E1ED91F2200BB0FE9 /* DateInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C21851A1ED91F2200BB0FE9 /* DateInputTableViewCell.swift */; };
 		8C2185221ED929F900BB0FE9 /* TextAreaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2185211ED929F900BB0FE9 /* TextAreaTableViewCell.swift */; };
 		8CE3C4121FA6ECD100617D67 /* InputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE3C4111FA6ECD100617D67 /* InputTableViewCell.swift */; };
+		DA34DD4F23D3F9FF00AD5290 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34DD4E23D3F9FF00AD5290 /* UIImage+Extensions.swift */; };
 		DAA83AE22128A600007237AB /* SimpleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA83AE12128A600007237AB /* SimpleField.swift */; };
 		DADCB7E7211B583600F5CB49 /* SignatureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB7E6211B583600F5CB49 /* SignatureTableViewCell.swift */; };
 		DADCB7E9211B587E00F5CB49 /* SignatureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCB7E8211B587E00F5CB49 /* SignatureField.swift */; };
@@ -96,6 +97,7 @@
 		8C21851A1ED91F2200BB0FE9 /* DateInputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateInputTableViewCell.swift; sourceTree = "<group>"; };
 		8C2185211ED929F900BB0FE9 /* TextAreaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAreaTableViewCell.swift; sourceTree = "<group>"; };
 		8CE3C4111FA6ECD100617D67 /* InputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTableViewCell.swift; sourceTree = "<group>"; };
+		DA34DD4E23D3F9FF00AD5290 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		DAA83AE12128A600007237AB /* SimpleField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleField.swift; sourceTree = "<group>"; };
 		DADCB7E6211B583600F5CB49 /* SignatureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureTableViewCell.swift; sourceTree = "<group>"; };
 		DADCB7E8211B587E00F5CB49 /* SignatureField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureField.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				8C2185091ED91EAC00BB0FE9 /* UIView+Extensions.swift */,
 				8C21850A1ED91EAC00BB0FE9 /* UIColor+Extensions.swift */,
 				8C21850B1ED91EAC00BB0FE9 /* Extensions.swift */,
+				DA34DD4E23D3F9FF00AD5290 /* UIImage+Extensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				8C21851D1ED91F2200BB0FE9 /* SwitchTableViewCell.swift in Sources */,
 				DAF60C05211A9D4600A7D537 /* TextAreaField.swift in Sources */,
 				DAF60BFB211A7DB300A7D537 /* MultipleSelectionViewController.swift in Sources */,
+				DA34DD4F23D3F9FF00AD5290 /* UIImage+Extensions.swift in Sources */,
 				8C2184F71ED91AF400BB0FE9 /* SelectField.swift in Sources */,
 				8C21850F1ED91EAC00BB0FE9 /* UINib+Extensions.swift in Sources */,
 			);

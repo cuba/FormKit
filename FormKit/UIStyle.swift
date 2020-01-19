@@ -18,6 +18,26 @@ public struct TextStyle {
     }
 }
 
+public struct ButtonStyle {
+    public var text: TextStyle
+    public var backgroundColor: UIColor
+    
+    public init(text: TextStyle, backgroundColor: UIColor) {
+        self.text = text
+        self.backgroundColor = backgroundColor
+    }
+}
+
+public struct TextViewStyle {
+    public var text: TextStyle
+    public var backgroundColor: UIColor
+    
+    public init(text: TextStyle, backgroundColor: UIColor) {
+        self.text = text
+        self.backgroundColor = backgroundColor
+    }
+}
+
 public struct TextFieldStyle {
     public var text: TextStyle
     
@@ -47,23 +67,35 @@ public struct Style {
     public static var current = Style.default
     public static let `default` = Style()
     
+    public var backgroundColor: UIColor
+    public var secondaryBackgroundColor: UIColor
+    public var groupedBackgroundColor: UIColor
+    
     public var label: TextStyle
     public var placeholder: TextStyle
     public var value: TextStyle
+    public var textArea: TextViewStyle
     public var cell = CellStyle()
-    public var backgroundColor: UIColor
     
     public init() {
         if #available(iOSApplicationExtension 13.0, *) {
             label = TextStyle(color: .label, font: UIFont.systemFont(ofSize: UIFont.labelFontSize))
             placeholder = TextStyle(color: UIColor.placeholderText)
             value = TextStyle(color: UIColor.label)
+            textArea = TextViewStyle(text: TextStyle(color: UIColor.label), backgroundColor: UIColor.systemBackground)
+            
             backgroundColor = UIColor.systemBackground
+            secondaryBackgroundColor = UIColor.secondarySystemBackground
+            groupedBackgroundColor = UIColor.systemGroupedBackground
         } else {
             label = TextStyle(color: .black, font: UIFont.systemFont(ofSize: UIFont.labelFontSize))
             placeholder = TextStyle(color: UIColor.lightGray, font: UIFont.systemFont(ofSize: UIFont.systemFontSize))
             value = TextStyle(color: UIColor.darkGray)
-            backgroundColor = UIColor.groupTableViewBackground
+            textArea = TextViewStyle(text: TextStyle(color: UIColor.darkGray), backgroundColor: UIColor.white)
+            
+            backgroundColor = UIColor.white
+            secondaryBackgroundColor = UIColor.groupTableViewBackground
+            groupedBackgroundColor = UIColor.groupTableViewBackground
         }
     }
 }
@@ -89,11 +121,19 @@ public extension UITextField {
     }
 }
 
+public extension UIButton {
+    func configure(with buttonStyle: ButtonStyle) {
+        setTitleColor(buttonStyle.text.color, for: .normal)
+        titleLabel?.font = buttonStyle.text.font
+        backgroundColor = buttonStyle.backgroundColor
+    }
+}
+
 public extension UITextView {
     func configure(with style: Style) {
+        backgroundColor = style.backgroundColor
         font = style.value.font
         textColor = style.value.color
-        
     }
 }
 

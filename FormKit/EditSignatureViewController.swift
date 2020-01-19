@@ -16,7 +16,6 @@ protocol EditSignatureViewControllerDelegate: class {
 class EditSignatureViewController: UIViewController {
     lazy var signatureView: SignatureView = {
         let signatureView = SignatureView()
-        signatureView.backgroundColor = UIColor.white
         return signatureView
     }()
     
@@ -27,6 +26,8 @@ class EditSignatureViewController: UIViewController {
         self.signatureField = signatureField
         super.init(nibName: nil, bundle: nil)
         setupLayout()
+        view.backgroundColor = Style.current.secondaryBackgroundColor
+        signatureView.backgroundColor = Style.current.backgroundColor
         
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(tappedCancelButton))
         self.navigationItem.leftBarButtonItem = cancelButton

@@ -47,7 +47,7 @@ open class SignatureView: UIView {
     /**
      The the color of the signature (pen ink) used. Default is black.
      */
-    open var strokeColor: UIColor = UIColor.black
+    open var strokeColor: UIColor = Style.current.value.color
     
     /**
      The stroke alpha. Prefer higher values to prevent stroke segments from showing through.
@@ -273,7 +273,6 @@ open class SignatureView: UIView {
     }
     
     private func cropImage(image: UIImage, in cropRect: CGRect) -> UIImage? {
-        print("draw frame size: \(drawFrame.size)")
         print("image size: \(image.size)")
         
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
