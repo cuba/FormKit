@@ -92,7 +92,7 @@ open class SignatureView: UIView {
     
     open var croppedSignature: UIImage? {
         guard let signature = self.signature else { return nil }
-        return cropImage(image: signature, in: drawFrame)
+        return cropImage(image: signature, with: .black, in: drawFrame)
     }
     
     private var drawFrame: CGRect {
@@ -272,7 +272,7 @@ open class SignatureView: UIView {
         path.stroke()
     }
     
-    private func cropImage(image: UIImage, in cropRect: CGRect) -> UIImage? {
+    private func cropImage(image: UIImage, with color: UIColor, in cropRect: CGRect) -> UIImage? {
         print("image size: \(image.size)")
         
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
@@ -286,6 +286,27 @@ open class SignatureView: UIView {
         let croppedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return croppedImage
+        return croppedImage?.image(with: .black)
+    }
+}
+
+extension UIImage {
+    func image(with color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        color.setFill()
+
+        let context = UIGraphicsGetCurrentContext()
+        context?.translateBy(x: 0, y: self.size.height)
+        context?.scaleBy(x: 1.0, y: -1.0)
+        context?.setBlendMode(CGBlendMode.normal)
+
+        let rect = CGRect(origin: .zero, size: CGSize(width: self.size.width, height: self.size.height))
+        context?.clip(to: rect, mask: self.cgImage!)
+        context?.fill(rect)
+
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage!
     }
 }
